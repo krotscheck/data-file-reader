@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+  ~ Copyright (c) 2014 Michael Krotscheck
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License"); you may not
+  ~ use this file except in compliance with the License. You may obtain a copy
+  ~ of the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+  ~ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<project name="${project.name}">
+
+    <skin>
+        <groupId>lt.velykis.maven.skins</groupId>
+        <artifactId>reflow-maven-skin</artifactId>
+        <version>1.1.1</version>
+    </skin>
+
+    <bannerLeft>
+        <name>data-file-reader</name>
+    </bannerLeft>
+
+    <body>    <!-- Add a rel to Google profile for all pages -->
+        <head>
+            <link rel="author"
+                  href="https://plus.google.com/+MichaelKrotscheck"/>
+        </head>
+
+        <links>
+            <item name="GitHub project"
+                  href="http://github.com/krotscheck/data-file-reader/"/>
+        </links>
+
+        <menu name="Main">
+            <item name="Home"
+                  href="index.html"/>
+            <item name="GitHub Project"
+                  href="http://github.com/krotscheck/data-file-reader/"/>
+            <item name="Release Notes"
+                  href="release-notes.html"/>
+        </menu>
+
+        <menu name="Formats">
+            <item name="BSON"
+                  href="data-file-reader-bson.html"/>
+            <item name="JSON"
+                  href="data-file-reader-json.html"/>
+            <item name="CSV"
+                  href="data-file-reader-csv.html"/>
+        </menu>
+
+        <menu name="Contribute">
+            <item name="Contribute"
+                  href="contribute.html"/>
+            <item name="Tutorial"
+                  href="adapter-tutorial.html"/>
+            <item name="Issues"
+                  href="https://github.com/krotscheck/data-file-reader/issues/"/>
+            <item name="Fork on GitHub"
+                  href="http://github.com/krotscheck/data-file-reader/"/>
+            <item name="License"
+                  href="license.html"/>
+        </menu>
+
+        <menu ref="modules"/>
+        <menu ref="reports"/>
+    </body>
+
+
+    <!--<publishDate position="bottom" format="yyyy-MM-dd"/>-->
+    <version position="bottom"/>
+
+    <custom>
+        <reflowSkin>
+            <markPageHeader>false</markPageHeader>
+            <skinAttribution>false</skinAttribution>
+            <protocolRelativeURLs>false</protocolRelativeURLs>
+            <smoothScroll>true</smoothScroll>
+            <theme>bootswatch-cosmo</theme>
+            <highlightJs>true</highlightJs>
+            <highlightJsTheme>github</highlightJsTheme>
+            <absoluteResourceURL>
+                https://krotscheck.github.io/data-file-reader
+            </absoluteResourceURL>
+            <brand>
+                <href>https://krotscheck.github.io/data-file-reader</href>
+            </brand>
+            <slogan>Data File I/O</slogan>
+            <titleTemplate>%2$s | %1$s</titleTemplate>
+            <toc>false</toc>
+            <breadcrumbs>false</breadcrumbs>
+            <tocTopMax>6</tocTopMax>
+
+            <topNav>Formats|Contribute</topNav>
+
+            <bottomNav maxSpan="12">
+                <column>Main</column>
+                <column>Contribute</column>
+                <column>Formats</column>
+                <column>reports</column>
+            </bottomNav>
+
+            <pages>
+                <index project="data-file-reader">
+                    <titleTemplate>data-file-reader</titleTemplate>
+
+                    <sections>
+                        <body/>
+                    </sections>
+                </index>
+
+
+                <!-- Disable source highlighting for Maven reports -->
+                <source-repository>
+                    <highlightJs>false</highlightJs>
+                </source-repository>
+
+                <issue-tracking>
+                    <highlightJs>false</highlightJs>
+                </issue-tracking>
+
+                <license>
+                    <highlightJs>false</highlightJs>
+                </license>
+            </pages>
+        </reflowSkin>
+    </custom>
+
+
+    <googleAnalyticsAccountId>UA-52636237-5</googleAnalyticsAccountId>
+</project>

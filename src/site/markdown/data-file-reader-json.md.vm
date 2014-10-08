@@ -1,0 +1,46 @@
+#parse( "scripts.vm" )
+#set($moduleName = "data-file-reader-json")
+
+#header($moduleName)
+
+This library adds JSON file format support to the DFR framework. If included 
+in your project, the library will be automatically detected using Java's 
+ServiceLocator.
+
+Certain file format conventions are enforced: Firstly, 
+your file MUST be a plain array of objects. These objects must be simple 
+key/value maps of only primitive types. In short, it needs to be the closest 
+possible JSON-like abstraction of a table.
+
+With that in mind, the JSON format does not place any restrictions on 
+schema consistency - maps may be written with any number of elements. Because
+of this, please care when using file format adapters that require a strict 
+schema (such as CSV).
+
+#dependency($moduleName)
+
+---
+
+$h2 Reading a JSON file
+
+    InputStream inputStream = ResourceUtil.getResourceAsStream("my_file.bson");
+    JSONDataDecoder decoder = new JSONDataDecoder();
+    decoder.setInputStream(inputStream);
+    
+    for(Map<String, Object> row : decoder) {
+        // Do something
+    }
+    decoder.close();
+
+
+$h2 Writing a JSON file
+
+    OutputStream outputStream = new FileOutputStream("my_file.bson");
+    IDataEncoder encoder = new JSONDataEncoder(outputStream);
+    
+    Map<String, Object> myRow = new HashMap<String, Object>();
+    encoder.write(myRow);
+    
+    encoder.close();
+
+---

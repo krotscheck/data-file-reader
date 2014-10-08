@@ -1,0 +1,15 @@
+language: java
+jdk:
+- openjdk7
+install: mvn install -DskipTests=true
+script: mvn install
+branches:
+  only:
+  - master
+  - develop
+  - /^feature\/.*$/
+  - /^hotfix\/.*$/
+  - /^release\/.*$/
+cache:
+  directories:
+  - $HOME/.m2
