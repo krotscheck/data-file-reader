@@ -1,0 +1,443 @@
+<?xml version="1.0"?>
+<!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
+
+<coverage line-rate="1.0" branch-rate="1.0" lines-covered="95" lines-valid="95" branches-covered="26" branches-valid="26" complexity="1.88" version="2.0.3" timestamp="1413868606227">
+	<sources>
+		<source>/Users/krotscheck/Desktop/github/data-file-reader/target/checkout/data-file-reader-base/src/main/java</source>
+		<source>--source</source>
+	</sources>
+	<packages>
+		<package name="net.krotscheck.dfr" line-rate="1.0" branch-rate="1.0" complexity="1.88">
+			<classes>
+				<class name="net.krotscheck.dfr.AbstractDataDecoder" filename="net/krotscheck/dfr/AbstractDataDecoder.java" line-rate="1.0" branch-rate="1.0" complexity="1.5">
+					<methods>
+						<method name="&lt;clinit&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="37" hits="2" branch="false"/>
+								<line number="38" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="&lt;init&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="32" hits="5" branch="false"/>
+							</lines>
+						</method>
+						<method name="close" signature="()V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="70" hits="4" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="72" hits="3" branch="false"/>
+								<line number="73" hits="1" branch="false"/>
+								<line number="74" hits="1" branch="false"/>
+								<line number="76" hits="3" branch="false"/>
+								<line number="77" hits="3" branch="false"/>
+								<line number="80" hits="4" branch="false"/>
+								<line number="81" hits="4" branch="false"/>
+							</lines>
+						</method>
+						<method name="getInputStream" signature="()Ljava/io/InputStream;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="52" hits="9" branch="false"/>
+							</lines>
+						</method>
+						<method name="setInputStream" signature="(Ljava/io/InputStream;)V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="62" hits="5" branch="false"/>
+								<line number="63" hits="5" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="32" hits="5" branch="false"/>
+						<line number="37" hits="2" branch="false"/>
+						<line number="38" hits="1" branch="false"/>
+						<line number="52" hits="9" branch="false"/>
+						<line number="62" hits="5" branch="false"/>
+						<line number="63" hits="5" branch="false"/>
+						<line number="70" hits="4" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="72" hits="3" branch="false"/>
+						<line number="73" hits="1" branch="false"/>
+						<line number="74" hits="1" branch="false"/>
+						<line number="76" hits="3" branch="false"/>
+						<line number="77" hits="3" branch="false"/>
+						<line number="80" hits="4" branch="false"/>
+						<line number="81" hits="4" branch="false"/>
+					</lines>
+				</class>
+				<class name="net.krotscheck.dfr.AbstractDataEncoder" filename="net/krotscheck/dfr/AbstractDataEncoder.java" line-rate="1.0" branch-rate="1.0" complexity="1.5">
+					<methods>
+						<method name="&lt;clinit&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="37" hits="2" branch="false"/>
+								<line number="38" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="&lt;init&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="32" hits="5" branch="false"/>
+							</lines>
+						</method>
+						<method name="close" signature="()V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="70" hits="4" branch="false"/>
+								<line number="72" hits="4" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="74" hits="3" branch="false"/>
+								<line number="75" hits="1" branch="false"/>
+								<line number="76" hits="1" branch="false"/>
+								<line number="78" hits="3" branch="false"/>
+								<line number="79" hits="3" branch="false"/>
+								<line number="81" hits="4" branch="false"/>
+							</lines>
+						</method>
+						<method name="getOutputStream" signature="()Ljava/io/OutputStream;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="52" hits="9" branch="false"/>
+							</lines>
+						</method>
+						<method name="setOutputStream" signature="(Ljava/io/OutputStream;)V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="62" hits="5" branch="false"/>
+								<line number="63" hits="5" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="32" hits="5" branch="false"/>
+						<line number="37" hits="2" branch="false"/>
+						<line number="38" hits="1" branch="false"/>
+						<line number="52" hits="9" branch="false"/>
+						<line number="62" hits="5" branch="false"/>
+						<line number="63" hits="5" branch="false"/>
+						<line number="70" hits="4" branch="false"/>
+						<line number="72" hits="4" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="74" hits="3" branch="false"/>
+						<line number="75" hits="1" branch="false"/>
+						<line number="76" hits="1" branch="false"/>
+						<line number="78" hits="3" branch="false"/>
+						<line number="79" hits="3" branch="false"/>
+						<line number="81" hits="4" branch="false"/>
+					</lines>
+				</class>
+				<class name="net.krotscheck.dfr.FileStreamConverter" filename="net/krotscheck/dfr/FileStreamConverter.java" line-rate="1.0" branch-rate="1.0" complexity="4.0">
+					<methods>
+						<method name="&lt;clinit&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="37" hits="2" branch="false"/>
+								<line number="38" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="&lt;init&gt;" signature="(Lnet/krotscheck/dfr/IDataDecoder;Lnet/krotscheck/dfr/IDataEncoder;)V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="58" hits="5" branch="false"/>
+								<line number="59" hits="5" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="60" hits="1" branch="false"/>
+								<line number="62" hits="4" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="63" hits="1" branch="false"/>
+								<line number="66" hits="3" branch="false"/>
+								<line number="67" hits="3" branch="false"/>
+								<line number="68" hits="3" branch="false"/>
+							</lines>
+						</method>
+						<method name="run" signature="()V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="76" hits="3" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="77" hits="30" branch="false"/>
+								<line number="78" hits="30" branch="false"/>
+								<line number="80" hits="3" branch="false"/>
+								<line number="81" hits="2" branch="false"/>
+								<line number="82" hits="2" branch="false"/>
+								<line number="83" hits="2" branch="false"/>
+								<line number="84" hits="1" branch="false"/>
+								<line number="86" hits="3" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="37" hits="2" branch="false"/>
+						<line number="38" hits="1" branch="false"/>
+						<line number="58" hits="5" branch="false"/>
+						<line number="59" hits="5" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="60" hits="1" branch="false"/>
+						<line number="62" hits="4" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="63" hits="1" branch="false"/>
+						<line number="66" hits="3" branch="false"/>
+						<line number="67" hits="3" branch="false"/>
+						<line number="68" hits="3" branch="false"/>
+						<line number="76" hits="3" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="77" hits="30" branch="false"/>
+						<line number="78" hits="30" branch="false"/>
+						<line number="80" hits="3" branch="false"/>
+						<line number="81" hits="2" branch="false"/>
+						<line number="82" hits="2" branch="false"/>
+						<line number="83" hits="2" branch="false"/>
+						<line number="84" hits="1" branch="false"/>
+						<line number="86" hits="3" branch="false"/>
+					</lines>
+				</class>
+				<class name="net.krotscheck.dfr.FileStreamDecoder" filename="net/krotscheck/dfr/FileStreamDecoder.java" line-rate="1.0" branch-rate="1.0" complexity="2.5">
+					<methods>
+						<method name="&lt;clinit&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="82" hits="2" branch="false"/>
+								<line number="83" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="&lt;init&gt;" signature="(Ljava/io/InputStream;Ljava/lang/String;)V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="88" hits="3" branch="false"/>
+								<line number="98" hits="3" branch="false"/>
+								<line number="99" hits="3" branch="false"/>
+								<line number="100" hits="2" branch="false"/>
+								<line number="101" hits="2" branch="false"/>
+							</lines>
+						</method>
+						<method name="close" signature="()V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="119" hits="1" branch="false"/>
+								<line number="120" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="getDecoder" signature="(Ljava/lang/String;)Lnet/krotscheck/dfr/IDataDecoder;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="55" hits="3" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="56" hits="1" branch="false"/>
+								<line number="57" hits="1" branch="false"/>
+								<line number="60" hits="1" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="61" hits="1" branch="false"/>
+								<line number="62" hits="1" branch="false"/>
+								<line number="63" hits="1" branch="false"/>
+								<line number="65" hits="1" branch="false"/>
+								<line number="68" hits="3" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="69" hits="3" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="70" hits="2" branch="false"/>
+								<line number="72" hits="1" branch="false"/>
+								<line number="74" hits="1" branch="false"/>
+								<line number="75" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="iterator" signature="()Ljava/util/Iterator;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="110" hits="1" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="55" hits="3" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="56" hits="1" branch="false"/>
+						<line number="57" hits="1" branch="false"/>
+						<line number="60" hits="1" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="61" hits="1" branch="false"/>
+						<line number="62" hits="1" branch="false"/>
+						<line number="63" hits="1" branch="false"/>
+						<line number="65" hits="1" branch="false"/>
+						<line number="68" hits="3" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="69" hits="3" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="70" hits="2" branch="false"/>
+						<line number="72" hits="1" branch="false"/>
+						<line number="74" hits="1" branch="false"/>
+						<line number="75" hits="1" branch="false"/>
+						<line number="82" hits="2" branch="false"/>
+						<line number="83" hits="1" branch="false"/>
+						<line number="88" hits="3" branch="false"/>
+						<line number="98" hits="3" branch="false"/>
+						<line number="99" hits="3" branch="false"/>
+						<line number="100" hits="2" branch="false"/>
+						<line number="101" hits="2" branch="false"/>
+						<line number="110" hits="1" branch="false"/>
+						<line number="119" hits="1" branch="false"/>
+						<line number="120" hits="1" branch="false"/>
+					</lines>
+				</class>
+				<class name="net.krotscheck.dfr.FileStreamEncoder" filename="net/krotscheck/dfr/FileStreamEncoder.java" line-rate="1.0" branch-rate="1.0" complexity="2.5">
+					<methods>
+						<method name="&lt;clinit&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="40" hits="2" branch="false"/>
+								<line number="41" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="&lt;init&gt;" signature="(Ljava/io/OutputStream;Ljava/lang/String;)V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="63" hits="3" branch="false"/>
+								<line number="64" hits="3" branch="false"/>
+								<line number="65" hits="2" branch="false"/>
+								<line number="66" hits="2" branch="false"/>
+							</lines>
+						</method>
+						<method name="close" signature="()V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="86" hits="1" branch="false"/>
+								<line number="87" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="getEncoder" signature="(Ljava/lang/String;)Lnet/krotscheck/dfr/IDataEncoder;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="99" hits="3" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="100" hits="1" branch="false"/>
+								<line number="101" hits="1" branch="false"/>
+								<line number="103" hits="1" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="104" hits="1" branch="false"/>
+								<line number="105" hits="1" branch="false"/>
+								<line number="106" hits="1" branch="false"/>
+								<line number="108" hits="1" branch="false"/>
+								<line number="111" hits="3" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="112" hits="3" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="113" hits="2" branch="false"/>
+								<line number="115" hits="1" branch="false"/>
+								<line number="117" hits="1" branch="false"/>
+								<line number="118" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="write" signature="(Ljava/util/Map;)V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="76" hits="1" branch="false"/>
+								<line number="77" hits="1" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="40" hits="2" branch="false"/>
+						<line number="41" hits="1" branch="false"/>
+						<line number="63" hits="3" branch="false"/>
+						<line number="64" hits="3" branch="false"/>
+						<line number="65" hits="2" branch="false"/>
+						<line number="66" hits="2" branch="false"/>
+						<line number="76" hits="1" branch="false"/>
+						<line number="77" hits="1" branch="false"/>
+						<line number="86" hits="1" branch="false"/>
+						<line number="87" hits="1" branch="false"/>
+						<line number="99" hits="3" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="100" hits="1" branch="false"/>
+						<line number="101" hits="1" branch="false"/>
+						<line number="103" hits="1" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="104" hits="1" branch="false"/>
+						<line number="105" hits="1" branch="false"/>
+						<line number="106" hits="1" branch="false"/>
+						<line number="108" hits="1" branch="false"/>
+						<line number="111" hits="3" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="112" hits="3" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="113" hits="2" branch="false"/>
+						<line number="115" hits="1" branch="false"/>
+						<line number="117" hits="1" branch="false"/>
+						<line number="118" hits="1" branch="false"/>
+					</lines>
+				</class>
+				<class name="net.krotscheck.dfr.IDataDecoder" filename="net/krotscheck/dfr/IDataDecoder.java" line-rate="1.0" branch-rate="1.0" complexity="1.0">
+					<methods>
+					</methods>
+					<lines>
+					</lines>
+				</class>
+				<class name="net.krotscheck.dfr.IDataEncoder" filename="net/krotscheck/dfr/IDataEncoder.java" line-rate="1.0" branch-rate="1.0" complexity="1.0">
+					<methods>
+					</methods>
+					<lines>
+					</lines>
+				</class>
+			</classes>
+		</package>
+	</packages>
+</coverage>
