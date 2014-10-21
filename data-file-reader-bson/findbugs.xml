@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BugCollection version='3.0.0' threshold='medium' effort='min'><Error></Error><Project><SrcDir>/Users/krotscheck/Desktop/github/data-file-reader/target/checkout/data-file-reader-bson/src/main/java</SrcDir><SrcDir>/Users/krotscheck/Desktop/github/data-file-reader/target/checkout/data-file-reader-bson/src/test/java</SrcDir></Project></BugCollection>
