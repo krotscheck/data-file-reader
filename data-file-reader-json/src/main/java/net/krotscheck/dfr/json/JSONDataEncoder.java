@@ -50,7 +50,8 @@ public final class JSONDataEncoder extends AbstractDataEncoder {
      *                             destination.
      */
     @Override
-    public void write(final Map<String, Object> row) throws IOException {
+    protected void writeToStream(final Map<String, Object> row)
+            throws IOException {
         if (generator == null) {
             ObjectMapper mapper = new ObjectMapper();
             JsonFactory factory = new JsonFactory(mapper);

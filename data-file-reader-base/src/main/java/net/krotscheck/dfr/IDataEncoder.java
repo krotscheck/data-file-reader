@@ -17,6 +17,7 @@
 
 package net.krotscheck.dfr;
 
+import java.io.Closeable;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Map;
@@ -27,7 +28,7 @@ import java.util.Map;
  *
  * @author Michael Krotscheck
  */
-public interface IDataEncoder extends java.io.Closeable {
+public interface IDataEncoder extends IFilteringDataStream, Closeable {
 
     /**
      * Retrieve the mimetype which this encoder supports.

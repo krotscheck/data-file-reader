@@ -39,7 +39,7 @@ public final class BSONDataDecoder extends AbstractDataDecoder {
      * @return An iterator.
      */
     @Override
-    public Iterator<Map<String, Object>> iterator() {
+    protected Iterator<Map<String, Object>> buildIterator() {
         return new InnerRowIterator(getInputStream());
     }
 

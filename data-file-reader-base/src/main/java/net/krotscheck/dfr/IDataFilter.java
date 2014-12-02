@@ -15,47 +15,24 @@
  * limitations under the License.
  */
 
-package net.krotscheck.test.dfr;
+package net.krotscheck.dfr;
 
-import net.krotscheck.dfr.AbstractDataDecoder;
-
-import java.util.Iterator;
 import java.util.Map;
 
-import static org.mockito.Mockito.mock;
-
 /**
- * A test data decoder.
+ * This interface describes a data filter, allowing custom transformations on
+ * data streams.
  *
  * @author Michael Krotscheck
  */
-public final class TestDataDecoder extends AbstractDataDecoder {
+public interface IDataFilter {
 
     /**
-     * The test mimetye.
+     * Apply a filter to the specified row.
      *
-     * @return A test mimetype.
+     * @param row The data row to apply this filter to.
+     * @return The mimetype, as a string.
      */
-    @Override
-    public String getMimeType() {
-        return "text/mock";
-    }
+    Map<String, Object> apply(final Map<String, Object> row);
 
-    /**
-     * Dispose. Do nothing.
-     */
-    @Override
-    protected void dispose() {
-
-    }
-
-    /**
-     * Mock iterator.
-     *
-     * @return A mocked iterator!Ω
-     */
-    @Override
-    protected Iterator<Map<String, Object>> buildIterator() {
-        return mock(Iterator.class);
-    }
 }

@@ -6,11 +6,56 @@ Writing your own data file reader and/or writer is easy. Simply implement the
 interface, and register your converter with Java's ServiceLoader. An example 
 IDataDecoder is given, and may be applied to a custom IDataEncoder as well.
 
+
+$h2 Option 1: Extend AbstractDataDecoder
+
+Your easiest option is simply to extend AbstractDataDecoder. It provides some 
+of the boilerplate functionality necessary to operate a proper decoder.
+
+
+    /**
+     * My neat data decoder.
+     */
+    public final class MyDataDecoder extends AbstractDataDecoder {
+    
+        /**
+         * Returns an iterator for the file.
+         *
+         * @return An iterator.
+         */
+        @Override
+        protected Iterator<Map<String, Object>> buildIterator() {
+            // ... your implementation here.
+        }
+        
+        /**
+         * Retrieve the mimetype which this decoder supports. This must be 
+         * unique, and is used to assist in matching decoders to specific file 
+         * types.
+         *
+         * @return The mimetype, as a string.
+         */
+        @Override
+        public String getMimeType() {
+            // ... your implementation here.
+        }
+    
+        /**
+         * A disposal method, called before the input stream is disposed of. 
+         * Useful if you have custom cleanup logic to execute.
+         */
+        @Override
+        protected void dispose() {
+            // Do nothing.
+        }
+    }
+
+
 $h2 Option 1: Implement IDataDecoder
 
-Your first option is to implement the IDataDecoder interface directly. It is 
-the more complicated option, however provides you with more detialed control 
-over your implementation.
+Your second, and more complex option is to implement the IDataDecoder interface 
+directly. It is the more complicated option, however provides you with more
+detailed control over your implementation.
 
     /**
      * My neat data decoder.
@@ -55,7 +100,7 @@ over your implementation.
          * @return An iterator.
          */
         @Override
-        public Iterator<Map<String, Object>> iterator() {
+        private Iterator<Map<String, Object>> buildIterator() {
             // ... your implementation here.
         }
     
@@ -66,51 +111,11 @@ over your implementation.
         public void close() throws IOException {
             // ... your implementation here.
         }
-    }
-
-
-$h2 Option 2: Extend AbstractDataDecoder
-
-Your second option is simply to extend AbstractDataDecoder. It provides some 
-of the boilerplate functionality necessary to operate a proper decoder.
-
-
-    /**
-     * My neat data decoder.
-     */
-    public final class MyDataDecoder extends AbstractDataDecoder {
-    
-        /**
-         * Returns an iterator for the file.
-         *
-         * @return An iterator.
-         */
-        @Override
-        public Iterator<Map<String, Object>> iterator() {
-            // ... your implementation here.
-        }
         
-        /**
-         * Retrieve the mimetype which this decoder supports. This must be 
-         * unique, and is used to assist in matching decoders to specific file 
-         * types.
-         *
-         * @return The mimetype, as a string.
-         */
-        @Override
-        public String getMimeType() {
-            // ... your implementation here.
-        }
-    
-        /**
-         * A disposal method, called before the input stream is disposed of. 
-         * Useful if you have custom cleanup logic to execute.
-         */
-        @Override
-        protected void dispose() {
-            // Do nothing.
-        }
+        // ... more implementation here.
     }
+
+
 
 $h2 Register the decoder.
     

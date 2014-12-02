@@ -21,6 +21,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.List;
 import java.util.Map;
 import java.util.ServiceLoader;
 
@@ -32,7 +33,8 @@ import java.util.ServiceLoader;
  *
  * @author Michael Krotscheck
  */
-public final class FileStreamEncoder {
+public final class FileStreamEncoder
+        implements IFilteringDataStream {
 
     /**
      * Logger instance.
@@ -117,5 +119,74 @@ public final class FileStreamEncoder {
         throw new ClassNotFoundException(
                 String.format("IDataEncoder for"
                         + " mimeType [%s] not found.", mimeType));
+    }
+
+    /**
+     * Add a filter.
+     *
+     * @param filter The filter to add.
+     */
+    @Override
+    public void addFilter(final IDataFilter filter) {
+        outputEncoder.addFilter(filter);
+    }
+
+    /**
+     * Add multiple filters.
+     *
+     * @param filters The filters to add.
+     */
+    @Override
+    public void addFilters(final List<IDataFilter> filters) {
+        outputEncoder.addFilters(filters);
+    }
+
+    /**
+     * Check to see if this decoder contains a filter.
+     *
+     * @param filter The filter to check.
+     * @return True if the filter is loaded, otherwise false.
+     */
+    @Override
+    public Boolean containsFilter(final IDataFilter filter) {
+        return outputEncoder.containsFilter(filter);
+    }
+
+    /**
+     * Get all the filters.
+     *
+     * @return All the filters.
+     */
+    @Override
+    public List<IDataFilter> getFilters() {
+        return outputEncoder.getFilters();
+    }
+
+    /**
+     * Remove the filter from the list.
+     *
+     * @param filter The filter to remove.
+     */
+    @Override
+    public void removeFilter(final IDataFilter filter) {
+        outputEncoder.removeFilter(filter);
+    }
+
+    /**
+     * Clear the filters.
+     */
+    @Override
+    public void clearFilters() {
+        outputEncoder.clearFilters();
+    }
+
+    /**
+     * Apply the filters.
+     *
+     * @param row The row to filter.
+     * @return The filtered row.
+     */
+    public Map<String, Object> applyFilters(final Map<String, Object> row) {
+        return outputEncoder.applyFilters(row);
     }
 }

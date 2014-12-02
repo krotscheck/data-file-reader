@@ -17,45 +17,26 @@
 
 package net.krotscheck.test.dfr;
 
-import net.krotscheck.dfr.AbstractDataDecoder;
+import net.krotscheck.dfr.IDataFilter;
 
-import java.util.Iterator;
+import java.util.HashMap;
 import java.util.Map;
 
-import static org.mockito.Mockito.mock;
-
 /**
- * A test data decoder.
+ * A test data filter.
  *
  * @author Michael Krotscheck
  */
-public final class TestDataDecoder extends AbstractDataDecoder {
+public class TestDataFilter implements IDataFilter {
 
     /**
-     * The test mimetye.
+     * Noop.
      *
-     * @return A test mimetype.
+     * @param row The data row to apply this filter to.
+     * @return A clone of the previous row.
      */
     @Override
-    public String getMimeType() {
-        return "text/mock";
-    }
-
-    /**
-     * Dispose. Do nothing.
-     */
-    @Override
-    protected void dispose() {
-
-    }
-
-    /**
-     * Mock iterator.
-     *
-     * @return A mocked iterator!Ω
-     */
-    @Override
-    protected Iterator<Map<String, Object>> buildIterator() {
-        return mock(Iterator.class);
+    public final Map<String, Object> apply(final Map<String, Object> row) {
+        return new HashMap<>(row);
     }
 }

@@ -27,7 +27,8 @@ import java.util.Map;
  *
  * @author Michael Krotscheck
  */
-public interface IDataDecoder extends Iterable<Map<String, Object>>, Closeable {
+public interface IDataDecoder
+        extends IFilteringDataStream, Iterable<Map<String, Object>>, Closeable {
 
     /**
      * Retrieve the mimetype which this decoder supports.

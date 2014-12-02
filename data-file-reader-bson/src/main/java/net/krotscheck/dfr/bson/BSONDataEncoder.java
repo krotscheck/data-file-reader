@@ -52,7 +52,8 @@ public final class BSONDataEncoder extends AbstractDataEncoder {
      *                             destination.
      */
     @Override
-    public void write(final Map<String, Object> row) throws IOException {
+    protected void writeToStream(final Map<String, Object> row)
+            throws IOException {
         if (generator == null) {
             ObjectMapper mapper = new ObjectMapper();
             BsonFactory factory = new BsonFactory(mapper);

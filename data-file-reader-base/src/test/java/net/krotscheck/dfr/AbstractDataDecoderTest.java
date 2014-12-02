@@ -25,11 +25,16 @@ import org.junit.Test;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Constructor;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import static org.mockito.Matchers.anyMap;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 /**
  * Unit tests for the AbstractDataDecoder.
@@ -53,6 +58,41 @@ public final class AbstractDataDecoderTest {
         InputStream stream = new NullInputStream(100);
         decoder.setInputStream(stream);
         Assert.assertEquals(stream, decoder.getInputStream());
+    }
+
+    /**
+     * Assert that the input field may be set.
+     *
+     * @throws Exception Should not throw an exception.
+     */
+    @Test
+    @SuppressWarnings("unchecked")
+    public void testFilteredIterator() throws Exception {
+        Map<String, Object> mockData = new HashMap<>();
+
+        Iterator mockIterator = mock(Iterator.class);
+        doReturn(mockData).when(mockIterator).next();
+
+        AbstractDataDecoder decoder = mock(AbstractDataDecoder.class);
+        doReturn(mockIterator).when(decoder).buildIterator();
+
+        IDataFilter filter = mock(IDataFilter.class);
+        decoder.addFilter(filter);
+
+        Iterator<Map<String, Object>> decoderIterator = decoder.iterator();
+
+        // Assert that calling the iterator invokes the filters.
+        decoderIterator.next();
+        verify(mockIterator, times(1)).next();
+        verify(filter, times(1)).apply(anyMap());
+
+        // Assert that remove calls the underlying iterator.
+        decoderIterator.remove();
+        verify(mockIterator, times(1)).remove();
+
+        // Assert that hasNext is passed through.
+        decoderIterator.hasNext();
+        verify(mockIterator, times(1)).hasNext();
     }
 
     /**
@@ -145,7 +185,8 @@ public final class AbstractDataDecoderTest {
          * @return Nothing
          */
         @Override
-        public Iterator<Map<String, Object>> iterator() {
+        @SuppressWarnings("unchecked")
+        protected Iterator<Map<String, Object>> buildIterator() {
             return null;
         }
 

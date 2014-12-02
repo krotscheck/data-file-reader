@@ -65,4 +65,27 @@ call `run()` directly, or you may pass it to a thread as shown below.
         Thread converterThread = new Thread(fsc);
         converterThread.start();
 
+
+$h2 Filtering a File
+
+If you would like to apply filters to your data as it's in flight, 
+you may apply filters to either your decoder, encoder, 
+or converter. These should implement the IDataFilter interface, and, 
+as a best practice, should not perform a destructive change.
+
+
+        IDataDecoder decoder = new MyDataDecoder();
+        IDataEncoder encoder = new MyDataEncoder();
+        IDataFilter filter = new MyDataFilter();
+        
+        FileStreamConverter fsc = new FileStreamConverter(decoder, encoder);
+        
+        // You may apply your filter to any component of your filtering stream.
+        decoder.addFilter(filter);
+        encoder.addFilter(filter);
+        fsc.addFilter(filter);
+        
+        Thread converterThread = new Thread(fsc);
+        converterThread.start();
+
 ---

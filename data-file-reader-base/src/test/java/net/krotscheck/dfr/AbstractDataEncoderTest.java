@@ -141,7 +141,7 @@ public final class AbstractDataEncoderTest {
          * @param row The row to write.
          */
         @Override
-        public void write(final Map<String, Object> row) {
+        protected void writeToStream(final Map<String, Object> row) {
 
         }
 

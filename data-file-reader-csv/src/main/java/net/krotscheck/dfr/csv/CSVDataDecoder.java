@@ -53,7 +53,7 @@ public final class CSVDataDecoder extends AbstractDataDecoder {
      * @return A row iterator.
      */
     @Override
-    public Iterator<Map<String, Object>> iterator() {
+    protected Iterator<Map<String, Object>> buildIterator() {
         return new InnerRowIterator(getInputStream());
     }
 

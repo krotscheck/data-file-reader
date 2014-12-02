@@ -44,7 +44,7 @@ public final class TestDataEncoder extends AbstractDataEncoder {
      * @param row A row of data.
      */
     @Override
-    public void write(final Map<String, Object> row) {
+    protected void writeToStream(final Map<String, Object> row) {
 
     }
 

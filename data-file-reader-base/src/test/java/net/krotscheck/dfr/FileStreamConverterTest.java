@@ -114,6 +114,51 @@ public final class FileStreamConverterTest {
     }
 
     /**
+     * Test that a filtered conversion can occur.
+     *
+     * @throws java.lang.Exception Unexpected Exception
+     */
+    @Test
+    @SuppressWarnings("unchecked")
+    public void testFilteredConversion() throws Exception {
+        IDataDecoder decoder = mock(IDataDecoder.class);
+        IDataEncoder encoder = mock(IDataEncoder.class);
+        IDataFilter filter = mock(IDataFilter.class);
+
+        when(decoder.iterator()).thenReturn(new TestIterator(data));
+        for (Map<String, Object> row : data) {
+            when(filter.apply(row)).thenReturn(row);
+        }
+
+        ArgumentCaptor<Map> filterCaptor = ArgumentCaptor.forClass(Map.class);
+        ArgumentCaptor<Map> finalCaptor = ArgumentCaptor.forClass(Map.class);
+
+        // Run the test
+        FileStreamConverter fsc = new FileStreamConverter(decoder, encoder);
+        fsc.addFilter(filter);
+        fsc.run();
+
+        verify(filter, times(data.size())).apply(filterCaptor.capture());
+        verify(encoder, times(data.size())).write(finalCaptor.capture());
+
+        List<Map> capturedFilterValues = filterCaptor.getAllValues();
+        for (Map capture : capturedFilterValues) {
+            Assert.assertTrue(data.contains(capture));
+        }
+        for (Map item : data) {
+            Assert.assertTrue(capturedFilterValues.contains(item));
+        }
+
+        List<Map> capturedFinalValues = finalCaptor.getAllValues();
+        for (Map capture : capturedFinalValues) {
+            Assert.assertTrue(data.contains(capture));
+        }
+        for (Map item : data) {
+            Assert.assertTrue(capturedFinalValues.contains(item));
+        }
+    }
+
+    /**
      * Test close with exception.
      *
      * @throws Exception Should throw no exceptions.

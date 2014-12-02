@@ -45,7 +45,8 @@ public final class CSVDataEncoder extends AbstractDataEncoder {
      *                             writing to the output.
      */
     @Override
-    public void write(final Map<String, Object> row) throws IOException {
+    protected void writeToStream(final Map<String, Object> row)
+            throws IOException {
         if (writer == null) {
             CsvMapper mapper = new CsvMapper();
             mapper.disable(SerializationFeature.CLOSE_CLOSEABLE);

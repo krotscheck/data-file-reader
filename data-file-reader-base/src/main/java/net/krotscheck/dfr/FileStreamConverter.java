@@ -20,6 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -29,7 +30,9 @@ import java.util.Map;
  *
  * @author Michael Krotscheck
  */
-public final class FileStreamConverter implements Runnable {
+public final class FileStreamConverter
+        extends AbstractFilteredDataStream
+        implements Runnable {
 
     /**
      * Logger instance.
@@ -73,8 +76,10 @@ public final class FileStreamConverter implements Runnable {
     @Override
     public void run() {
         try {
+            List<IDataFilter> filters = getFilters();
+
             for (Map<String, Object> row : dataDecoder) {
-                dataEncoder.write(row);
+                dataEncoder.write(applyFilters(row));
             }
 
             dataDecoder.close();

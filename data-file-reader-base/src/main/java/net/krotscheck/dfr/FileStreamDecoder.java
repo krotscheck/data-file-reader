@@ -23,6 +23,7 @@ import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.ServiceLoader;
 
@@ -34,8 +35,10 @@ import java.util.ServiceLoader;
  *
  * @author Michael Krotscheck
  */
-public final class FileStreamDecoder implements Iterable<Map<String,
-        Object>>, Closeable {
+public final class FileStreamDecoder
+        implements IFilteringDataStream,
+        Iterable<Map<String, Object>>,
+        Closeable {
 
     /**
      * Our service discovery loader.
@@ -107,6 +110,7 @@ public final class FileStreamDecoder implements Iterable<Map<String,
      */
     @Override
     public Iterator<Map<String, Object>> iterator() {
+        inputDecoder.addFilters(getFilters());
         return inputDecoder.iterator();
     }
 
@@ -117,5 +121,74 @@ public final class FileStreamDecoder implements Iterable<Map<String,
      */
     public void close() throws IOException {
         inputDecoder.close();
+    }
+
+    /**
+     * Add a filter.
+     *
+     * @param filter The filter to add.
+     */
+    @Override
+    public void addFilter(final IDataFilter filter) {
+        inputDecoder.addFilter(filter);
+    }
+
+    /**
+     * Add multiple filters.
+     *
+     * @param filters The filters to add.
+     */
+    @Override
+    public void addFilters(final List<IDataFilter> filters) {
+        inputDecoder.addFilters(filters);
+    }
+
+    /**
+     * Check to see if this decoder contains a filter.
+     *
+     * @param filter The filter to check.
+     * @return True if the filter is loaded, otherwise false.
+     */
+    @Override
+    public Boolean containsFilter(final IDataFilter filter) {
+        return inputDecoder.containsFilter(filter);
+    }
+
+    /**
+     * Get all the filters.
+     *
+     * @return All the filters.
+     */
+    @Override
+    public List<IDataFilter> getFilters() {
+        return inputDecoder.getFilters();
+    }
+
+    /**
+     * Remove the filter from the list.
+     *
+     * @param filter The filter to remove.
+     */
+    @Override
+    public void removeFilter(final IDataFilter filter) {
+        inputDecoder.removeFilter(filter);
+    }
+
+    /**
+     * Clear the filters.
+     */
+    @Override
+    public void clearFilters() {
+        inputDecoder.clearFilters();
+    }
+
+    /**
+     * Apply the filters.
+     *
+     * @param row The row to filter.
+     * @return The filtered row.
+     */
+    public Map<String, Object> applyFilters(final Map<String, Object> row) {
+        return inputDecoder.applyFilters(row);
     }
 }

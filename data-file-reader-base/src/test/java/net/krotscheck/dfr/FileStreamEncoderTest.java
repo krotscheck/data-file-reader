@@ -18,15 +18,21 @@
 package net.krotscheck.dfr;
 
 import net.krotscheck.test.UnitTest;
+import net.krotscheck.test.dfr.TestDataFilter;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * Unit test for the FileStream encoder factory.
@@ -74,8 +80,92 @@ public final class FileStreamEncoderTest {
         OutputStream test = mock(OutputStream.class);
         FileStreamEncoder encoder = new FileStreamEncoder(test, mockMimeType);
 
-        Map<String, Object> row = new HashMap<String, Object>();
+        Map<String, Object> row = new HashMap<>();
         encoder.write(row);
         encoder.close();
+    }
+
+    /**
+     * Assert that we can manipulate filters.
+     *
+     * @throws Exception An unexpected exception.
+     */
+    @Test
+    public void testFilterOperations() throws Exception {
+        OutputStream test = mock(OutputStream.class);
+        FileStreamEncoder encoder = new FileStreamEncoder(test, mockMimeType);
+        IDataFilter testFilter = new TestDataFilter();
+
+        // Make sure it starts empty.
+        Assert.assertEquals(0, encoder.getFilters().size());
+        Assert.assertFalse(encoder.containsFilter(testFilter));
+
+        encoder.addFilter(testFilter);
+        Assert.assertEquals(1, encoder.getFilters().size());
+        Assert.assertTrue(encoder.containsFilter(testFilter));
+
+        // Try adding again, this should be a noop.
+        encoder.addFilter(testFilter);
+        Assert.assertEquals(1, encoder.getFilters().size());
+        Assert.assertTrue(encoder.containsFilter(testFilter));
+
+        // Remove the filter.
+        encoder.removeFilter(testFilter);
+        Assert.assertEquals(0, encoder.getFilters().size());
+        Assert.assertFalse(encoder.containsFilter(testFilter));
+
+
+        // Test multiple filters.
+        List<IDataFilter> filters = new ArrayList<>();
+        filters.add(new TestDataFilter());
+        filters.add(new TestDataFilter());
+        filters.add(new TestDataFilter());
+
+        Assert.assertEquals(0, encoder.getFilters().size());
+        for (IDataFilter filter : filters) {
+            Assert.assertFalse(encoder.containsFilter(filter));
+        }
+
+        encoder.addFilters(filters);
+
+        Assert.assertEquals(3, encoder.getFilters().size());
+        for (IDataFilter filter : filters) {
+            Assert.assertTrue(encoder.containsFilter(filter));
+        }
+
+        // Try adding them again, make sure we don't duplicate filters.
+        encoder.addFilters(filters);
+
+        Assert.assertEquals(3, encoder.getFilters().size());
+        for (IDataFilter filter : filters) {
+            Assert.assertTrue(encoder.containsFilter(filter));
+        }
+
+        encoder.clearFilters();
+
+        Assert.assertEquals(0, encoder.getFilters().size());
+        for (IDataFilter filter : filters) {
+            Assert.assertFalse(encoder.containsFilter(filter));
+        }
+
+        // Test applyfilter.
+        IDataFilter mockFilter1 = mock(IDataFilter.class);
+        IDataFilter mockFilter2 = mock(IDataFilter.class);
+        Map<String, Object> data0 = new HashMap<>();
+        Map<String, Object> data1 = new HashMap<>();
+        Map<String, Object> data2 = new HashMap<>();
+
+        when(mockFilter1.apply(data0)).thenReturn(data1);
+        when(mockFilter2.apply(data1)).thenReturn(data2);
+
+        encoder.addFilter(mockFilter1);
+        encoder.addFilter(mockFilter2);
+
+        Map<String, Object> result = encoder.applyFilters(data0);
+
+        Assert.assertEquals(result, data2);
+
+        verify(mockFilter1, times(1)).apply(data0);
+        verify(mockFilter2, times(1)).apply(data1);
     }
 }

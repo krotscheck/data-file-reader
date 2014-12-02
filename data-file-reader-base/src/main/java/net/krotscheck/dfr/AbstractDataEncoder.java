@@ -22,6 +22,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Map;
 
 /**
  * An abstract implementation of the data encoder, to consolidate some common
@@ -29,7 +30,9 @@ import java.io.OutputStream;
  *
  * @author Michael Krotscheck
  */
-public abstract class AbstractDataEncoder implements IDataEncoder {
+public abstract class AbstractDataEncoder
+        extends AbstractFilteredDataStream
+        implements IDataEncoder {
 
     /**
      * Logger instance.
@@ -63,6 +66,20 @@ public abstract class AbstractDataEncoder implements IDataEncoder {
     }
 
     /**
+     * Write a row to the file.
+     *
+     * @param row A row of data.
+     * @throws java.io.IOException Thrown when there are problems writing to the
+     *                             destination.
+     */
+    @Override
+    public final void write(final Map<String, Object> row) throws IOException {
+        Map<String, Object> filteredRow = applyFilters(row);
+
+        writeToStream(filteredRow);
+    }
+
+    /**
      * Close the internal stream.
      */
     @Override
@@ -79,6 +96,16 @@ public abstract class AbstractDataEncoder implements IDataEncoder {
             }
         }
     }
+
+    /**
+     * Protected write-to-stream method. Implement this.
+     *
+     * @param row A row of data.
+     * @throws java.io.IOException Thrown when there are problems writing to the
+     *                             destination.
+     */
+    protected abstract void writeToStream(final Map<String, Object> row)
+            throws IOException;
 
     /**
      * Protected close method, for child implementations.
