@@ -82,7 +82,9 @@ as a best practice, should not perform a destructive change.
         
         // You may apply your filter to any component of your filtering stream.
         decoder.addFilter(filter);
+        // ... or ...
         encoder.addFilter(filter);
+        // ... or ...
         fsc.addFilter(filter);
         
         Thread converterThread = new Thread(fsc);

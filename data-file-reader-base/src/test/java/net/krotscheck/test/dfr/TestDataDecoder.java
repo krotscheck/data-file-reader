@@ -55,6 +55,7 @@ public final class TestDataDecoder extends AbstractDataDecoder {
      * @return A mocked iterator!Ω
      */
     @Override
+    @SuppressWarnings("unchecked")
     protected Iterator<Map<String, Object>> buildIterator() {
         return mock(Iterator.class);
     }

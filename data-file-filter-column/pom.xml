@@ -16,7 +16,9 @@
   ~ limitations under the License.
   -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>net.krotscheck.dfr</groupId>
         <artifactId>data-file-reader</artifactId>
@@ -24,10 +26,11 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>data-file-reader-all</artifactId>
+    <artifactId>data-file-filter-column</artifactId>
     <packaging>jar</packaging>
-    <name>data-file-reader-all</name>
-    <description>The entire DFR library as one dependency.</description>
+    <name>data-file-filter-column</name>
+    <description>Data filter that only permits a subset of columns.
+    </description>
 
     <build>
         <plugins>
@@ -47,33 +50,24 @@
                 <artifactId>cobertura-maven-plugin</artifactId>
             </plugin>
         </plugins>
+        <testResources>
+            <testResource>
+                <directory>
+                    ${project.basedir}/src/main/resources
+                </directory>
+            </testResource>
+            <testResource>
+                <directory>
+                    ${project.basedir}/src/test/resources
+                </directory>
+            </testResource>
+        </testResources>
     </build>
-
 
     <dependencies>
         <dependency>
             <groupId>net.krotscheck.dfr</groupId>
             <artifactId>data-file-reader-base</artifactId>
-            <version>${project.parent.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>net.krotscheck.dfr</groupId>
-            <artifactId>data-file-reader-csv</artifactId>
-            <version>${project.parent.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>net.krotscheck.dfr</groupId>
-            <artifactId>data-file-reader-bson</artifactId>
-            <version>${project.parent.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>net.krotscheck.dfr</groupId>
-            <artifactId>data-file-reader-json</artifactId>
-            <version>${project.parent.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>net.krotscheck.dfr</groupId>
-            <artifactId>data-file-filter-column</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
     </dependencies>

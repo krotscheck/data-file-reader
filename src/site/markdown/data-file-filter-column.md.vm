@@ -1,0 +1,38 @@
+#parse( "scripts.vm" )
+#set($moduleName = "data-file-filter-column")
+
+#header($moduleName)
+
+This file filter allows you to refactor columns within your data while you
+read, write, or convert your files. Given a list of column names,
+the filter will ensure that only those columns are included in your output.
+
+#dependency($moduleName)
+
+$h2 Example Transformation
+
+Presented is a sample transformation that demonstrations how this filter works:
+
+    ColumnFilter filter = new ColumnFilter(new String[]{
+        "Column1", "Column2", "Column3"
+    });
+
+    myEncoder.addFilter(filter);
+
+---
+
+$h3 Input Data
+
+| Column1 | Column2 | ColumnA | ColumnB |
+|---------|---------|---------|---------|
+| Foo     | Bar     | Zug     | Zab     |
+
+
+$h3 Output Data
+
+| Column1 | Column2 | Column3 |
+|---------|---------|---------|
+| Foo     | Bar     |[null]   |
+
+
+---

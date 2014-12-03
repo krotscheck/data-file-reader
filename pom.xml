@@ -15,6 +15,7 @@
         <module>data-file-reader-bson</module>
         <module>data-file-reader-json</module>
         <module>data-file-reader-csv</module>
+        <module>data-file-filter-column</module>
         <module>data-file-reader-all</module>
     </modules>
 
