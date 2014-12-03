@@ -48,12 +48,17 @@ public abstract class AbstractDataDecoder
     private InputStream inputStream;
 
     /**
+     * The max rows.
+     */
+    private Long maxRows;
+
+    /**
      * Returns an iterator for the file.
      *
      * @return An iterator.
      */
     public final Iterator<Map<String, Object>> iterator() {
-        return new FilteredIterator(buildIterator(), getFilters());
+        return new FilteredIterator(buildIterator(), getFilters(), maxRows);
     }
 
     /**
@@ -102,6 +107,26 @@ public abstract class AbstractDataDecoder
     }
 
     /**
+     * Get the maximum rows.
+     *
+     * @return The max rows.
+     */
+    @Override
+    public final Long getMaxRows() {
+        return maxRows;
+    }
+
+    /**
+     * Set the maximum rows.
+     *
+     * @param rows The number of rows, default null.
+     */
+    @Override
+    public final void setMaxRows(final Long rows) {
+        this.maxRows = rows;
+    }
+
+    /**
      * Protected close method, for child implementations.
      */
     protected abstract void dispose();
@@ -123,15 +148,30 @@ public abstract class AbstractDataDecoder
         private final Iterator<Map<String, Object>> iterator;
 
         /**
-         * Create a new filtered iterator.
+         * The total number of rows to permit.
+         */
+        private final Long rows;
+
+        /**
+         * The current index.
+         */
+        private Long currentRow = (long) 0;
+
+        /**
+         * Create a new filtered iterator with a maximum number of allowed
+         * rows.
          *
-         * @param itr   The iterator to wrap.
-         * @param fltrs The filters to apply.
+         * @param itr     The iterator to wrap.
+         * @param fltrs   The filters to apply.
+         * @param maxRows The number of rows to permit. If null will returns all
+         *                rows.
          */
         public FilteredIterator(final Iterator<Map<String, Object>> itr,
-                                final List<IDataFilter> fltrs) {
+                                final List<IDataFilter> fltrs,
+                                final Long maxRows) {
             this.iterator = itr;
             this.filters = fltrs;
+            this.rows = maxRows;
         }
 
         /**
@@ -141,7 +181,10 @@ public abstract class AbstractDataDecoder
          */
         @Override
         public boolean hasNext() {
-            return iterator.hasNext();
+            if (rows == null || currentRow < rows) {
+                return iterator.hasNext();
+            }
+            return false;
         }
 
         /**
@@ -151,10 +194,16 @@ public abstract class AbstractDataDecoder
          */
         @Override
         public Map<String, Object> next() {
+            // Confirm that we're not done yet.
+            if (rows != null && currentRow >= rows) {
+                return null;
+            }
+
             Map<String, Object> row = iterator.next();
             for (IDataFilter filter : filters) {
                 row = filter.apply(row);
             }
+            currentRow++;
             return row;
         }
 

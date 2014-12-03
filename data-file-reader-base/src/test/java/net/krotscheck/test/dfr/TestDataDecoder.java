@@ -31,6 +31,7 @@ import static org.mockito.Mockito.mock;
  */
 public final class TestDataDecoder extends AbstractDataDecoder {
 
+
     /**
      * The test mimetye.
      *

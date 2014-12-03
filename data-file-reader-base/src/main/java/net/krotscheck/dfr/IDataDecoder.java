@@ -45,6 +45,21 @@ public interface IDataDecoder
     InputStream getInputStream();
 
     /**
+     * Retrieve the number of rows which this decoder should stop at.
+     *
+     * @return The number of rows, null for all rows.
+     */
+    Long getMaxRows();
+
+    /**
+     * Set the number of rows at which this decoder should stop. Set to null to
+     * read all rows.
+     *
+     * @param rows The number of rows, default null.
+     */
+    void setMaxRows(Long rows);
+
+    /**
      * Set the input stream from which the decoder should read its data.
      *
      * @param stream The input stream.

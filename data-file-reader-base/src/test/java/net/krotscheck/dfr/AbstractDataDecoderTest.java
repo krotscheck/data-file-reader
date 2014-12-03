@@ -20,13 +20,16 @@ package net.krotscheck.dfr;
 import net.krotscheck.util.ResourceUtil;
 import org.apache.commons.io.input.NullInputStream;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Constructor;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import static org.mockito.Matchers.anyMap;
@@ -44,13 +47,38 @@ import static org.mockito.Mockito.verify;
 public final class AbstractDataDecoderTest {
 
     /**
+     * Test data for our unit tests.
+     */
+    private List<Map<String, Object>> testData;
+
+    /**
+     * Set up some test data to work with.
+     *
+     * @throws Exception Unexpected exceptions.
+     */
+    @Before
+    public void setup() throws Exception {
+        testData = new ArrayList<>();
+
+        for (int i = 0; i < 100; i++) {
+            Map<String, Object> testRow = new HashMap<>();
+            testRow.put("one", "column_one_row_" + i);
+            testRow.put("two", "column_two_row_" + i);
+            testRow.put("three", "column_three_row_" + i);
+            testRow.put("four", "column_four_row_" + i);
+
+            testData.add(testRow);
+        }
+    }
+
+    /**
      * Assert that the input field may be set.
      *
      * @throws Exception Should not throw an exception.
      */
     @Test
     public void testGetSetInput() throws Exception {
-        IDataDecoder decoder = new TestDataDecoder();
+        IDataDecoder decoder = new TestDataDecoder(testData);
 
         Assert.assertNull(decoder.getInputStream());
 
@@ -61,7 +89,28 @@ public final class AbstractDataDecoderTest {
     }
 
     /**
-     * Assert that the input field may be set.
+     * Assert that we can change max rows.
+     *
+     * @throws Exception Should not throw an exception.
+     */
+    @Test
+    public void testGetSetMaxRows() throws Exception {
+        IDataDecoder decoder = new TestDataDecoder(testData);
+
+        Assert.assertNull(decoder.getMaxRows());
+
+        decoder.setMaxRows((long) 100);
+        Assert.assertEquals((long) 100, (long) decoder.getMaxRows());
+
+        decoder.setMaxRows((long) 222);
+        Assert.assertEquals((long) 222, (long) decoder.getMaxRows());
+
+        decoder.setMaxRows(null);
+        Assert.assertNull(decoder.getMaxRows());
+    }
+
+    /**
+     * Assert that the input field may be filtered.
      *
      * @throws Exception Should not throw an exception.
      */
@@ -96,13 +145,49 @@ public final class AbstractDataDecoderTest {
     }
 
     /**
+     * Assert that we can limit the number of rows returned.
+     *
+     * @throws Exception Should not throw an exception.
+     */
+    @Test
+    @SuppressWarnings("unchecked")
+    public void testLimitReturnedRows() throws Exception {
+
+        // Start by asserting that our test decoder iterates over all 100 rows.
+        IDataDecoder decoder = new TestDataDecoder(testData);
+
+        int count = 0;
+        for (Map<String, Object> row : decoder) {
+            Assert.assertNotNull(row);
+            Assert.assertEquals("column_one_row_" + count, row.get("one"));
+            count++;
+        }
+        Assert.assertEquals(100, count);
+
+        // Limit to 10
+        decoder.setMaxRows((long) 10);
+        count = 0;
+        Iterator<Map<String, Object>> i = decoder.iterator();
+        while (i.hasNext()) {
+            Map<String, Object> row = i.next();
+            Assert.assertNotNull(row);
+            Assert.assertEquals("column_two_row_" + count, row.get("two"));
+            count++;
+        }
+        Assert.assertEquals(10, count);
+
+        // Check the leftover iterator.
+        Assert.assertNull(i.next());
+    }
+
+    /**
      * Test the close method without a stream.
      *
      * @throws Exception Should not throw an exception.
      */
     @Test
     public void testCloseWithoutStream() throws Exception {
-        IDataDecoder decoder = new TestDataDecoder();
+        IDataDecoder decoder = new TestDataDecoder(testData);
 
         Assert.assertNull(decoder.getInputStream());
 
@@ -117,7 +202,7 @@ public final class AbstractDataDecoderTest {
      */
     @Test
     public void testCloseWithStream() throws Exception {
-        IDataDecoder decoder = new TestDataDecoder();
+        IDataDecoder decoder = new TestDataDecoder(testData);
 
         Assert.assertNull(decoder.getInputStream());
         InputStream stream = ResourceUtil.getResourceAsStream("test.bson");
@@ -138,7 +223,7 @@ public final class AbstractDataDecoderTest {
      */
     @Test
     public void testCloseWithErrorStream() throws Exception {
-        IDataDecoder decoder = new TestDataDecoder();
+        IDataDecoder decoder = new TestDataDecoder(testData);
 
         Assert.assertNull(decoder.getInputStream());
         InputStream stream = mock(InputStream.class);
@@ -170,6 +255,20 @@ public final class AbstractDataDecoderTest {
     public static final class TestDataDecoder extends AbstractDataDecoder {
 
         /**
+         * The internal data to 'decode'.
+         */
+        private final List<Map<String, Object>> data;
+
+        /**
+         * Create a new test data decoder.
+         *
+         * @param testData The test data to wrap.
+         */
+        public TestDataDecoder(final List<Map<String, Object>> testData) {
+            data = testData;
+        }
+
+        /**
          * Do nothing.
          *
          * @return Nothing
@@ -187,7 +286,11 @@ public final class AbstractDataDecoderTest {
         @Override
         @SuppressWarnings("unchecked")
         protected Iterator<Map<String, Object>> buildIterator() {
-            return null;
+            if (data != null) {
+                return data.iterator();
+            } else {
+                return null;
+            }
         }
 
         /**
