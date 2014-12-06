@@ -25,7 +25,7 @@ under the License.
     <language>en-us</language>
     <copyright>&#169;2014 krotscheck.net</copyright>
     <item>
-      <title>File: 22,
+      <title>File: 24,
              Errors: 0,
              Warnings: 0,
              Infos: 0
@@ -89,6 +89,20 @@ under the License.
                           <tr>
                 <td>
                   <a href="https://github.com/krotscheck/dfr/checkstyle.html#net.krotscheck.dfr.AbstractDataEncoder.java">net/krotscheck/dfr/AbstractDataEncoder.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/krotscheck/dfr/checkstyle.html#net.krotscheck.dfr.DecoderCache.java">net/krotscheck/dfr/DecoderCache.java</a>
                 </td>
                 <td>
                   0
@@ -201,6 +215,20 @@ under the License.
                           <tr>
                 <td>
                   <a href="https://github.com/krotscheck/dfr/checkstyle.html#net.krotscheck.dfr.AbstractDataDecoder.java">net/krotscheck/dfr/AbstractDataDecoder.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/krotscheck/dfr/checkstyle.html#net.krotscheck.dfr.EncoderCache.java">net/krotscheck/dfr/EncoderCache.java</a>
                 </td>
                 <td>
                   0
