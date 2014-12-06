@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
 
-<coverage line-rate="1.0" branch-rate="1.0" lines-covered="55" lines-valid="55" branches-covered="12" branches-valid="12" complexity="2.0" version="2.0.3" timestamp="1413868638386">
+<coverage line-rate="1.0" branch-rate="1.0" lines-covered="55" lines-valid="55" branches-covered="12" branches-valid="12" complexity="2.0" version="2.0.3" timestamp="1417824207414">
 	<sources>
 		<source>/Users/krotscheck/Desktop/github/data-file-reader/target/checkout/data-file-reader-bson/src/main/java</source>
 		<source>--source</source>
@@ -27,6 +27,11 @@
 								<line number="28" hits="14" branch="false"/>
 							</lines>
 						</method>
+						<method name="buildIterator" signature="()Ljava/util/Iterator;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="43" hits="7" branch="false"/>
+							</lines>
+						</method>
 						<method name="dispose" signature="()V" line-rate="1.0" branch-rate="1.0">
 							<lines>
 								<line number="62" hits="2" branch="false"/>
@@ -35,11 +40,6 @@
 						<method name="getMimeType" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
 							<lines>
 								<line number="53" hits="1" branch="false"/>
-							</lines>
-						</method>
-						<method name="iterator" signature="()Ljava/util/Iterator;" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="43" hits="7" branch="false"/>
 							</lines>
 						</method>
 					</methods>
@@ -190,21 +190,21 @@
 						</method>
 						<method name="dispose" signature="()V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="74" hits="14" branch="true" condition-coverage="100% (2/2)">
+								<line number="75" hits="14" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="75" hits="13" branch="false"/>
 								<line number="76" hits="13" branch="false"/>
-								<line number="78" hits="13" branch="false"/>
-								<line number="79" hits="1" branch="false"/>
+								<line number="77" hits="13" branch="false"/>
+								<line number="79" hits="13" branch="false"/>
 								<line number="80" hits="1" branch="false"/>
 								<line number="81" hits="1" branch="false"/>
-								<line number="83" hits="14" branch="false"/>
+								<line number="82" hits="1" branch="false"/>
 								<line number="84" hits="14" branch="false"/>
 								<line number="85" hits="14" branch="false"/>
 								<line number="86" hits="14" branch="false"/>
+								<line number="87" hits="14" branch="false"/>
 							</lines>
 						</method>
 						<method name="getMimeType" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
@@ -212,20 +212,20 @@
 								<line number="44" hits="1" branch="false"/>
 							</lines>
 						</method>
-						<method name="write" signature="(Ljava/util/Map;)V" line-rate="1.0" branch-rate="1.0">
+						<method name="writeToStream" signature="(Ljava/util/Map;)V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="56" hits="112" branch="true" condition-coverage="100% (2/2)">
+								<line number="57" hits="112" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="57" hits="13" branch="false"/>
 								<line number="58" hits="13" branch="false"/>
 								<line number="59" hits="13" branch="false"/>
 								<line number="60" hits="13" branch="false"/>
 								<line number="61" hits="13" branch="false"/>
-								<line number="65" hits="112" branch="false"/>
+								<line number="62" hits="13" branch="false"/>
 								<line number="66" hits="112" branch="false"/>
+								<line number="67" hits="112" branch="false"/>
 							</lines>
 						</method>
 					</methods>
@@ -234,33 +234,33 @@
 						<line number="29" hits="2" branch="false"/>
 						<line number="30" hits="1" branch="false"/>
 						<line number="44" hits="1" branch="false"/>
-						<line number="56" hits="112" branch="true" condition-coverage="100% (2/2)">
+						<line number="57" hits="112" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="57" hits="13" branch="false"/>
 						<line number="58" hits="13" branch="false"/>
 						<line number="59" hits="13" branch="false"/>
 						<line number="60" hits="13" branch="false"/>
 						<line number="61" hits="13" branch="false"/>
-						<line number="65" hits="112" branch="false"/>
+						<line number="62" hits="13" branch="false"/>
 						<line number="66" hits="112" branch="false"/>
-						<line number="74" hits="14" branch="true" condition-coverage="100% (2/2)">
+						<line number="67" hits="112" branch="false"/>
+						<line number="75" hits="14" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="75" hits="13" branch="false"/>
 						<line number="76" hits="13" branch="false"/>
-						<line number="78" hits="13" branch="false"/>
-						<line number="79" hits="1" branch="false"/>
+						<line number="77" hits="13" branch="false"/>
+						<line number="79" hits="13" branch="false"/>
 						<line number="80" hits="1" branch="false"/>
 						<line number="81" hits="1" branch="false"/>
-						<line number="83" hits="14" branch="false"/>
+						<line number="82" hits="1" branch="false"/>
 						<line number="84" hits="14" branch="false"/>
 						<line number="85" hits="14" branch="false"/>
 						<line number="86" hits="14" branch="false"/>
+						<line number="87" hits="14" branch="false"/>
 					</lines>
 				</class>
 			</classes>
