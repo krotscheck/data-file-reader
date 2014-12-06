@@ -9,6 +9,10 @@ import net.krotscheck.test.dfr.TestDataFilter;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
+import org.powermock.core.classloader.annotations.PowerMockIgnore;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -17,16 +21,21 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.powermock.api.mockito.PowerMockito.mockStatic;
 
 /**
  * Unit test for the FileStream decoder factory.
  *
  * @author Michael Krotscheck
  */
+@PrepareForTest(DecoderCache.class)
+@PowerMockIgnore("javax.management.*")
+@RunWith(PowerMockRunner.class)
 @Category(UnitTest.class)
 public final class FileStreamDecoderTest {
 
@@ -54,6 +63,23 @@ public final class FileStreamDecoderTest {
      */
     @Test(expected = ClassNotFoundException.class)
     public void testNoDecoder() throws Exception {
+        InputStream test = mock(InputStream.class);
+        new FileStreamDecoder(test, "test/unavailable");
+    }
+
+    /**
+     * Assert that an exception is thrown when the service loader goes belly
+     * up.
+     *
+     * @throws Exception Thrown when we can't find the encoder.
+     */
+    @Test(expected = ClassNotFoundException.class)
+    public void testServiceLoaderBoom() throws Exception {
+
+        mockStatic(DecoderCache.class);
+        when(DecoderCache.getDecoder(anyString()))
+                .thenThrow(InstantiationException.class);
+
         InputStream test = mock(InputStream.class);
         new FileStreamDecoder(test, "test/unavailable");
     }

@@ -16,14 +16,10 @@
  */
 package net.krotscheck.dfr;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
 import java.util.Map;
-import java.util.ServiceLoader;
 
 /**
  * This class provides a convenience class by which files may be quickly
@@ -35,17 +31,6 @@ import java.util.ServiceLoader;
  */
 public final class FileStreamEncoder
         implements IFilteringDataStream {
-
-    /**
-     * Logger instance.
-     */
-    private static Logger logger =
-            LoggerFactory.getLogger(FileStreamEncoder.class);
-
-    /**
-     * Our service discovery loader.
-     */
-    private static ServiceLoader<IDataEncoder> loader;
 
     /**
      * The output encoder used for this instance.
@@ -63,8 +48,13 @@ public final class FileStreamEncoder
     public FileStreamEncoder(final OutputStream destination,
                              final String mimeType)
             throws ClassNotFoundException {
-        outputEncoder = getEncoder(mimeType);
-        outputEncoder.setOutputStream(destination);
+        try {
+            outputEncoder = EncoderCache.getEncoder(mimeType);
+            outputEncoder.setOutputStream(destination);
+        } catch (IllegalAccessException | InstantiationException ie) {
+            throw new ClassNotFoundException(String.format("Cannot create "
+                    + "encoder for mimetype %s", mimeType));
+        }
     }
 
     /**
@@ -86,39 +76,6 @@ public final class FileStreamEncoder
      */
     public void close() throws IOException {
         outputEncoder.close();
-    }
-
-    /**
-     * Use service discovery to find our data stream encoder.
-     *
-     * @param mimeType The mimetype to scan for.
-     * @return An instance of the encoder.
-     * @throws ClassNotFoundException Thrown when no encoder for a mimetype is
-     *                                found.
-     */
-    private IDataEncoder getEncoder(final String mimeType)
-            throws ClassNotFoundException {
-        if (loader == null) {
-            logger.info("IDataEncoders found:");
-            loader = ServiceLoader.load(IDataEncoder.class);
-            // Debug logging.
-            for (IDataEncoder discoveredEncoder : loader) {
-                String name = discoveredEncoder.getClass().getCanonicalName();
-                String encoderMimeType = discoveredEncoder.getMimeType();
-                logger.info(String.format("    %s -> %s", encoderMimeType,
-                        name));
-            }
-        }
-
-        for (IDataEncoder encoder : loader) {
-            if (encoder.getMimeType().equals(mimeType)) {
-                return encoder;
-            }
-        }
-
-        throw new ClassNotFoundException(
-                String.format("IDataEncoder for"
-                        + " mimeType [%s] not found.", mimeType));
     }
 
     /**

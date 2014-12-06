@@ -16,16 +16,12 @@
  */
 package net.krotscheck.dfr;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.ServiceLoader;
 
 /**
  * This class provides a convenience class by which files may be quickly
@@ -41,51 +37,6 @@ public final class FileStreamDecoder
         Closeable {
 
     /**
-     * Our service discovery loader.
-     */
-    private static ServiceLoader<IDataDecoder> loader;
-
-    /**
-     * Use service discovery to find our data stream decoder.
-     *
-     * @param mimeType The mimetype to scan for.
-     * @return An instance of the decoder.
-     * @throws ClassNotFoundException Thrown when no encoder for a mimetype is
-     *                                found.
-     */
-    private static IDataDecoder getDecoder(final String mimeType)
-            throws ClassNotFoundException {
-        if (loader == null) {
-            logger.info("IDataDecoders found:");
-            loader = ServiceLoader.load(IDataDecoder.class);
-
-            // Logging.
-            for (IDataDecoder discoveredDecoder : loader) {
-                String name = discoveredDecoder.getClass().getCanonicalName();
-                String encoderMimeType = discoveredDecoder.getMimeType();
-                logger.info(String.format("    %s -> %s", encoderMimeType,
-                        name));
-            }
-        }
-
-        for (IDataDecoder decoder : loader) {
-            if (decoder.getMimeType().equals(mimeType)) {
-                return decoder;
-            }
-        }
-
-        throw new ClassNotFoundException(
-                String.format("IDataDecoder for"
-                        + " mimeType [%s] not found.", mimeType));
-    }
-
-    /**
-     * Logger instance.
-     */
-    private static Logger logger =
-            LoggerFactory.getLogger(FileStreamDecoder.class);
-
-    /**
      * Our input stream reader.
      */
     private IDataDecoder inputDecoder = null;
@@ -99,8 +50,7 @@ public final class FileStreamDecoder
      */
     public FileStreamDecoder(final InputStream source, final String mimeType)
             throws ClassNotFoundException {
-        inputDecoder = getDecoder(mimeType);
-        inputDecoder.setInputStream(source);
+        this(source, mimeType, null);
     }
 
     /**
@@ -114,9 +64,14 @@ public final class FileStreamDecoder
     public FileStreamDecoder(final InputStream source, final String mimeType,
                              final Long maxRows)
             throws ClassNotFoundException {
-        inputDecoder = getDecoder(mimeType);
-        inputDecoder.setInputStream(source);
-        inputDecoder.setMaxRows(maxRows);
+        try {
+            inputDecoder = DecoderCache.getDecoder(mimeType);
+            inputDecoder.setInputStream(source);
+            inputDecoder.setMaxRows(maxRows);
+        } catch (IllegalAccessException | InstantiationException ie) {
+            throw new ClassNotFoundException(String.format("Cannot create "
+                    + "decoder for mimetype %s", mimeType));
+        }
     }
 
     /**
