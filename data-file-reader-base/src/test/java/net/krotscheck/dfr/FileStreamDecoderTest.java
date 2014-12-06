@@ -75,6 +75,23 @@ public final class FileStreamDecoderTest {
     }
 
     /**
+     * Test maxrow operations.
+     *
+     * @throws Exception An unexpected exception.
+     */
+    @Test
+    public void testMaxrowOperations() throws Exception {
+        InputStream test = mock(InputStream.class);
+        FileStreamDecoder decoder =
+                new FileStreamDecoder(test, mockMimeType, (long) 88);
+
+        Assert.assertEquals((long) 88, (long) decoder.getMaxRows());
+
+        decoder.setMaxRows((long) 100);
+        Assert.assertEquals((long) 100, (long) decoder.getMaxRows());
+    }
+
+    /**
      * Assert that we can manipulate filters.
      *
      * @throws Exception An unexpected exception.

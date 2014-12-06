@@ -104,6 +104,22 @@ public final class FileStreamDecoder
     }
 
     /**
+     * Creates a new instance of the FileStreamDecoder.
+     *
+     * @param source   The source input stream.
+     * @param mimeType The mimetype.
+     * @param maxRows  The maximum number of rows.
+     * @throws ClassNotFoundException Thrown when a decoder is not found.
+     */
+    public FileStreamDecoder(final InputStream source, final String mimeType,
+                             final Long maxRows)
+            throws ClassNotFoundException {
+        inputDecoder = getDecoder(mimeType);
+        inputDecoder.setInputStream(source);
+        inputDecoder.setMaxRows(maxRows);
+    }
+
+    /**
      * Returns the iterator from the underlying data stream.
      *
      * @return The iterator.
@@ -191,4 +207,23 @@ public final class FileStreamDecoder
     public Map<String, Object> applyFilters(final Map<String, Object> row) {
         return inputDecoder.applyFilters(row);
     }
+
+    /**
+     * Get the maximum rows.
+     *
+     * @return The max rows.
+     */
+    public Long getMaxRows() {
+        return inputDecoder.getMaxRows();
+    }
+
+    /**
+     * Set the maximum rows.
+     *
+     * @param rows The number of rows, default null.
+     */
+    public void setMaxRows(final Long rows) {
+        inputDecoder.setMaxRows(rows);
+    }
+
 }
