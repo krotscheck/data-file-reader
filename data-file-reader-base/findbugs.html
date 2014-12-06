@@ -113,8 +113,8 @@
   </thead> 
   <tbody>  
    <tr class="b"> 
-    <td>11</td> 
-    <td>1</td> 
+    <td>13</td> 
+    <td>3</td> 
     <td>0</td> 
     <td>0</td> 
    </tr> 
@@ -133,6 +133,14 @@
   <tbody>  
    <tr class="b"> 
     <td><a href="#net.krotscheck.dfr.AbstractDataDecoder$FilteredIterator">net.krotscheck.dfr.AbstractDataDecoder$FilteredIterator</a></td> 
+    <td>1</td> 
+   </tr> 
+   <tr class="a"> 
+    <td><a href="#net.krotscheck.dfr.DecoderCache">net.krotscheck.dfr.DecoderCache</a></td> 
+    <td>1</td> 
+   </tr> 
+   <tr class="b"> 
+    <td><a href="#net.krotscheck.dfr.EncoderCache">net.krotscheck.dfr.EncoderCache</a></td> 
     <td>1</td> 
    </tr> 
   </tbody> 
@@ -157,6 +165,54 @@
     <td>STYLE</td> 
     <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#DLS_DEAD_LOCAL_STORE">DLS_DEAD_LOCAL_STORE</a></td> 
     <td><a href="./xref/net/krotscheck/dfr/AbstractDataDecoder.html#L206">206</a></td> 
+    <td>Medium</td> 
+   </tr> 
+  </tbody> 
+ </table> 
+</div> 
+<a name="net.krotscheck.dfr.DecoderCache"></a> 
+<div class="section"> 
+ <h3 id="net.krotscheck.dfr.DecoderCache">net.krotscheck.dfr.DecoderCache</h3> 
+ <table border="0" class="bodyTable table table-striped table-hover">
+  <thead>
+   <tr class="a"> 
+    <th>Bug</th> 
+    <th>Category</th> 
+    <th>Details</th> 
+    <th>Line</th> 
+    <th>Priority</th> 
+   </tr>
+  </thead> 
+  <tbody>  
+   <tr class="b"> 
+    <td>Incorrect lazy initialization and update of static field net.krotscheck.dfr.DecoderCache.cache in net.krotscheck.dfr.DecoderCache.populateCache()</td> 
+    <td>MT_CORRECTNESS</td> 
+    <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#LI_LAZY_INIT_UPDATE_STATIC">LI_LAZY_INIT_UPDATE_STATIC</a></td> 
+    <td><a href="./xref/net/krotscheck/dfr/DecoderCache.html#L57">57-58</a></td> 
+    <td>Medium</td> 
+   </tr> 
+  </tbody> 
+ </table> 
+</div> 
+<a name="net.krotscheck.dfr.EncoderCache"></a> 
+<div class="section"> 
+ <h3 id="net.krotscheck.dfr.EncoderCache">net.krotscheck.dfr.EncoderCache</h3> 
+ <table border="0" class="bodyTable table table-striped table-hover">
+  <thead>
+   <tr class="a"> 
+    <th>Bug</th> 
+    <th>Category</th> 
+    <th>Details</th> 
+    <th>Line</th> 
+    <th>Priority</th> 
+   </tr>
+  </thead> 
+  <tbody>  
+   <tr class="b"> 
+    <td>Incorrect lazy initialization and update of static field net.krotscheck.dfr.EncoderCache.cache in net.krotscheck.dfr.EncoderCache.populateCache()</td> 
+    <td>MT_CORRECTNESS</td> 
+    <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#LI_LAZY_INIT_UPDATE_STATIC">LI_LAZY_INIT_UPDATE_STATIC</a></td> 
+    <td><a href="./xref/net/krotscheck/dfr/EncoderCache.html#L57">57-58</a></td> 
     <td>Medium</td> 
    </tr> 
   </tbody> 
@@ -199,7 +255,7 @@
 			<div class="span12">
 				<p class="pull-right"><a href="#">Back to top</a></p>
 				<p class="copyright">Copyright &copy;2014 <a href="http://www.krotscheck.net">krotscheck.net</a>. All Rights Reserved.</p>
-				<p class="version-date"><span class="projectVersion">Version: 1.0.3. </span></p>
+				<p class="version-date"><span class="projectVersion">Version: 1.0.4. </span></p>
 			</div>
 		</div>
 	</div>
