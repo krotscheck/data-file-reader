@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
 
-<coverage line-rate="1.0" branch-rate="1.0" lines-covered="171" lines-valid="171" branches-covered="46" branches-valid="46" complexity="1.507462686567164" version="2.0.3" timestamp="1417824172686">
+<coverage line-rate="1.0" branch-rate="1.0" lines-covered="179" lines-valid="179" branches-covered="46" branches-valid="46" complexity="1.4857142857142858" version="2.0.3" timestamp="1417833412270">
 	<sources>
 		<source>/Users/krotscheck/Desktop/github/data-file-reader/target/checkout/data-file-reader-base/src/main/java</source>
 		<source>--source</source>
 	</sources>
 	<packages>
-		<package name="net.krotscheck.dfr" line-rate="1.0" branch-rate="1.0" complexity="1.507462686567164">
+		<package name="net.krotscheck.dfr" line-rate="1.0" branch-rate="1.0" complexity="1.4857142857142858">
 			<classes>
 				<class name="net.krotscheck.dfr.AbstractDataDecoder" filename="net/krotscheck/dfr/AbstractDataDecoder.java" line-rate="1.0" branch-rate="1.0" complexity="1.75">
 					<methods>
@@ -46,7 +46,7 @@
 						</method>
 						<method name="getMaxRows" signature="()Ljava/lang/Long;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="116" hits="4" branch="false"/>
+								<line number="116" hits="6" branch="false"/>
 							</lines>
 						</method>
 						<method name="iterator" signature="()Ljava/util/Iterator;" line-rate="1.0" branch-rate="1.0">
@@ -56,14 +56,14 @@
 						</method>
 						<method name="setInputStream" signature="(Ljava/io/InputStream;)V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="88" hits="6" branch="false"/>
-								<line number="89" hits="6" branch="false"/>
+								<line number="88" hits="7" branch="false"/>
+								<line number="89" hits="7" branch="false"/>
 							</lines>
 						</method>
 						<method name="setMaxRows" signature="(Ljava/lang/Long;)V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="126" hits="4" branch="false"/>
-								<line number="127" hits="4" branch="false"/>
+								<line number="126" hits="6" branch="false"/>
+								<line number="127" hits="6" branch="false"/>
 							</lines>
 						</method>
 					</methods>
@@ -73,8 +73,8 @@
 						<line number="43" hits="1" branch="false"/>
 						<line number="61" hits="4" branch="false"/>
 						<line number="78" hits="9" branch="false"/>
-						<line number="88" hits="6" branch="false"/>
-						<line number="89" hits="6" branch="false"/>
+						<line number="88" hits="7" branch="false"/>
+						<line number="89" hits="7" branch="false"/>
 						<line number="96" hits="4" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
@@ -87,9 +87,9 @@
 						<line number="103" hits="3" branch="false"/>
 						<line number="106" hits="4" branch="false"/>
 						<line number="107" hits="4" branch="false"/>
-						<line number="116" hits="4" branch="false"/>
-						<line number="126" hits="4" branch="false"/>
-						<line number="127" hits="4" branch="false"/>
+						<line number="116" hits="6" branch="false"/>
+						<line number="126" hits="6" branch="false"/>
+						<line number="127" hits="6" branch="false"/>
 						<line number="137" hits="7" branch="false"/>
 					</lines>
 				</class>
@@ -467,7 +467,7 @@
 						<line number="91" hits="4" branch="false"/>
 					</lines>
 				</class>
-				<class name="net.krotscheck.dfr.FileStreamDecoder" filename="net/krotscheck/dfr/FileStreamDecoder.java" line-rate="1.0" branch-rate="1.0" complexity="1.5454545454545454">
+				<class name="net.krotscheck.dfr.FileStreamDecoder" filename="net/krotscheck/dfr/FileStreamDecoder.java" line-rate="1.0" branch-rate="1.0" complexity="1.4285714285714286">
 					<methods>
 						<method name="&lt;clinit&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
 							<lines>
@@ -477,50 +477,59 @@
 						</method>
 						<method name="&lt;init&gt;" signature="(Ljava/io/InputStream;Ljava/lang/String;)V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="91" hits="4" branch="false"/>
 								<line number="101" hits="4" branch="false"/>
 								<line number="102" hits="4" branch="false"/>
 								<line number="103" hits="3" branch="false"/>
 								<line number="104" hits="3" branch="false"/>
 							</lines>
 						</method>
+						<method name="&lt;init&gt;" signature="(Ljava/io/InputStream;Ljava/lang/String;Ljava/lang/Long;)V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="91" hits="5" branch="false"/>
+								<line number="116" hits="1" branch="false"/>
+								<line number="117" hits="1" branch="false"/>
+								<line number="118" hits="1" branch="false"/>
+								<line number="119" hits="1" branch="false"/>
+								<line number="120" hits="1" branch="false"/>
+							</lines>
+						</method>
 						<method name="addFilter" signature="(Lnet/krotscheck/dfr/IDataFilter;)V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="133" hits="4" branch="false"/>
-								<line number="134" hits="4" branch="false"/>
+								<line number="149" hits="4" branch="false"/>
+								<line number="150" hits="4" branch="false"/>
 							</lines>
 						</method>
 						<method name="addFilters" signature="(Ljava/util/List;)V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="143" hits="2" branch="false"/>
-								<line number="144" hits="2" branch="false"/>
+								<line number="159" hits="2" branch="false"/>
+								<line number="160" hits="2" branch="false"/>
 							</lines>
 						</method>
 						<method name="applyFilters" signature="(Ljava/util/Map;)Ljava/util/Map;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="192" hits="1" branch="false"/>
+								<line number="208" hits="1" branch="false"/>
 							</lines>
 						</method>
 						<method name="clearFilters" signature="()V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="182" hits="1" branch="false"/>
-								<line number="183" hits="1" branch="false"/>
+								<line number="198" hits="1" branch="false"/>
+								<line number="199" hits="1" branch="false"/>
 							</lines>
 						</method>
 						<method name="close" signature="()V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="123" hits="1" branch="false"/>
-								<line number="124" hits="1" branch="false"/>
+								<line number="139" hits="1" branch="false"/>
+								<line number="140" hits="1" branch="false"/>
 							</lines>
 						</method>
 						<method name="containsFilter" signature="(Lnet/krotscheck/dfr/IDataFilter;)Ljava/lang/Boolean;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="154" hits="16" branch="false"/>
+								<line number="170" hits="16" branch="false"/>
 							</lines>
 						</method>
 						<method name="getDecoder" signature="(Ljava/lang/String;)Lnet/krotscheck/dfr/IDataDecoder;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="58" hits="4" branch="true" condition-coverage="100% (2/2)">
+								<line number="58" hits="5" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
@@ -536,17 +545,17 @@
 								<line number="65" hits="1" branch="false"/>
 								<line number="66" hits="1" branch="false"/>
 								<line number="68" hits="1" branch="false"/>
-								<line number="71" hits="4" branch="true" condition-coverage="100% (2/2)">
+								<line number="71" hits="5" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="72" hits="4" branch="true" condition-coverage="100% (2/2)">
+								<line number="72" hits="5" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="73" hits="3" branch="false"/>
+								<line number="73" hits="4" branch="false"/>
 								<line number="75" hits="1" branch="false"/>
 								<line number="77" hits="1" branch="false"/>
 								<line number="78" hits="1" branch="false"/>
@@ -554,24 +563,35 @@
 						</method>
 						<method name="getFilters" signature="()Ljava/util/List;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="164" hits="9" branch="false"/>
+								<line number="180" hits="9" branch="false"/>
+							</lines>
+						</method>
+						<method name="getMaxRows" signature="()Ljava/lang/Long;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="217" hits="2" branch="false"/>
 							</lines>
 						</method>
 						<method name="iterator" signature="()Ljava/util/Iterator;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="113" hits="1" branch="false"/>
-								<line number="114" hits="1" branch="false"/>
+								<line number="129" hits="1" branch="false"/>
+								<line number="130" hits="1" branch="false"/>
 							</lines>
 						</method>
 						<method name="removeFilter" signature="(Lnet/krotscheck/dfr/IDataFilter;)V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="174" hits="1" branch="false"/>
-								<line number="175" hits="1" branch="false"/>
+								<line number="190" hits="1" branch="false"/>
+								<line number="191" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="setMaxRows" signature="(Ljava/lang/Long;)V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="226" hits="1" branch="false"/>
+								<line number="227" hits="1" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
-						<line number="58" hits="4" branch="true" condition-coverage="100% (2/2)">
+						<line number="58" hits="5" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
@@ -587,42 +607,50 @@
 						<line number="65" hits="1" branch="false"/>
 						<line number="66" hits="1" branch="false"/>
 						<line number="68" hits="1" branch="false"/>
-						<line number="71" hits="4" branch="true" condition-coverage="100% (2/2)">
+						<line number="71" hits="5" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="72" hits="4" branch="true" condition-coverage="100% (2/2)">
+						<line number="72" hits="5" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="73" hits="3" branch="false"/>
+						<line number="73" hits="4" branch="false"/>
 						<line number="75" hits="1" branch="false"/>
 						<line number="77" hits="1" branch="false"/>
 						<line number="78" hits="1" branch="false"/>
 						<line number="85" hits="2" branch="false"/>
 						<line number="86" hits="1" branch="false"/>
-						<line number="91" hits="4" branch="false"/>
+						<line number="91" hits="5" branch="false"/>
 						<line number="101" hits="4" branch="false"/>
 						<line number="102" hits="4" branch="false"/>
 						<line number="103" hits="3" branch="false"/>
 						<line number="104" hits="3" branch="false"/>
-						<line number="113" hits="1" branch="false"/>
-						<line number="114" hits="1" branch="false"/>
-						<line number="123" hits="1" branch="false"/>
-						<line number="124" hits="1" branch="false"/>
-						<line number="133" hits="4" branch="false"/>
-						<line number="134" hits="4" branch="false"/>
-						<line number="143" hits="2" branch="false"/>
-						<line number="144" hits="2" branch="false"/>
-						<line number="154" hits="16" branch="false"/>
-						<line number="164" hits="9" branch="false"/>
-						<line number="174" hits="1" branch="false"/>
-						<line number="175" hits="1" branch="false"/>
-						<line number="182" hits="1" branch="false"/>
-						<line number="183" hits="1" branch="false"/>
-						<line number="192" hits="1" branch="false"/>
+						<line number="116" hits="1" branch="false"/>
+						<line number="117" hits="1" branch="false"/>
+						<line number="118" hits="1" branch="false"/>
+						<line number="119" hits="1" branch="false"/>
+						<line number="120" hits="1" branch="false"/>
+						<line number="129" hits="1" branch="false"/>
+						<line number="130" hits="1" branch="false"/>
+						<line number="139" hits="1" branch="false"/>
+						<line number="140" hits="1" branch="false"/>
+						<line number="149" hits="4" branch="false"/>
+						<line number="150" hits="4" branch="false"/>
+						<line number="159" hits="2" branch="false"/>
+						<line number="160" hits="2" branch="false"/>
+						<line number="170" hits="16" branch="false"/>
+						<line number="180" hits="9" branch="false"/>
+						<line number="190" hits="1" branch="false"/>
+						<line number="191" hits="1" branch="false"/>
+						<line number="198" hits="1" branch="false"/>
+						<line number="199" hits="1" branch="false"/>
+						<line number="208" hits="1" branch="false"/>
+						<line number="217" hits="2" branch="false"/>
+						<line number="226" hits="1" branch="false"/>
+						<line number="227" hits="1" branch="false"/>
 					</lines>
 				</class>
 				<class name="net.krotscheck.dfr.FileStreamEncoder" filename="net/krotscheck/dfr/FileStreamEncoder.java" line-rate="1.0" branch-rate="1.0" complexity="1.5454545454545454">
