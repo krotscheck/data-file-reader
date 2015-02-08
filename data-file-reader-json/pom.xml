@@ -20,7 +20,7 @@
     <parent>
         <groupId>net.krotscheck.dfr</groupId>
         <artifactId>data-file-reader</artifactId>
-        <version>1.0.5-SNAPSHOT</version>
+        <version>1.0.5</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
