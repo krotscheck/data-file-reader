@@ -4,4 +4,6 @@ net.krotscheck.dfr.bson
 net.krotscheck.dfr.csv
 net.krotscheck.dfr.filter.column
 net.krotscheck.dfr.json
+net.krotscheck.dfr.stream
+net.krotscheck.dfr.text
 net.krotscheck.test.dfr

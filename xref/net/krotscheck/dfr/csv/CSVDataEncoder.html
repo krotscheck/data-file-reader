@@ -19,7 +19,7 @@
 <a class="jxr_linenumber" name="9" href="#9">9</a>   <strong class="jxr_keyword">import</strong> com.fasterxml.jackson.databind.SerializationFeature;
 <a class="jxr_linenumber" name="10" href="#10">10</a>  <strong class="jxr_keyword">import</strong> com.fasterxml.jackson.dataformat.csv.CsvMapper;
 <a class="jxr_linenumber" name="11" href="#11">11</a>  <strong class="jxr_keyword">import</strong> com.fasterxml.jackson.dataformat.csv.CsvSchema;
-<a class="jxr_linenumber" name="12" href="#12">12</a>  <strong class="jxr_keyword">import</strong> net.krotscheck.dfr.AbstractDataEncoder;
+<a class="jxr_linenumber" name="12" href="#12">12</a>  <strong class="jxr_keyword">import</strong> net.krotscheck.dfr.text.AbstractTextEncoder;
 <a class="jxr_linenumber" name="13" href="#13">13</a>  
 <a class="jxr_linenumber" name="14" href="#14">14</a>  <strong class="jxr_keyword">import</strong> java.io.IOException;
 <a class="jxr_linenumber" name="15" href="#15">15</a>  <strong class="jxr_keyword">import</strong> java.util.Map;
@@ -30,7 +30,7 @@
 <a class="jxr_linenumber" name="20" href="#20">20</a>  <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="21" href="#21">21</a>  <em class="jxr_javadoccomment"> * @author Michael Krotscheck</em>
 <a class="jxr_linenumber" name="22" href="#22">22</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="23" href="#23">23</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../net/krotscheck/dfr/csv/CSVDataEncoder.html">CSVDataEncoder</a> <strong class="jxr_keyword">extends</strong> <a href="../../../../net/krotscheck/dfr/AbstractDataEncoder.html">AbstractDataEncoder</a> {
+<a class="jxr_linenumber" name="23" href="#23">23</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../net/krotscheck/dfr/csv/CSVDataEncoder.html">CSVDataEncoder</a> <strong class="jxr_keyword">extends</strong> <a href="../../../../net/krotscheck/dfr/text/AbstractTextEncoder.html">AbstractTextEncoder</a> {
 <a class="jxr_linenumber" name="24" href="#24">24</a>  
 <a class="jxr_linenumber" name="25" href="#25">25</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="26" href="#26">26</a>  <em class="jxr_javadoccomment">     * The writer.</em>
@@ -55,7 +55,7 @@
 <a class="jxr_linenumber" name="45" href="#45">45</a>  <em class="jxr_javadoccomment">     *                             writing to the output.</em>
 <a class="jxr_linenumber" name="46" href="#46">46</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="47" href="#47">47</a>      @Override
-<a class="jxr_linenumber" name="48" href="#48">48</a>      <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> writeToStream(<strong class="jxr_keyword">final</strong> Map&lt;String, Object&gt; row)
+<a class="jxr_linenumber" name="48" href="#48">48</a>      <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> writeToOutput(<strong class="jxr_keyword">final</strong> Map&lt;String, Object&gt; row)
 <a class="jxr_linenumber" name="49" href="#49">49</a>              <strong class="jxr_keyword">throws</strong> IOException {
 <a class="jxr_linenumber" name="50" href="#50">50</a>          <strong class="jxr_keyword">if</strong> (writer == <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="51" href="#51">51</a>              CsvMapper mapper = <strong class="jxr_keyword">new</strong> CsvMapper();
@@ -65,9 +65,9 @@
 <a class="jxr_linenumber" name="55" href="#55">55</a>                              false);
 <a class="jxr_linenumber" name="56" href="#56">56</a>              CsvSchema schema = buildCsvSchema(row);
 <a class="jxr_linenumber" name="57" href="#57">57</a>              writer = mapper.writer(schema);
-<a class="jxr_linenumber" name="58" href="#58">58</a>              writer.writeValue(getOutputStream(), row.keySet());
+<a class="jxr_linenumber" name="58" href="#58">58</a>              writer.writeValue(getWriter(), row.keySet());
 <a class="jxr_linenumber" name="59" href="#59">59</a>          }
-<a class="jxr_linenumber" name="60" href="#60">60</a>          writer.writeValue(getOutputStream(), row.values());
+<a class="jxr_linenumber" name="60" href="#60">60</a>          writer.writeValue(getWriter(), row.values());
 <a class="jxr_linenumber" name="61" href="#61">61</a>      }
 <a class="jxr_linenumber" name="62" href="#62">62</a>  
 <a class="jxr_linenumber" name="63" href="#63">63</a>      <em class="jxr_javadoccomment">/**</em>

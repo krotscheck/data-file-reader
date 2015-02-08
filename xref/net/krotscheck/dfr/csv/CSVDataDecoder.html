@@ -32,12 +32,12 @@
 <a class="jxr_linenumber" name="22" href="#22">22</a>  <strong class="jxr_keyword">import</strong> com.fasterxml.jackson.databind.ObjectReader;
 <a class="jxr_linenumber" name="23" href="#23">23</a>  <strong class="jxr_keyword">import</strong> com.fasterxml.jackson.dataformat.csv.CsvMapper;
 <a class="jxr_linenumber" name="24" href="#24">24</a>  <strong class="jxr_keyword">import</strong> com.fasterxml.jackson.dataformat.csv.CsvSchema;
-<a class="jxr_linenumber" name="25" href="#25">25</a>  <strong class="jxr_keyword">import</strong> net.krotscheck.dfr.AbstractDataDecoder;
+<a class="jxr_linenumber" name="25" href="#25">25</a>  <strong class="jxr_keyword">import</strong> net.krotscheck.dfr.text.AbstractTextDecoder;
 <a class="jxr_linenumber" name="26" href="#26">26</a>  <strong class="jxr_keyword">import</strong> org.slf4j.Logger;
 <a class="jxr_linenumber" name="27" href="#27">27</a>  <strong class="jxr_keyword">import</strong> org.slf4j.LoggerFactory;
 <a class="jxr_linenumber" name="28" href="#28">28</a>  
 <a class="jxr_linenumber" name="29" href="#29">29</a>  <strong class="jxr_keyword">import</strong> java.io.IOException;
-<a class="jxr_linenumber" name="30" href="#30">30</a>  <strong class="jxr_keyword">import</strong> java.io.InputStream;
+<a class="jxr_linenumber" name="30" href="#30">30</a>  <strong class="jxr_keyword">import</strong> java.io.Reader;
 <a class="jxr_linenumber" name="31" href="#31">31</a>  <strong class="jxr_keyword">import</strong> java.util.HashMap;
 <a class="jxr_linenumber" name="32" href="#32">32</a>  <strong class="jxr_keyword">import</strong> java.util.Iterator;
 <a class="jxr_linenumber" name="33" href="#33">33</a>  <strong class="jxr_keyword">import</strong> java.util.Map;
@@ -49,7 +49,7 @@
 <a class="jxr_linenumber" name="39" href="#39">39</a>  <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="40" href="#40">40</a>  <em class="jxr_javadoccomment"> * @author Michael Krotscheck</em>
 <a class="jxr_linenumber" name="41" href="#41">41</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="42" href="#42">42</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../net/krotscheck/dfr/csv/CSVDataDecoder.html">CSVDataDecoder</a> <strong class="jxr_keyword">extends</strong> <a href="../../../../net/krotscheck/dfr/AbstractDataDecoder.html">AbstractDataDecoder</a> {
+<a class="jxr_linenumber" name="42" href="#42">42</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../net/krotscheck/dfr/csv/CSVDataDecoder.html">CSVDataDecoder</a> <strong class="jxr_keyword">extends</strong> <a href="../../../../net/krotscheck/dfr/text/AbstractTextDecoder.html">AbstractTextDecoder</a> {
 <a class="jxr_linenumber" name="43" href="#43">43</a>  
 <a class="jxr_linenumber" name="44" href="#44">44</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="45" href="#45">45</a>  <em class="jxr_javadoccomment">     * Logger instance.</em>
@@ -64,7 +64,7 @@
 <a class="jxr_linenumber" name="54" href="#54">54</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="55" href="#55">55</a>      @Override
 <a class="jxr_linenumber" name="56" href="#56">56</a>      <strong class="jxr_keyword">protected</strong> Iterator&lt;Map&lt;String, Object&gt;&gt; buildIterator() {
-<a class="jxr_linenumber" name="57" href="#57">57</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../net/krotscheck/dfr/csv/CSVDataDecoder.html">InnerRowIterator</a>(getInputStream());
+<a class="jxr_linenumber" name="57" href="#57">57</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../net/krotscheck/dfr/csv/CSVDataDecoder.html">InnerRowIterator</a>(getReader());
 <a class="jxr_linenumber" name="58" href="#58">58</a>      }
 <a class="jxr_linenumber" name="59" href="#59">59</a>  
 <a class="jxr_linenumber" name="60" href="#60">60</a>      <em class="jxr_javadoccomment">/**</em>
@@ -97,11 +97,11 @@
 <a class="jxr_linenumber" name="87" href="#87">87</a>          <strong class="jxr_keyword">private</strong> MappingIterator&lt;Map&lt;String, Object&gt;&gt; innerIterator;
 <a class="jxr_linenumber" name="88" href="#88">88</a>  
 <a class="jxr_linenumber" name="89" href="#89">89</a>          <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="90" href="#90">90</a>  <em class="jxr_javadoccomment">         * Create a new iterator from the given inputstream.</em>
+<a class="jxr_linenumber" name="90" href="#90">90</a>  <em class="jxr_javadoccomment">         * Create a new iterator from the given reader.</em>
 <a class="jxr_linenumber" name="91" href="#91">91</a>  <em class="jxr_javadoccomment">         *</em>
-<a class="jxr_linenumber" name="92" href="#92">92</a>  <em class="jxr_javadoccomment">         * @param csvStream An InputStream of CSV rows.</em>
+<a class="jxr_linenumber" name="92" href="#92">92</a>  <em class="jxr_javadoccomment">         * @param csvReader A reader of CSV rows.</em>
 <a class="jxr_linenumber" name="93" href="#93">93</a>  <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="94" href="#94">94</a>          <strong class="jxr_keyword">public</strong> <a href="../../../../net/krotscheck/dfr/csv/CSVDataDecoder.html">InnerRowIterator</a>(<strong class="jxr_keyword">final</strong> InputStream csvStream) {
+<a class="jxr_linenumber" name="94" href="#94">94</a>          <strong class="jxr_keyword">public</strong> <a href="../../../../net/krotscheck/dfr/csv/CSVDataDecoder.html">InnerRowIterator</a>(<strong class="jxr_keyword">final</strong> Reader csvReader) {
 <a class="jxr_linenumber" name="95" href="#95">95</a>              <em class="jxr_comment">// Construct our schema.</em>
 <a class="jxr_linenumber" name="96" href="#96">96</a>              CsvSchema schema = CsvSchema.emptySchema().withUseHeader(<strong class="jxr_keyword">true</strong>);
 <a class="jxr_linenumber" name="97" href="#97">97</a>              CsvMapper mapper = <strong class="jxr_keyword">new</strong> CsvMapper();
@@ -111,7 +111,7 @@
 <a class="jxr_linenumber" name="101" href="#101">101</a>                     };
 <a class="jxr_linenumber" name="102" href="#102">102</a>             <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="103" href="#103">103</a>                 ObjectReader reader = mapper.reader(schema).withType(typeRef);
-<a class="jxr_linenumber" name="104" href="#104">104</a>                 innerIterator = reader.readValues(csvStream);
+<a class="jxr_linenumber" name="104" href="#104">104</a>                 innerIterator = reader.readValues(csvReader);
 <a class="jxr_linenumber" name="105" href="#105">105</a>             } <strong class="jxr_keyword">catch</strong> (IOException ioe) {
 <a class="jxr_linenumber" name="106" href="#106">106</a>                 logger.error(<span class="jxr_string">"CSV File does not exist."</span>);
 <a class="jxr_linenumber" name="107" href="#107">107</a>             }
@@ -145,7 +145,7 @@
 <a class="jxr_linenumber" name="135" href="#135">135</a>         }
 <a class="jxr_linenumber" name="136" href="#136">136</a> 
 <a class="jxr_linenumber" name="137" href="#137">137</a>         <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="138" href="#138">138</a> <em class="jxr_javadoccomment">         * We cannot remove from a stream.</em>
+<a class="jxr_linenumber" name="138" href="#138">138</a> <em class="jxr_javadoccomment">         * We cannot remove from a reader.</em>
 <a class="jxr_linenumber" name="139" href="#139">139</a> <em class="jxr_javadoccomment">         */</em>
 <a class="jxr_linenumber" name="140" href="#140">140</a>         @Override
 <a class="jxr_linenumber" name="141" href="#141">141</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> remove() {
