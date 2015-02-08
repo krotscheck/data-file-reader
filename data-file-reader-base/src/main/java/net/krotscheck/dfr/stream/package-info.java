@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014 Michael Krotscheck
+ * Copyright (c) 2015 Michael Krotscheck
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy
@@ -16,8 +16,8 @@
  */
 
 /**
- * Unit tests for the data converters.
+ * Data converters for file formats that are binary or require an input stream.
  *
  * @author Michael Krotscheck
  */
-package net.krotscheck.dfr;
+package net.krotscheck.dfr.stream;

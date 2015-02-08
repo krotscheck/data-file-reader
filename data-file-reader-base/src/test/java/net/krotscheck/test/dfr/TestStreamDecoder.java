@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014 Michael Krotscheck
+ * Copyright (c) 2015 Michael Krotscheck
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy
@@ -17,7 +17,7 @@
 
 package net.krotscheck.test.dfr;
 
-import net.krotscheck.dfr.AbstractDataDecoder;
+import net.krotscheck.dfr.stream.AbstractStreamDecoder;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -25,11 +25,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * A test data decoder.
+ * A test stream decoder.
  *
  * @author Michael Krotscheck
  */
-public final class TestDataDecoder extends AbstractDataDecoder {
+public final class TestStreamDecoder extends AbstractStreamDecoder {
 
     /**
      * The internal data to 'decode'.
@@ -37,18 +37,18 @@ public final class TestDataDecoder extends AbstractDataDecoder {
     private final List<Map<String, Object>> data;
 
     /**
-     * Create a new test data decoder.
+     * Create a new test stream decoder.
      */
-    public TestDataDecoder() {
+    public TestStreamDecoder() {
         data = new ArrayList<>();
     }
 
     /**
-     * Create a new test data decoder.
+     * Create a new test stream decoder.
      *
      * @param testData The test data to wrap.
      */
-    public TestDataDecoder(final List<Map<String, Object>> testData) {
+    public TestStreamDecoder(final List<Map<String, Object>> testData) {
         data = testData;
     }
 
@@ -59,7 +59,15 @@ public final class TestDataDecoder extends AbstractDataDecoder {
      */
     @Override
     public String getMimeType() {
-        return "raw/mock";
+        return "stream/mock";
+    }
+
+    /**
+     * Dispose. Do nothing.
+     */
+    @Override
+    protected void dispose() {
+
     }
 
     /**
@@ -75,13 +83,5 @@ public final class TestDataDecoder extends AbstractDataDecoder {
         } else {
             return null;
         }
-    }
-
-    /**
-     * Close. Do nothing.
-     */
-    @Override
-    public void close() {
-
     }
 }

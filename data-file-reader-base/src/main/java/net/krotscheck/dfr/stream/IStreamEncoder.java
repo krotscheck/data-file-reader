@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014 Michael Krotscheck
+ * Copyright (c) 2015 Michael Krotscheck
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy
@@ -15,44 +15,32 @@
  * limitations under the License.
  */
 
-package net.krotscheck.test.dfr;
+package net.krotscheck.dfr.stream;
 
-import net.krotscheck.dfr.AbstractDataEncoder;
+import net.krotscheck.dfr.IDataEncoder;
 
-import java.util.Map;
+import java.io.OutputStream;
 
 /**
- * A test data encoder.
+ * This interface describes a data stream encoder, which adds additional methods
+ * to managing data via OutputStreams.
  *
  * @author Michael Krotscheck
  */
-public final class TestDataEncoder extends AbstractDataEncoder {
+public interface IStreamEncoder extends IDataEncoder {
 
     /**
-     * Mock mimetype.
+     * Retrieve the output stream to which the encoder is writing its data.
      *
-     * @return "text/mock"
+     * @return The stream.
      */
-    @Override
-    public String getMimeType() {
-        return "raw/mock";
-    }
+    OutputStream getOutputStream();
 
     /**
-     * Write a new row to the aether.
+     * Set the output stream to which the encoder should write its data.
      *
-     * @param row A row of data.
+     * @param stream The stream.
      */
-    @Override
-    protected void writeToOutput(final Map<String, Object> row) {
+    void setOutputStream(OutputStream stream);
 
-    }
-
-    /**
-     * Close this encoder.
-     */
-    @Override
-    public void close() {
-
-    }
 }

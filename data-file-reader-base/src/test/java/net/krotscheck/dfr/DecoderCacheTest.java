@@ -92,7 +92,7 @@ public final class DecoderCacheTest {
     public void testGetAllMimeTypes() throws Exception {
         Set<String> mimeTypes = DecoderCache.supportedMimeTypes();
 
-        Assert.assertEquals(1, mimeTypes.size());
+        Assert.assertEquals(3, mimeTypes.size());
         Assert.assertTrue(mimeTypes.contains(mockMimeType));
     }
 

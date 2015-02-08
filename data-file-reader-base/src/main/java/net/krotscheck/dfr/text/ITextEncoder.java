@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014 Michael Krotscheck
+ * Copyright (c) 2015 Michael Krotscheck
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy
@@ -15,44 +15,33 @@
  * limitations under the License.
  */
 
-package net.krotscheck.test.dfr;
+package net.krotscheck.dfr.text;
 
-import net.krotscheck.dfr.AbstractDataEncoder;
+import net.krotscheck.dfr.IDataEncoder;
 
-import java.util.Map;
+import java.io.Writer;
 
 /**
- * A test data encoder.
+ * This interface describes a data writer encoder, which adds additional methods
+ * to managing data via Character Writers.
  *
  * @author Michael Krotscheck
  */
-public final class TestDataEncoder extends AbstractDataEncoder {
+public interface ITextEncoder
+        extends IDataEncoder {
 
     /**
-     * Mock mimetype.
+     * Retrieve the output writer to which the encoder is writing its data.
      *
-     * @return "text/mock"
+     * @return The writer.
      */
-    @Override
-    public String getMimeType() {
-        return "raw/mock";
-    }
+    Writer getWriter();
 
     /**
-     * Write a new row to the aether.
+     * Set the output writer to which the encoder should write its data.
      *
-     * @param row A row of data.
+     * @param stream The writer.
      */
-    @Override
-    protected void writeToOutput(final Map<String, Object> row) {
+    void setWriter(Writer stream);
 
-    }
-
-    /**
-     * Close this encoder.
-     */
-    @Override
-    public void close() {
-
-    }
 }

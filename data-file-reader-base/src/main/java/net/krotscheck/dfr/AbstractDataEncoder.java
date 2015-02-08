@@ -17,11 +17,7 @@
 
 package net.krotscheck.dfr;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.Map;
 
 /**
@@ -35,37 +31,6 @@ public abstract class AbstractDataEncoder
         implements IDataEncoder {
 
     /**
-     * Logger instance.
-     */
-    private static Logger logger =
-            LoggerFactory.getLogger(AbstractDataEncoder.class);
-
-    /**
-     * The output stream for our encoder.
-     */
-    private OutputStream outputStream;
-
-    /**
-     * Get the destination for our output stream.
-     *
-     * @return The destination.
-     */
-    @Override
-    public final OutputStream getOutputStream() {
-        return outputStream;
-    }
-
-    /**
-     * Set the destination for our output stream.
-     *
-     * @param destination The destination.
-     */
-    @Override
-    public final void setOutputStream(final OutputStream destination) {
-        this.outputStream = destination;
-    }
-
-    /**
      * Write a row to the file.
      *
      * @param row A row of data.
@@ -76,25 +41,7 @@ public abstract class AbstractDataEncoder
     public final void write(final Map<String, Object> row) throws IOException {
         Map<String, Object> filteredRow = applyFilters(row);
 
-        writeToStream(filteredRow);
-    }
-
-    /**
-     * Close the internal stream.
-     */
-    @Override
-    public final void close() {
-        dispose();
-
-        if (this.outputStream != null) {
-            try {
-                this.outputStream.close();
-            } catch (IOException ioe) {
-                logger.error("Unable to close output stream.", ioe);
-            } finally {
-                this.outputStream = null;
-            }
-        }
+        writeToOutput(filteredRow);
     }
 
     /**
@@ -104,11 +51,6 @@ public abstract class AbstractDataEncoder
      * @throws java.io.IOException Thrown when there are problems writing to the
      *                             destination.
      */
-    protected abstract void writeToStream(final Map<String, Object> row)
+    protected abstract void writeToOutput(final Map<String, Object> row)
             throws IOException;
-
-    /**
-     * Protected close method, for child implementations.
-     */
-    protected abstract void dispose();
 }

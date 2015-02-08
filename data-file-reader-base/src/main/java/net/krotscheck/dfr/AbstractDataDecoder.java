@@ -17,11 +17,6 @@
 
 package net.krotscheck.dfr;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -35,17 +30,6 @@ import java.util.Map;
 public abstract class AbstractDataDecoder
         extends AbstractFilteredDataStream
         implements IDataDecoder {
-
-    /**
-     * Logger instance.
-     */
-    private static Logger logger =
-            LoggerFactory.getLogger(AbstractDataDecoder.class);
-
-    /**
-     * The input stream.
-     */
-    private InputStream inputStream;
 
     /**
      * The max rows.
@@ -69,44 +53,6 @@ public abstract class AbstractDataDecoder
     protected abstract Iterator<Map<String, Object>> buildIterator();
 
     /**
-     * Get the input stream for this decoder.
-     *
-     * @return The inputstream.
-     */
-    @Override
-    public final InputStream getInputStream() {
-        return inputStream;
-    }
-
-    /**
-     * Set the input stream for this decoder.
-     *
-     * @param stream The input stream.
-     */
-    @Override
-    public final void setInputStream(final InputStream stream) {
-        inputStream = stream;
-    }
-
-    /**
-     * Close the input stream.
-     */
-    @Override
-    public final void close() {
-        if (this.inputStream != null) {
-            try {
-                this.inputStream.close();
-            } catch (IOException ioe) {
-                logger.error("Unable to close output stream.", ioe);
-            } finally {
-                this.inputStream = null;
-            }
-        }
-
-        dispose();
-    }
-
-    /**
      * Get the maximum rows.
      *
      * @return The max rows.
@@ -125,11 +71,6 @@ public abstract class AbstractDataDecoder
     public final void setMaxRows(final Long rows) {
         this.maxRows = rows;
     }
-
-    /**
-     * Protected close method, for child implementations.
-     */
-    protected abstract void dispose();
 
     /**
      * An internal iterator that applies all of our filters.

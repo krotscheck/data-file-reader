@@ -19,7 +19,6 @@ package net.krotscheck.dfr;
 
 import java.io.Closeable;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.Map;
 
 /**
@@ -36,20 +35,6 @@ public interface IDataEncoder extends IFilteringDataStream, Closeable {
      * @return The mimetype, as a string.
      */
     String getMimeType();
-
-    /**
-     * Retrieve the OutputStream for this writer's destination.
-     *
-     * @return The output stream.
-     */
-    OutputStream getOutputStream();
-
-    /**
-     * Set the destination to where the data should be written.
-     *
-     * @param destination The destination.
-     */
-    void setOutputStream(OutputStream destination);
 
     /**
      * Writes a row to the underlying data format.

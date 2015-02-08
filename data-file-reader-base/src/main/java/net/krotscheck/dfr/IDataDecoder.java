@@ -18,7 +18,6 @@
 package net.krotscheck.dfr;
 
 import java.io.Closeable;
-import java.io.InputStream;
 import java.util.Map;
 
 /**
@@ -38,13 +37,6 @@ public interface IDataDecoder
     String getMimeType();
 
     /**
-     * Retrieve the input stream from which the decoder is reading its data.
-     *
-     * @return The input stream.
-     */
-    InputStream getInputStream();
-
-    /**
      * Retrieve the number of rows which this decoder should stop at.
      *
      * @return The number of rows, null for all rows.
@@ -58,12 +50,5 @@ public interface IDataDecoder
      * @param rows The number of rows, default null.
      */
     void setMaxRows(Long rows);
-
-    /**
-     * Set the input stream from which the decoder should read its data.
-     *
-     * @param stream The input stream.
-     */
-    void setInputStream(InputStream stream);
 
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014 Michael Krotscheck
+ * Copyright (c) 2015 Michael Krotscheck
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy
@@ -15,44 +15,33 @@
  * limitations under the License.
  */
 
-package net.krotscheck.test.dfr;
+package net.krotscheck.dfr.text;
 
-import net.krotscheck.dfr.AbstractDataEncoder;
+import net.krotscheck.dfr.IDataDecoder;
 
-import java.util.Map;
+import java.io.Reader;
 
 /**
- * A test data encoder.
+ * This interface describes a data stream decoder, which adds additional methods
+ * to managing data via Character stream readers.
  *
  * @author Michael Krotscheck
  */
-public final class TestDataEncoder extends AbstractDataEncoder {
+public interface ITextDecoder
+        extends IDataDecoder {
 
     /**
-     * Mock mimetype.
+     * Retrieve the reader from which the decoder is reading its data.
      *
-     * @return "text/mock"
+     * @return The Reader.
      */
-    @Override
-    public String getMimeType() {
-        return "raw/mock";
-    }
+    Reader getReader();
 
     /**
-     * Write a new row to the aether.
+     * Set the reader from which the decoder should read its data.
      *
-     * @param row A row of data.
+     * @param reader The Reader.
      */
-    @Override
-    protected void writeToOutput(final Map<String, Object> row) {
+    void setReader(Reader reader);
 
-    }
-
-    /**
-     * Close this encoder.
-     */
-    @Override
-    public void close() {
-
-    }
 }

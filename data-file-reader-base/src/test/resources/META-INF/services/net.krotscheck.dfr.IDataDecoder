@@ -1,1 +1,3 @@
 net.krotscheck.test.dfr.TestDataDecoder
+net.krotscheck.test.dfr.TestStreamDecoder
+net.krotscheck.test.dfr.TestTextDecoder

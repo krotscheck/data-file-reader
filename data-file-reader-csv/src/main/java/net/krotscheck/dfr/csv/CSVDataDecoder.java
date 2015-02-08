@@ -22,12 +22,12 @@ import com.fasterxml.jackson.databind.MappingIterator;
 import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
-import net.krotscheck.dfr.AbstractDataDecoder;
+import net.krotscheck.dfr.text.AbstractTextDecoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.Reader;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -39,7 +39,7 @@ import java.util.Map;
  *
  * @author Michael Krotscheck
  */
-public final class CSVDataDecoder extends AbstractDataDecoder {
+public final class CSVDataDecoder extends AbstractTextDecoder {
 
     /**
      * Logger instance.
@@ -54,7 +54,7 @@ public final class CSVDataDecoder extends AbstractDataDecoder {
      */
     @Override
     protected Iterator<Map<String, Object>> buildIterator() {
-        return new InnerRowIterator(getInputStream());
+        return new InnerRowIterator(getReader());
     }
 
     /**
@@ -87,11 +87,11 @@ public final class CSVDataDecoder extends AbstractDataDecoder {
         private MappingIterator<Map<String, Object>> innerIterator;
 
         /**
-         * Create a new iterator from the given inputstream.
+         * Create a new iterator from the given reader.
          *
-         * @param csvStream An InputStream of CSV rows.
+         * @param csvReader A reader of CSV rows.
          */
-        public InnerRowIterator(final InputStream csvStream) {
+        public InnerRowIterator(final Reader csvReader) {
             // Construct our schema.
             CsvSchema schema = CsvSchema.emptySchema().withUseHeader(true);
             CsvMapper mapper = new CsvMapper();
@@ -101,7 +101,7 @@ public final class CSVDataDecoder extends AbstractDataDecoder {
                     };
             try {
                 ObjectReader reader = mapper.reader(schema).withType(typeRef);
-                innerIterator = reader.readValues(csvStream);
+                innerIterator = reader.readValues(csvReader);
             } catch (IOException ioe) {
                 logger.error("CSV File does not exist.");
             }
@@ -135,7 +135,7 @@ public final class CSVDataDecoder extends AbstractDataDecoder {
         }
 
         /**
-         * We cannot remove from a stream.
+         * We cannot remove from a reader.
          */
         @Override
         public void remove() {

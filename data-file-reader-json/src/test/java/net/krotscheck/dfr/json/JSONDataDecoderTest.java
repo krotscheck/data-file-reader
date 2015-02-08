@@ -24,11 +24,12 @@ import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.Reader;
+import java.io.StringReader;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -60,8 +61,10 @@ public final class JSONDataDecoderTest {
     @Before
     public void setup() throws Exception {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        OutputStreamWriter writer = new OutputStreamWriter(baos);
+
         JSONDataEncoder encoder = new JSONDataEncoder();
-        encoder.setOutputStream(baos);
+        encoder.setWriter(writer);
 
         for (int i = 0; i < 10; i++) {
             Map<String, Object> data = new HashMap<>();
@@ -112,8 +115,10 @@ public final class JSONDataDecoderTest {
     @Test
     public void testSimpleEncoder() throws Exception {
 
+        InputStreamReader isr = new InputStreamReader(bais);
+
         JSONDataDecoder decoder = new JSONDataDecoder();
-        decoder.setInputStream(bais);
+        decoder.setReader(isr);
 
         Integer count = 0;
         for (Map<String, Object> resultRow : decoder) {
@@ -132,8 +137,10 @@ public final class JSONDataDecoderTest {
     @Test
     public void testRemove() {
 
+        InputStreamReader isr = new InputStreamReader(bais);
+
         JSONDataDecoder decoder = new JSONDataDecoder();
-        decoder.setInputStream(bais);
+        decoder.setReader(isr);
 
         Iterator<Map<String, Object>> iterator = decoder.iterator();
 
@@ -151,9 +158,10 @@ public final class JSONDataDecoderTest {
      */
     @Test
     public void testHasNext() {
+        InputStreamReader isr = new InputStreamReader(bais);
 
         JSONDataDecoder decoder = new JSONDataDecoder();
-        decoder.setInputStream(bais);
+        decoder.setReader(isr);
 
         Iterator<Map<String, Object>> iterator = decoder.iterator();
 
@@ -175,12 +183,11 @@ public final class JSONDataDecoderTest {
      */
     @Test
     public void testIteratorException() throws Exception {
-        FileInputStream fis = mock(FileInputStream.class);
-        when(fis.available()).thenReturn(1000);
-        when(fis.read()).thenThrow(new IOException());
+        FileReader fr = mock(FileReader.class);
+        when(fr.read()).thenThrow(new IOException());
 
         JSONDataDecoder decoder = new JSONDataDecoder();
-        decoder.setInputStream(fis);
+        decoder.setReader(fr);
 
         Iterator<Map<String, Object>> iterator = decoder.iterator();
         Assert.assertFalse(iterator.hasNext());
@@ -195,13 +202,13 @@ public final class JSONDataDecoderTest {
     public void testClose() throws Exception {
         JSONDataDecoder decoder = new JSONDataDecoder();
 
-        InputStream input = mock(InputStream.class);
-        decoder.setInputStream(input);
+        Reader input = mock(Reader.class);
+        decoder.setReader(input);
         decoder.close();
 
         verify(input, times(1)).close();
 
-        Assert.assertNull(decoder.getInputStream());
+        Assert.assertNull(decoder.getReader());
     }
 
     /**
@@ -213,15 +220,15 @@ public final class JSONDataDecoderTest {
     public void testCloseException() throws Exception {
         JSONDataDecoder decoder = new JSONDataDecoder();
 
-        InputStream input = mock(InputStream.class);
+        Reader input = mock(Reader.class);
         doThrow(IOException.class).when(input).close();
 
-        decoder.setInputStream(input);
+        decoder.setReader(input);
         decoder.close();
 
         verify(input, times(1)).close();
 
-        Assert.assertNull(decoder.getInputStream());
+        Assert.assertNull(decoder.getReader());
     }
 
     /**
@@ -233,8 +240,8 @@ public final class JSONDataDecoderTest {
     public void testEmptyInputStream() throws Exception {
         JSONDataDecoder decoder = new JSONDataDecoder();
 
-        InputStream input = mock(InputStream.class);
-        decoder.setInputStream(input);
+        Reader reader = mock(Reader.class);
+        decoder.setReader(reader);
 
         Iterator<Map<String, Object>> iterator = decoder.iterator();
         Assert.assertNull(iterator.next());
@@ -248,25 +255,12 @@ public final class JSONDataDecoderTest {
     @Test
     public void testBadJson() throws Exception {
 
-        // Generate a bad json here. We take the existing one and slice it in
-        // half.
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        JSONDataEncoder encoder = new JSONDataEncoder();
-        encoder.setOutputStream(baos);
-
-        Map<String, Object> data = new HashMap<>();
-        data.put("column_1", 0);
-        data.put("column_2", String.format("String %s", 0));
-        data.put("column_3", "foo");
-        encoder.write(data);
-        encoder.close();
-
-        byte[] oldData = baos.toByteArray();
-        byte[] badData = Arrays.copyOfRange(oldData, 0, oldData.length / 2);
-        InputStream badInputStream = new ByteArrayInputStream(badData);
+        // Intentionally badly formatted json.
+        String badJSON = "[{'foo':'bar'},{";
+        StringReader badReader = new StringReader(badJSON);
 
         JSONDataDecoder decoder = new JSONDataDecoder();
-        decoder.setInputStream(badInputStream);
+        decoder.setReader(badReader);
 
         Iterator<Map<String, Object>> iterator = decoder.iterator();
         Assert.assertNull(iterator.next());
@@ -283,11 +277,10 @@ public final class JSONDataDecoderTest {
         // Generate a bad json here. We take the existing one and slice it in
         // half.
         String badJSON = "{}";
-        InputStream badInputStream = new ByteArrayInputStream(badJSON
-                .getBytes(StandardCharsets.UTF_8));
+        StringReader badReader = new StringReader(badJSON);
 
         JSONDataDecoder decoder = new JSONDataDecoder();
-        decoder.setInputStream(badInputStream);
+        decoder.setReader(badReader);
 
         Iterator<Map<String, Object>> iterator = decoder.iterator();
         Assert.assertFalse(iterator.hasNext());
@@ -305,11 +298,10 @@ public final class JSONDataDecoderTest {
         // Generate a bad json here. We take the existing one and slice it in
         // half.
         String badJSON = "[]";
-        InputStream badInputStream = new ByteArrayInputStream(badJSON
-                .getBytes(StandardCharsets.UTF_8));
+        StringReader badReader = new StringReader(badJSON);
 
         JSONDataDecoder decoder = new JSONDataDecoder();
-        decoder.setInputStream(badInputStream);
+        decoder.setReader(badReader);
 
         Iterator<Map<String, Object>> iterator = decoder.iterator();
         Assert.assertFalse(iterator.hasNext());

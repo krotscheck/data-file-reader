@@ -22,18 +22,17 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ServiceLoader;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
@@ -110,7 +109,8 @@ public final class CSVDataEncoderTest {
     @Test
     public void testSimpleEncoder() throws Exception {
         CSVDataEncoder encoder = new CSVDataEncoder();
-        encoder.setOutputStream(baos);
+        StringWriter writer = new StringWriter();
+        encoder.setWriter(writer);
         for (Map<String, Object> row : testData) {
             encoder.write(row);
         }
@@ -118,7 +118,7 @@ public final class CSVDataEncoderTest {
         Assert.assertTrue(encoder.toString().length() > 0);
 
         CSVDataDecoder decoder = new CSVDataDecoder();
-        decoder.setInputStream(new ByteArrayInputStream(baos.toByteArray()));
+        decoder.setReader(new StringReader(writer.toString()));
 
         Integer count = 0;
         for (Map<String, Object> resultRow : decoder) {
@@ -139,13 +139,13 @@ public final class CSVDataEncoderTest {
     @Test
     public void testPrematureClose() throws Exception {
         CSVDataEncoder encoder = new CSVDataEncoder();
-        OutputStream mockStream = mock(OutputStream.class);
-        encoder.setOutputStream(mockStream);
+        Writer writer = mock(Writer.class);
+        encoder.setWriter(writer);
         encoder.close();
 
-        Assert.assertNull(encoder.getOutputStream());
+        Assert.assertNull(encoder.getWriter());
 
-        verify(mockStream, times(1)).close();
+        verify(writer, times(1)).close();
     }
 
     /**
@@ -156,19 +156,17 @@ public final class CSVDataEncoderTest {
     @Test
     public void testExceptionClose() throws Exception {
         CSVDataEncoder encoder = new CSVDataEncoder();
-        OutputStream mockStream = mock(OutputStream.class);
-        encoder.setOutputStream(mockStream);
+        Writer writer = mock(Writer.class);
+        encoder.setWriter(writer);
         encoder.write(testData.get(0)); // Open the stream
 
-        doThrow(IOException.class).when(mockStream).close();
+        doThrow(IOException.class).when(writer).close();
 
         encoder.close();
 
-        Assert.assertNull(encoder.getOutputStream());
+        Assert.assertNull(encoder.getWriter());
 
         // Write for header and data.
-        verify(mockStream, times(2))
-                .write(any(byte[].class), anyInt(), anyInt());
-        verify(mockStream, times(1)).close();
+        verify(writer, times(1)).close();
     }
 }

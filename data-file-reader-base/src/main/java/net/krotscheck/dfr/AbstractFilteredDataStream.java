@@ -38,10 +38,12 @@ public abstract class AbstractFilteredDataStream
     private List<IDataFilter> filters;
 
     /**
-     * Create a new instance.
+     * Assert that the list of filters is set.
      */
-    public AbstractFilteredDataStream() {
-        this.filters = new ArrayList<>();
+    private void assertFilterListExists() {
+        if (filters == null) {
+            filters = new ArrayList<>();
+        }
     }
 
     /**
@@ -50,6 +52,7 @@ public abstract class AbstractFilteredDataStream
      * @param filter The filter to add.
      */
     public final void addFilter(final IDataFilter filter) {
+        assertFilterListExists();
         if (!containsFilter(filter)) {
             filters.add(filter);
         }
@@ -61,6 +64,7 @@ public abstract class AbstractFilteredDataStream
      * @param newFilters The filters to add.
      */
     public final void addFilters(final List<IDataFilter> newFilters) {
+        assertFilterListExists();
         for (IDataFilter filter : newFilters) {
             addFilter(filter);
         }
@@ -72,6 +76,7 @@ public abstract class AbstractFilteredDataStream
      * @return The filters.
      */
     public final List<IDataFilter> getFilters() {
+        assertFilterListExists();
         return Collections.unmodifiableList(filters);
     }
 
@@ -82,10 +87,7 @@ public abstract class AbstractFilteredDataStream
      * @return True if the filter is contained, otherwise false.
      */
     public final Boolean containsFilter(final IDataFilter filter) {
-        if (filters == null) {
-            filters = new ArrayList<>();
-        }
-
+        assertFilterListExists();
         return this.filters.contains(filter);
     }
 
@@ -104,7 +106,9 @@ public abstract class AbstractFilteredDataStream
      * Remove all filters.
      */
     public final void clearFilters() {
-        this.filters.clear();
+        if (filters != null) {
+            this.filters = null;
+        }
     }
 
     /**
@@ -116,7 +120,7 @@ public abstract class AbstractFilteredDataStream
     public final Map<String, Object> applyFilters(
             final Map<String, Object> row) {
         Map<String, Object> filteringRow = new HashMap<>(row);
-
+        assertFilterListExists();
         for (IDataFilter filter : getFilters()) {
             filteringRow = filter.apply(filteringRow);
         }

@@ -22,23 +22,23 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import net.krotscheck.dfr.AbstractDataDecoder;
+import net.krotscheck.dfr.text.AbstractTextDecoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.Reader;
 import java.util.Iterator;
 import java.util.Map;
 
 /**
- * This data decoder will stream in a Json encoded file and generate objects for
+ * This data decoder will read in a Json encoded file and generate objects for
  * every row found. Note that no significant error checking is performed here,
  * the file is assumed to be an array of un-nested objects.
  *
  * @author Michael Krotscheck
  */
-public final class JSONDataDecoder extends AbstractDataDecoder {
+public final class JSONDataDecoder extends AbstractTextDecoder {
 
     /**
      * Logger instance.
@@ -53,7 +53,7 @@ public final class JSONDataDecoder extends AbstractDataDecoder {
      */
     @Override
     protected Iterator<Map<String, Object>> buildIterator() {
-        return new InnerRowIterator(getInputStream());
+        return new InnerRowIterator(getReader());
     }
 
     /**
@@ -94,17 +94,17 @@ public final class JSONDataDecoder extends AbstractDataDecoder {
                 };
 
         /**
-         * Create a new instance of the iterator, wrapping an inputstream that
-         * is assumed to be pointed at a properly formatted json data file.
+         * Create a new instance of the iterator, wrapping an reader that is
+         * assumed to be pointed at a properly formatted json data file.
          *
-         * @param jsonStream The stream.
+         * @param jsonReader The reader.
          */
-        private InnerRowIterator(final InputStream jsonStream) {
+        private InnerRowIterator(final Reader jsonReader) {
 
             try {
                 ObjectMapper mapper = new ObjectMapper();
                 JsonFactory factory = new JsonFactory(mapper);
-                parser = factory.createParser(jsonStream);
+                parser = factory.createParser(jsonReader);
 
                 if (parser.nextToken() != JsonToken.START_ARRAY) {
                     throw new IOException(
@@ -158,7 +158,7 @@ public final class JSONDataDecoder extends AbstractDataDecoder {
          */
         @Override
         public void remove() {
-            // Do nothing- we can't remove from a stream.
+            // Do nothing- we can't remove from a reader.
         }
     }
 }

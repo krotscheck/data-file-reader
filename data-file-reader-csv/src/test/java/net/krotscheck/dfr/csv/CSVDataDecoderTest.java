@@ -24,11 +24,11 @@ import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.Reader;
+import java.io.StringReader;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -60,8 +60,9 @@ public final class CSVDataDecoderTest {
     @Before
     public void setup() throws Exception {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        OutputStreamWriter writer = new OutputStreamWriter(baos);
         CSVDataEncoder encoder = new CSVDataEncoder();
-        encoder.setOutputStream(baos);
+        encoder.setWriter(writer);
 
         for (int i = 0; i < 10; i++) {
             Map<String, Object> data = new HashMap<>();
@@ -105,15 +106,16 @@ public final class CSVDataDecoderTest {
     }
 
     /**
-     * Do a simple test write.
+     * Do a simple test read.
      *
      * @throws Exception Any unexpected exceptions.
      */
     @Test
     public void testSimpleDecoder() throws Exception {
 
+        InputStreamReader reader = new InputStreamReader(bais);
         CSVDataDecoder decoder = new CSVDataDecoder();
-        decoder.setInputStream(bais);
+        decoder.setReader(reader);
 
         Integer count = 0;
         for (Map<String, Object> resultRow : decoder) {
@@ -133,8 +135,9 @@ public final class CSVDataDecoderTest {
     @Test
     public void testRemove() {
 
+        InputStreamReader reader = new InputStreamReader(bais);
         CSVDataDecoder decoder = new CSVDataDecoder();
-        decoder.setInputStream(bais);
+        decoder.setReader(reader);
 
         Iterator<Map<String, Object>> iterator = decoder.iterator();
 
@@ -153,8 +156,9 @@ public final class CSVDataDecoderTest {
     @Test
     public void testHasNext() {
 
+        InputStreamReader reader = new InputStreamReader(bais);
         CSVDataDecoder decoder = new CSVDataDecoder();
-        decoder.setInputStream(bais);
+        decoder.setReader(reader);
 
         Iterator<Map<String, Object>> iterator = decoder.iterator();
 
@@ -176,12 +180,11 @@ public final class CSVDataDecoderTest {
      */
     @Test
     public void testIteratorException() throws Exception {
-        FileInputStream fis = mock(FileInputStream.class);
-        when(fis.available()).thenReturn(1000);
-        when(fis.read()).thenThrow(new IOException());
+        Reader reader = mock(Reader.class);
+        when(reader.read()).thenThrow(new IOException());
 
         CSVDataDecoder decoder = new CSVDataDecoder();
-        decoder.setInputStream(fis);
+        decoder.setReader(reader);
 
         Iterator<Map<String, Object>> iterator = decoder.iterator();
         Assert.assertFalse(iterator.hasNext());
@@ -196,13 +199,13 @@ public final class CSVDataDecoderTest {
     public void testClose() throws Exception {
         CSVDataDecoder decoder = new CSVDataDecoder();
 
-        InputStream input = mock(InputStream.class);
-        decoder.setInputStream(input);
+        Reader reader = mock(Reader.class);
+        decoder.setReader(reader);
         decoder.close();
 
-        verify(input, times(1)).close();
+        verify(reader, times(1)).close();
 
-        Assert.assertNull(decoder.getInputStream());
+        Assert.assertNull(decoder.getReader());
     }
 
     /**
@@ -214,15 +217,15 @@ public final class CSVDataDecoderTest {
     public void testCloseException() throws Exception {
         CSVDataDecoder decoder = new CSVDataDecoder();
 
-        InputStream input = mock(InputStream.class);
-        doThrow(IOException.class).when(input).close();
+        Reader reader = mock(Reader.class);
+        doThrow(IOException.class).when(reader).close();
 
-        decoder.setInputStream(input);
+        decoder.setReader(reader);
         decoder.close();
 
-        verify(input, times(1)).close();
+        verify(reader, times(1)).close();
 
-        Assert.assertNull(decoder.getInputStream());
+        Assert.assertNull(decoder.getReader());
     }
 
     /**
@@ -234,40 +237,27 @@ public final class CSVDataDecoderTest {
     public void testEmptyInputStream() throws Exception {
         CSVDataDecoder decoder = new CSVDataDecoder();
 
-        InputStream input = mock(InputStream.class);
-        decoder.setInputStream(input);
+        Reader reader = mock(Reader.class);
+        decoder.setReader(reader);
 
         Iterator<Map<String, Object>> iterator = decoder.iterator();
         Assert.assertNull(iterator.next());
     }
 
     /**
-     * Test with an invalid json string.
+     * Test with an invalid csv string.
      *
      * @throws Exception Any unexpected exceptions.
      */
     @Test
-    public void testBadJson() throws Exception {
+    public void testBadCsv() throws Exception {
 
-        // Generate a bad json here. We take the existing one and slice it in
+        // Generate a bad csv here. We take the existing one and slice it in
         // half.
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        CSVDataEncoder encoder = new CSVDataEncoder();
-        encoder.setOutputStream(baos);
-
-        Map<String, Object> data = new HashMap<>();
-        data.put("column_1", 0);
-        data.put("column_2", String.format("String %s", 0));
-        data.put("column_3", "foo");
-        encoder.write(data);
-        encoder.close();
-
-        byte[] oldData = baos.toByteArray();
-        byte[] badData = Arrays.copyOfRange(oldData, 0, oldData.length / 2);
-        InputStream badInputStream = new ByteArrayInputStream(badData);
+        StringReader badReader = new StringReader("1';3;4;");
 
         CSVDataDecoder decoder = new CSVDataDecoder();
-        decoder.setInputStream(badInputStream);
+        decoder.setReader(badReader);
 
         Iterator<Map<String, Object>> iterator = decoder.iterator();
         Assert.assertNull(iterator.next());
@@ -279,38 +269,13 @@ public final class CSVDataDecoderTest {
      * @throws Exception Any unexpected exceptions.
      */
     @Test
-    public void testBadJsonWithoutArray() throws Exception {
+    public void testBadCsvWithoutArray() throws Exception {
 
-        // Generate a bad json here. We take the existing one and slice it in
-        // half.
-        String badCSV = "{}";
-        InputStream badInputStream = new ByteArrayInputStream(badCSV
-                .getBytes(StandardCharsets.UTF_8));
+        // Generate a bad csv here, a CSV file with headers but no content.
+        StringReader badReader = new StringReader("1,3,4,");
 
         CSVDataDecoder decoder = new CSVDataDecoder();
-        decoder.setInputStream(badInputStream);
-
-        Iterator<Map<String, Object>> iterator = decoder.iterator();
-        Assert.assertFalse(iterator.hasNext());
-        Assert.assertNull(iterator.next());
-    }
-
-    /**
-     * Test with an empty object structure.
-     *
-     * @throws Exception Any unexpected exceptions.
-     */
-    @Test
-    public void testBadJsonEmptyArray() throws Exception {
-
-        // Generate a bad json here. We take the existing one and slice it in
-        // half.
-        String badCSV = "[]";
-        InputStream badInputStream = new ByteArrayInputStream(badCSV
-                .getBytes(StandardCharsets.UTF_8));
-
-        CSVDataDecoder decoder = new CSVDataDecoder();
-        decoder.setInputStream(badInputStream);
+        decoder.setReader(badReader);
 
         Iterator<Map<String, Object>> iterator = decoder.iterator();
         Assert.assertFalse(iterator.hasNext());

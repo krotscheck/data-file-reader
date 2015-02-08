@@ -8,7 +8,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import net.krotscheck.dfr.AbstractDataDecoder;
+import net.krotscheck.dfr.stream.AbstractStreamDecoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,7 +25,7 @@ import de.undercouch.bson4jackson.BsonFactory;
  *
  * @author Michael Krotscheck
  */
-public final class BSONDataDecoder extends AbstractDataDecoder {
+public final class BSONDataDecoder extends AbstractStreamDecoder {
 
     /**
      * Logger instance.

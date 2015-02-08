@@ -7,7 +7,7 @@ package net.krotscheck.dfr.json;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import net.krotscheck.dfr.AbstractDataEncoder;
+import net.krotscheck.dfr.text.AbstractTextEncoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,7 +19,7 @@ import java.util.Map;
  *
  * @author Michael Krotscheck
  */
-public final class JSONDataEncoder extends AbstractDataEncoder {
+public final class JSONDataEncoder extends AbstractTextEncoder {
 
     /**
      * Logger instance.
@@ -50,12 +50,12 @@ public final class JSONDataEncoder extends AbstractDataEncoder {
      *                             destination.
      */
     @Override
-    protected void writeToStream(final Map<String, Object> row)
+    protected void writeToOutput(final Map<String, Object> row)
             throws IOException {
         if (generator == null) {
             ObjectMapper mapper = new ObjectMapper();
             JsonFactory factory = new JsonFactory(mapper);
-            generator = factory.createGenerator(getOutputStream());
+            generator = factory.createGenerator(getWriter());
             generator.writeStartArray(); // [
         }
 
@@ -64,7 +64,7 @@ public final class JSONDataEncoder extends AbstractDataEncoder {
     }
 
     /**
-     * Closes the output stream.
+     * Closes the output writer.
      */
     @Override
     public void dispose() {
@@ -73,13 +73,13 @@ public final class JSONDataEncoder extends AbstractDataEncoder {
                 generator.writeEndArray();
                 generator.close();
             }
-            this.getOutputStream().close();
+            this.getWriter().close();
         } catch (IOException ioe) {
-            logger.error("Unable to close stream", ioe);
+            logger.error("Unable to close writer", ioe);
             logger.trace(ioe.getMessage(), ioe);
         } finally {
             generator = null;
-            this.setOutputStream(null);
+            this.setWriter(null);
         }
     }
 }

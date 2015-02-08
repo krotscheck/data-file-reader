@@ -108,6 +108,24 @@ public final class AbstractFilteredDataStreamTest {
     }
 
     /**
+     * Test filtered data stream without initialization.
+     *
+     * @throws Exception An unexpected exception.
+     */
+    @Test
+    public void testUninitializedFilterList() throws Exception {
+        AbstractFilteredDataStream testStream = new TestFilteredDataStream();
+        IDataFilter newFilter = new TestDataFilter();
+
+        // First make sure clearFilters does not blow up.
+        testStream.clearFilters();
+
+        Assert.assertFalse(testStream.containsFilter(newFilter));
+        testStream.addFilter(newFilter);
+        Assert.assertTrue(testStream.containsFilter(newFilter));
+    }
+
+    /**
      * Test class to use during testing.
      */
     private static class TestFilteredDataStream extends

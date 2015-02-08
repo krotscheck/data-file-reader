@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
-import net.krotscheck.dfr.AbstractDataEncoder;
+import net.krotscheck.dfr.text.AbstractTextEncoder;
 
 import java.io.IOException;
 import java.util.Map;
@@ -20,7 +20,7 @@ import java.util.Set;
  *
  * @author Michael Krotscheck
  */
-public final class CSVDataEncoder extends AbstractDataEncoder {
+public final class CSVDataEncoder extends AbstractTextEncoder {
 
     /**
      * The writer.
@@ -45,7 +45,7 @@ public final class CSVDataEncoder extends AbstractDataEncoder {
      *                             writing to the output.
      */
     @Override
-    protected void writeToStream(final Map<String, Object> row)
+    protected void writeToOutput(final Map<String, Object> row)
             throws IOException {
         if (writer == null) {
             CsvMapper mapper = new CsvMapper();
@@ -55,9 +55,9 @@ public final class CSVDataEncoder extends AbstractDataEncoder {
                             false);
             CsvSchema schema = buildCsvSchema(row);
             writer = mapper.writer(schema);
-            writer.writeValue(getOutputStream(), row.keySet());
+            writer.writeValue(getWriter(), row.keySet());
         }
-        writer.writeValue(getOutputStream(), row.values());
+        writer.writeValue(getWriter(), row.values());
     }
 
     /**

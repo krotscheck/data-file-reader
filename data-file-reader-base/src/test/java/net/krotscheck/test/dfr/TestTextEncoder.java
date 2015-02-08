@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014 Michael Krotscheck
+ * Copyright (c) 2015 Michael Krotscheck
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy
@@ -17,16 +17,16 @@
 
 package net.krotscheck.test.dfr;
 
-import net.krotscheck.dfr.AbstractDataEncoder;
+import net.krotscheck.dfr.text.AbstractTextEncoder;
 
 import java.util.Map;
 
 /**
- * A test data encoder.
+ * A test text encoder.
  *
  * @author Michael Krotscheck
  */
-public final class TestDataEncoder extends AbstractDataEncoder {
+public final class TestTextEncoder extends AbstractTextEncoder {
 
     /**
      * Mock mimetype.
@@ -35,7 +35,7 @@ public final class TestDataEncoder extends AbstractDataEncoder {
      */
     @Override
     public String getMimeType() {
-        return "raw/mock";
+        return "text/mock";
     }
 
     /**
@@ -49,10 +49,10 @@ public final class TestDataEncoder extends AbstractDataEncoder {
     }
 
     /**
-     * Close this encoder.
+     * Dispose of this encoder.
      */
     @Override
-    public void close() {
+    protected void dispose() {
 
     }
 }

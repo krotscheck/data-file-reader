@@ -6,7 +6,7 @@ package net.krotscheck.dfr.bson;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import net.krotscheck.dfr.AbstractDataEncoder;
+import net.krotscheck.dfr.stream.AbstractStreamEncoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,7 +21,7 @@ import de.undercouch.bson4jackson.BsonGenerator;
  *
  * @author Michael Krotscheck
  */
-public final class BSONDataEncoder extends AbstractDataEncoder {
+public final class BSONDataEncoder extends AbstractStreamEncoder {
 
     /**
      * Logger instance.
@@ -52,7 +52,7 @@ public final class BSONDataEncoder extends AbstractDataEncoder {
      *                             destination.
      */
     @Override
-    protected void writeToStream(final Map<String, Object> row)
+    protected void writeToOutput(final Map<String, Object> row)
             throws IOException {
         if (generator == null) {
             ObjectMapper mapper = new ObjectMapper();

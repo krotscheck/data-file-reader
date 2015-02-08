@@ -25,15 +25,15 @@ import org.junit.Test;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ServiceLoader;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
@@ -110,7 +110,8 @@ public final class JSONDataEncoderTest {
     @Test
     public void testSimpleEncoder() throws Exception {
         JSONDataEncoder encoder = new JSONDataEncoder();
-        encoder.setOutputStream(baos);
+        OutputStreamWriter osw = new OutputStreamWriter(baos);
+        encoder.setWriter(osw);
         for (Map<String, Object> row : testData) {
             encoder.write(row);
         }
@@ -118,7 +119,10 @@ public final class JSONDataEncoderTest {
         Assert.assertTrue(encoder.toString().length() > 0);
 
         JSONDataDecoder decoder = new JSONDataDecoder();
-        decoder.setInputStream(new ByteArrayInputStream(baos.toByteArray()));
+        InputStreamReader isr = new InputStreamReader(
+                new ByteArrayInputStream(baos.toByteArray())
+        );
+        decoder.setReader(isr);
 
         Integer count = 0;
         for (Map<String, Object> resultRow : decoder) {
@@ -138,13 +142,13 @@ public final class JSONDataEncoderTest {
     @Test
     public void testPrematureClose() throws Exception {
         JSONDataEncoder encoder = new JSONDataEncoder();
-        OutputStream mockStream = mock(OutputStream.class);
-        encoder.setOutputStream(mockStream);
+        Writer mockWriter = mock(Writer.class);
+        encoder.setWriter(mockWriter);
         encoder.close();
 
-        Assert.assertNull(encoder.getOutputStream());
+        Assert.assertNull(encoder.getWriter());
 
-        verify(mockStream, times(1)).close();
+        verify(mockWriter, times(1)).close();
     }
 
     /**
@@ -155,19 +159,15 @@ public final class JSONDataEncoderTest {
     @Test
     public void testExceptionClose() throws Exception {
         JSONDataEncoder encoder = new JSONDataEncoder();
-        OutputStream mockStream = mock(OutputStream.class);
-        encoder.setOutputStream(mockStream);
-        encoder.write(new HashMap<String, Object>()); // Open the stream
+        Writer mockWriter = mock(Writer.class);
+        doThrow(IOException.class).when(mockWriter).close();
 
-        doThrow(IOException.class).when(mockStream).close();
-
+        encoder.setWriter(mockWriter);
         encoder.close();
 
-        Assert.assertNull(encoder.getOutputStream());
+        Assert.assertNull(encoder.getWriter());
 
         // The json buffer is flushed on close and on write.
-        verify(mockStream, times(2))
-                .write(any(byte[].class), anyInt(), anyInt());
-        verify(mockStream, times(1)).close();
+        verify(mockWriter, times(1)).close();
     }
 }
