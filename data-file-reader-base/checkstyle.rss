@@ -23,9 +23,9 @@ under the License.
     <link>https://github.com/krotscheck/dfr/data-file-reader-base</link>
     <description>data-file-reader-base - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2014 krotscheck.net</copyright>
+    <copyright>&#169;2015 krotscheck.net</copyright>
     <item>
-      <title>File: 13,
+      <title>File: 22,
              Errors: 0,
              Warnings: 0,
              Infos: 0
@@ -88,7 +88,49 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="https://github.com/krotscheck/dfr/data-file-reader-base/checkstyle.html#net.krotscheck.dfr.text.ITextEncoder.java">net/krotscheck/dfr/text/ITextEncoder.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="https://github.com/krotscheck/dfr/data-file-reader-base/checkstyle.html#net.krotscheck.dfr.AbstractFilteredDataStream.java">net/krotscheck/dfr/AbstractFilteredDataStream.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/krotscheck/dfr/data-file-reader-base/checkstyle.html#net.krotscheck.dfr.stream.AbstractStreamEncoder.java">net/krotscheck/dfr/stream/AbstractStreamEncoder.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/krotscheck/dfr/data-file-reader-base/checkstyle.html#net.krotscheck.dfr.Type.java">net/krotscheck/dfr/Type.java</a>
                 </td>
                 <td>
                   0
@@ -116,7 +158,35 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="https://github.com/krotscheck/dfr/data-file-reader-base/checkstyle.html#net.krotscheck.dfr.text.AbstractTextDecoder.java">net/krotscheck/dfr/text/AbstractTextDecoder.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="https://github.com/krotscheck/dfr/data-file-reader-base/checkstyle.html#net.krotscheck.dfr.IDataFilter.java">net/krotscheck/dfr/IDataFilter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/krotscheck/dfr/data-file-reader-base/checkstyle.html#net.krotscheck.dfr.text.AbstractTextEncoder.java">net/krotscheck/dfr/text/AbstractTextEncoder.java</a>
                 </td>
                 <td>
                   0
@@ -158,7 +228,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/krotscheck/dfr/data-file-reader-base/checkstyle.html#net.krotscheck.dfr.FileStreamConverter.java">net/krotscheck/dfr/FileStreamConverter.java</a>
+                  <a href="https://github.com/krotscheck/dfr/data-file-reader-base/checkstyle.html#net.krotscheck.dfr.text.ITextDecoder.java">net/krotscheck/dfr/text/ITextDecoder.java</a>
                 </td>
                 <td>
                   0
@@ -172,7 +242,63 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/krotscheck/dfr/data-file-reader-base/checkstyle.html#net.krotscheck.dfr.FileStreamDecoder.java">net/krotscheck/dfr/FileStreamDecoder.java</a>
+                  <a href="https://github.com/krotscheck/dfr/data-file-reader-base/checkstyle.html#net.krotscheck.dfr.text.package-info.java">net/krotscheck/dfr/text/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/krotscheck/dfr/data-file-reader-base/checkstyle.html#net.krotscheck.dfr.stream.AbstractStreamDecoder.java">net/krotscheck/dfr/stream/AbstractStreamDecoder.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/krotscheck/dfr/data-file-reader-base/checkstyle.html#net.krotscheck.dfr.stream.IStreamEncoder.java">net/krotscheck/dfr/stream/IStreamEncoder.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/krotscheck/dfr/data-file-reader-base/checkstyle.html#net.krotscheck.dfr.stream.package-info.java">net/krotscheck/dfr/stream/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/krotscheck/dfr/data-file-reader-base/checkstyle.html#net.krotscheck.dfr.FileStreamConverter.java">net/krotscheck/dfr/FileStreamConverter.java</a>
                 </td>
                 <td>
                   0
@@ -200,7 +326,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/krotscheck/dfr/data-file-reader-base/checkstyle.html#net.krotscheck.dfr.FileStreamEncoder.java">net/krotscheck/dfr/FileStreamEncoder.java</a>
+                  <a href="https://github.com/krotscheck/dfr/data-file-reader-base/checkstyle.html#net.krotscheck.dfr.IFilteringDataStream.java">net/krotscheck/dfr/IFilteringDataStream.java</a>
                 </td>
                 <td>
                   0
@@ -214,7 +340,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/krotscheck/dfr/data-file-reader-base/checkstyle.html#net.krotscheck.dfr.IFilteringDataStream.java">net/krotscheck/dfr/IFilteringDataStream.java</a>
+                  <a href="https://github.com/krotscheck/dfr/data-file-reader-base/checkstyle.html#net.krotscheck.dfr.stream.IStreamDecoder.java">net/krotscheck/dfr/stream/IStreamDecoder.java</a>
                 </td>
                 <td>
                   0
