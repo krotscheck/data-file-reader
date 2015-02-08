@@ -35,15 +35,15 @@
 <a class="jxr_linenumber" name="25" href="#25">25</a>  <strong class="jxr_keyword">import</strong> java.io.ByteArrayInputStream;
 <a class="jxr_linenumber" name="26" href="#26">26</a>  <strong class="jxr_keyword">import</strong> java.io.ByteArrayOutputStream;
 <a class="jxr_linenumber" name="27" href="#27">27</a>  <strong class="jxr_keyword">import</strong> java.io.IOException;
-<a class="jxr_linenumber" name="28" href="#28">28</a>  <strong class="jxr_keyword">import</strong> java.io.OutputStream;
-<a class="jxr_linenumber" name="29" href="#29">29</a>  <strong class="jxr_keyword">import</strong> java.util.ArrayList;
-<a class="jxr_linenumber" name="30" href="#30">30</a>  <strong class="jxr_keyword">import</strong> java.util.HashMap;
-<a class="jxr_linenumber" name="31" href="#31">31</a>  <strong class="jxr_keyword">import</strong> java.util.List;
-<a class="jxr_linenumber" name="32" href="#32">32</a>  <strong class="jxr_keyword">import</strong> java.util.Map;
-<a class="jxr_linenumber" name="33" href="#33">33</a>  <strong class="jxr_keyword">import</strong> java.util.ServiceLoader;
-<a class="jxr_linenumber" name="34" href="#34">34</a>  
-<a class="jxr_linenumber" name="35" href="#35">35</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.mockito.Matchers.any;
-<a class="jxr_linenumber" name="36" href="#36">36</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.mockito.Matchers.anyInt;
+<a class="jxr_linenumber" name="28" href="#28">28</a>  <strong class="jxr_keyword">import</strong> java.io.InputStreamReader;
+<a class="jxr_linenumber" name="29" href="#29">29</a>  <strong class="jxr_keyword">import</strong> java.io.OutputStreamWriter;
+<a class="jxr_linenumber" name="30" href="#30">30</a>  <strong class="jxr_keyword">import</strong> java.io.Writer;
+<a class="jxr_linenumber" name="31" href="#31">31</a>  <strong class="jxr_keyword">import</strong> java.util.ArrayList;
+<a class="jxr_linenumber" name="32" href="#32">32</a>  <strong class="jxr_keyword">import</strong> java.util.HashMap;
+<a class="jxr_linenumber" name="33" href="#33">33</a>  <strong class="jxr_keyword">import</strong> java.util.List;
+<a class="jxr_linenumber" name="34" href="#34">34</a>  <strong class="jxr_keyword">import</strong> java.util.Map;
+<a class="jxr_linenumber" name="35" href="#35">35</a>  <strong class="jxr_keyword">import</strong> java.util.ServiceLoader;
+<a class="jxr_linenumber" name="36" href="#36">36</a>  
 <a class="jxr_linenumber" name="37" href="#37">37</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.mockito.Mockito.doThrow;
 <a class="jxr_linenumber" name="38" href="#38">38</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.mockito.Mockito.mock;
 <a class="jxr_linenumber" name="39" href="#39">39</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.mockito.Mockito.times;
@@ -120,65 +120,65 @@
 <a class="jxr_linenumber" name="110" href="#110">110</a>     @Test
 <a class="jxr_linenumber" name="111" href="#111">111</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testSimpleEncoder() <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="112" href="#112">112</a>         JSONDataEncoder encoder = <strong class="jxr_keyword">new</strong> JSONDataEncoder();
-<a class="jxr_linenumber" name="113" href="#113">113</a>         encoder.setOutputStream(baos);
-<a class="jxr_linenumber" name="114" href="#114">114</a>         <strong class="jxr_keyword">for</strong> (Map&lt;String, Object&gt; row : testData) {
-<a class="jxr_linenumber" name="115" href="#115">115</a>             encoder.write(row);
-<a class="jxr_linenumber" name="116" href="#116">116</a>         }
-<a class="jxr_linenumber" name="117" href="#117">117</a>         encoder.close();
-<a class="jxr_linenumber" name="118" href="#118">118</a>         Assert.assertTrue(encoder.toString().length() &gt; 0);
-<a class="jxr_linenumber" name="119" href="#119">119</a> 
-<a class="jxr_linenumber" name="120" href="#120">120</a>         JSONDataDecoder decoder = <strong class="jxr_keyword">new</strong> JSONDataDecoder();
-<a class="jxr_linenumber" name="121" href="#121">121</a>         decoder.setInputStream(<strong class="jxr_keyword">new</strong> ByteArrayInputStream(baos.toByteArray()));
-<a class="jxr_linenumber" name="122" href="#122">122</a> 
-<a class="jxr_linenumber" name="123" href="#123">123</a>         Integer count = 0;
-<a class="jxr_linenumber" name="124" href="#124">124</a>         <strong class="jxr_keyword">for</strong> (Map&lt;String, Object&gt; resultRow : decoder) {
-<a class="jxr_linenumber" name="125" href="#125">125</a>             Assert.assertEquals(count, resultRow.get(<span class="jxr_string">"column_1"</span>));
-<a class="jxr_linenumber" name="126" href="#126">126</a>             Assert.assertEquals(String.format(<span class="jxr_string">"String %s"</span>, count),
-<a class="jxr_linenumber" name="127" href="#127">127</a>                     resultRow.get(<span class="jxr_string">"column_2"</span>));
-<a class="jxr_linenumber" name="128" href="#128">128</a>             Assert.assertEquals(<span class="jxr_string">"foo"</span>, resultRow.get(<span class="jxr_string">"column_3"</span>));
-<a class="jxr_linenumber" name="129" href="#129">129</a>             count++;
-<a class="jxr_linenumber" name="130" href="#130">130</a>         }
-<a class="jxr_linenumber" name="131" href="#131">131</a>     }
-<a class="jxr_linenumber" name="132" href="#132">132</a> 
-<a class="jxr_linenumber" name="133" href="#133">133</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="134" href="#134">134</a> <em class="jxr_javadoccomment">     * Assert close called prematurely.</em>
-<a class="jxr_linenumber" name="135" href="#135">135</a> <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="136" href="#136">136</a> <em class="jxr_javadoccomment">     * @throws Exception Unexpected exceptions.</em>
-<a class="jxr_linenumber" name="137" href="#137">137</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="138" href="#138">138</a>     @Test
-<a class="jxr_linenumber" name="139" href="#139">139</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testPrematureClose() <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="140" href="#140">140</a>         JSONDataEncoder encoder = <strong class="jxr_keyword">new</strong> JSONDataEncoder();
-<a class="jxr_linenumber" name="141" href="#141">141</a>         OutputStream mockStream = mock(OutputStream.<strong class="jxr_keyword">class</strong>);
-<a class="jxr_linenumber" name="142" href="#142">142</a>         encoder.setOutputStream(mockStream);
-<a class="jxr_linenumber" name="143" href="#143">143</a>         encoder.close();
-<a class="jxr_linenumber" name="144" href="#144">144</a> 
-<a class="jxr_linenumber" name="145" href="#145">145</a>         Assert.assertNull(encoder.getOutputStream());
-<a class="jxr_linenumber" name="146" href="#146">146</a> 
-<a class="jxr_linenumber" name="147" href="#147">147</a>         verify(mockStream, times(1)).close();
-<a class="jxr_linenumber" name="148" href="#148">148</a>     }
-<a class="jxr_linenumber" name="149" href="#149">149</a> 
-<a class="jxr_linenumber" name="150" href="#150">150</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="151" href="#151">151</a> <em class="jxr_javadoccomment">     * Assert close called with exception doesn't blow up in our faces.</em>
-<a class="jxr_linenumber" name="152" href="#152">152</a> <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="153" href="#153">153</a> <em class="jxr_javadoccomment">     * @throws Exception Unexpected exceptions.</em>
-<a class="jxr_linenumber" name="154" href="#154">154</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="155" href="#155">155</a>     @Test
-<a class="jxr_linenumber" name="156" href="#156">156</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testExceptionClose() <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="157" href="#157">157</a>         JSONDataEncoder encoder = <strong class="jxr_keyword">new</strong> JSONDataEncoder();
-<a class="jxr_linenumber" name="158" href="#158">158</a>         OutputStream mockStream = mock(OutputStream.<strong class="jxr_keyword">class</strong>);
-<a class="jxr_linenumber" name="159" href="#159">159</a>         encoder.setOutputStream(mockStream);
-<a class="jxr_linenumber" name="160" href="#160">160</a>         encoder.write(<strong class="jxr_keyword">new</strong> HashMap&lt;String, Object&gt;()); <em class="jxr_comment">// Open the stream</em>
-<a class="jxr_linenumber" name="161" href="#161">161</a> 
-<a class="jxr_linenumber" name="162" href="#162">162</a>         doThrow(IOException.<strong class="jxr_keyword">class</strong>).when(mockStream).close();
-<a class="jxr_linenumber" name="163" href="#163">163</a> 
-<a class="jxr_linenumber" name="164" href="#164">164</a>         encoder.close();
-<a class="jxr_linenumber" name="165" href="#165">165</a> 
-<a class="jxr_linenumber" name="166" href="#166">166</a>         Assert.assertNull(encoder.getOutputStream());
+<a class="jxr_linenumber" name="113" href="#113">113</a>         OutputStreamWriter osw = <strong class="jxr_keyword">new</strong> OutputStreamWriter(baos);
+<a class="jxr_linenumber" name="114" href="#114">114</a>         encoder.setWriter(osw);
+<a class="jxr_linenumber" name="115" href="#115">115</a>         <strong class="jxr_keyword">for</strong> (Map&lt;String, Object&gt; row : testData) {
+<a class="jxr_linenumber" name="116" href="#116">116</a>             encoder.write(row);
+<a class="jxr_linenumber" name="117" href="#117">117</a>         }
+<a class="jxr_linenumber" name="118" href="#118">118</a>         encoder.close();
+<a class="jxr_linenumber" name="119" href="#119">119</a>         Assert.assertTrue(encoder.toString().length() &gt; 0);
+<a class="jxr_linenumber" name="120" href="#120">120</a> 
+<a class="jxr_linenumber" name="121" href="#121">121</a>         JSONDataDecoder decoder = <strong class="jxr_keyword">new</strong> JSONDataDecoder();
+<a class="jxr_linenumber" name="122" href="#122">122</a>         InputStreamReader isr = <strong class="jxr_keyword">new</strong> InputStreamReader(
+<a class="jxr_linenumber" name="123" href="#123">123</a>                 <strong class="jxr_keyword">new</strong> ByteArrayInputStream(baos.toByteArray())
+<a class="jxr_linenumber" name="124" href="#124">124</a>         );
+<a class="jxr_linenumber" name="125" href="#125">125</a>         decoder.setReader(isr);
+<a class="jxr_linenumber" name="126" href="#126">126</a> 
+<a class="jxr_linenumber" name="127" href="#127">127</a>         Integer count = 0;
+<a class="jxr_linenumber" name="128" href="#128">128</a>         <strong class="jxr_keyword">for</strong> (Map&lt;String, Object&gt; resultRow : decoder) {
+<a class="jxr_linenumber" name="129" href="#129">129</a>             Assert.assertEquals(count, resultRow.get(<span class="jxr_string">"column_1"</span>));
+<a class="jxr_linenumber" name="130" href="#130">130</a>             Assert.assertEquals(String.format(<span class="jxr_string">"String %s"</span>, count),
+<a class="jxr_linenumber" name="131" href="#131">131</a>                     resultRow.get(<span class="jxr_string">"column_2"</span>));
+<a class="jxr_linenumber" name="132" href="#132">132</a>             Assert.assertEquals(<span class="jxr_string">"foo"</span>, resultRow.get(<span class="jxr_string">"column_3"</span>));
+<a class="jxr_linenumber" name="133" href="#133">133</a>             count++;
+<a class="jxr_linenumber" name="134" href="#134">134</a>         }
+<a class="jxr_linenumber" name="135" href="#135">135</a>     }
+<a class="jxr_linenumber" name="136" href="#136">136</a> 
+<a class="jxr_linenumber" name="137" href="#137">137</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="138" href="#138">138</a> <em class="jxr_javadoccomment">     * Assert close called prematurely.</em>
+<a class="jxr_linenumber" name="139" href="#139">139</a> <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="140" href="#140">140</a> <em class="jxr_javadoccomment">     * @throws Exception Unexpected exceptions.</em>
+<a class="jxr_linenumber" name="141" href="#141">141</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="142" href="#142">142</a>     @Test
+<a class="jxr_linenumber" name="143" href="#143">143</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testPrematureClose() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="144" href="#144">144</a>         JSONDataEncoder encoder = <strong class="jxr_keyword">new</strong> JSONDataEncoder();
+<a class="jxr_linenumber" name="145" href="#145">145</a>         Writer mockWriter = mock(Writer.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="146" href="#146">146</a>         encoder.setWriter(mockWriter);
+<a class="jxr_linenumber" name="147" href="#147">147</a>         encoder.close();
+<a class="jxr_linenumber" name="148" href="#148">148</a> 
+<a class="jxr_linenumber" name="149" href="#149">149</a>         Assert.assertNull(encoder.getWriter());
+<a class="jxr_linenumber" name="150" href="#150">150</a> 
+<a class="jxr_linenumber" name="151" href="#151">151</a>         verify(mockWriter, times(1)).close();
+<a class="jxr_linenumber" name="152" href="#152">152</a>     }
+<a class="jxr_linenumber" name="153" href="#153">153</a> 
+<a class="jxr_linenumber" name="154" href="#154">154</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="155" href="#155">155</a> <em class="jxr_javadoccomment">     * Assert close called with exception doesn't blow up in our faces.</em>
+<a class="jxr_linenumber" name="156" href="#156">156</a> <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="157" href="#157">157</a> <em class="jxr_javadoccomment">     * @throws Exception Unexpected exceptions.</em>
+<a class="jxr_linenumber" name="158" href="#158">158</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="159" href="#159">159</a>     @Test
+<a class="jxr_linenumber" name="160" href="#160">160</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testExceptionClose() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="161" href="#161">161</a>         JSONDataEncoder encoder = <strong class="jxr_keyword">new</strong> JSONDataEncoder();
+<a class="jxr_linenumber" name="162" href="#162">162</a>         Writer mockWriter = mock(Writer.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="163" href="#163">163</a>         doThrow(IOException.<strong class="jxr_keyword">class</strong>).when(mockWriter).close();
+<a class="jxr_linenumber" name="164" href="#164">164</a> 
+<a class="jxr_linenumber" name="165" href="#165">165</a>         encoder.setWriter(mockWriter);
+<a class="jxr_linenumber" name="166" href="#166">166</a>         encoder.close();
 <a class="jxr_linenumber" name="167" href="#167">167</a> 
-<a class="jxr_linenumber" name="168" href="#168">168</a>         <em class="jxr_comment">// The json buffer is flushed on close and on write.</em>
-<a class="jxr_linenumber" name="169" href="#169">169</a>         verify(mockStream, times(2))
-<a class="jxr_linenumber" name="170" href="#170">170</a>                 .write(any(byte[].<strong class="jxr_keyword">class</strong>), anyInt(), anyInt());
-<a class="jxr_linenumber" name="171" href="#171">171</a>         verify(mockStream, times(1)).close();
+<a class="jxr_linenumber" name="168" href="#168">168</a>         Assert.assertNull(encoder.getWriter());
+<a class="jxr_linenumber" name="169" href="#169">169</a> 
+<a class="jxr_linenumber" name="170" href="#170">170</a>         <em class="jxr_comment">// The json buffer is flushed on close and on write.</em>
+<a class="jxr_linenumber" name="171" href="#171">171</a>         verify(mockWriter, times(1)).close();
 <a class="jxr_linenumber" name="172" href="#172">172</a>     }
 <a class="jxr_linenumber" name="173" href="#173">173</a> }
 </pre>

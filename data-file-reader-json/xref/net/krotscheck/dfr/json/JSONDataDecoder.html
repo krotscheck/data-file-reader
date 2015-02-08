@@ -32,23 +32,23 @@
 <a class="jxr_linenumber" name="22" href="#22">22</a>  <strong class="jxr_keyword">import</strong> com.fasterxml.jackson.core.JsonToken;
 <a class="jxr_linenumber" name="23" href="#23">23</a>  <strong class="jxr_keyword">import</strong> com.fasterxml.jackson.core.type.TypeReference;
 <a class="jxr_linenumber" name="24" href="#24">24</a>  <strong class="jxr_keyword">import</strong> com.fasterxml.jackson.databind.ObjectMapper;
-<a class="jxr_linenumber" name="25" href="#25">25</a>  <strong class="jxr_keyword">import</strong> net.krotscheck.dfr.AbstractDataDecoder;
+<a class="jxr_linenumber" name="25" href="#25">25</a>  <strong class="jxr_keyword">import</strong> net.krotscheck.dfr.text.AbstractTextDecoder;
 <a class="jxr_linenumber" name="26" href="#26">26</a>  <strong class="jxr_keyword">import</strong> org.slf4j.Logger;
 <a class="jxr_linenumber" name="27" href="#27">27</a>  <strong class="jxr_keyword">import</strong> org.slf4j.LoggerFactory;
 <a class="jxr_linenumber" name="28" href="#28">28</a>  
 <a class="jxr_linenumber" name="29" href="#29">29</a>  <strong class="jxr_keyword">import</strong> java.io.IOException;
-<a class="jxr_linenumber" name="30" href="#30">30</a>  <strong class="jxr_keyword">import</strong> java.io.InputStream;
+<a class="jxr_linenumber" name="30" href="#30">30</a>  <strong class="jxr_keyword">import</strong> java.io.Reader;
 <a class="jxr_linenumber" name="31" href="#31">31</a>  <strong class="jxr_keyword">import</strong> java.util.Iterator;
 <a class="jxr_linenumber" name="32" href="#32">32</a>  <strong class="jxr_keyword">import</strong> java.util.Map;
 <a class="jxr_linenumber" name="33" href="#33">33</a>  
 <a class="jxr_linenumber" name="34" href="#34">34</a>  <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="35" href="#35">35</a>  <em class="jxr_javadoccomment"> * This data decoder will stream in a Json encoded file and generate objects for</em>
+<a class="jxr_linenumber" name="35" href="#35">35</a>  <em class="jxr_javadoccomment"> * This data decoder will read in a Json encoded file and generate objects for</em>
 <a class="jxr_linenumber" name="36" href="#36">36</a>  <em class="jxr_javadoccomment"> * every row found. Note that no significant error checking is performed here,</em>
 <a class="jxr_linenumber" name="37" href="#37">37</a>  <em class="jxr_javadoccomment"> * the file is assumed to be an array of un-nested objects.</em>
 <a class="jxr_linenumber" name="38" href="#38">38</a>  <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="39" href="#39">39</a>  <em class="jxr_javadoccomment"> * @author Michael Krotscheck</em>
 <a class="jxr_linenumber" name="40" href="#40">40</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="41" href="#41">41</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../net/krotscheck/dfr/json/JSONDataDecoder.html">JSONDataDecoder</a> <strong class="jxr_keyword">extends</strong> AbstractDataDecoder {
+<a class="jxr_linenumber" name="41" href="#41">41</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../net/krotscheck/dfr/json/JSONDataDecoder.html">JSONDataDecoder</a> <strong class="jxr_keyword">extends</strong> AbstractTextDecoder {
 <a class="jxr_linenumber" name="42" href="#42">42</a>  
 <a class="jxr_linenumber" name="43" href="#43">43</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="44" href="#44">44</a>  <em class="jxr_javadoccomment">     * Logger instance.</em>
@@ -63,7 +63,7 @@
 <a class="jxr_linenumber" name="53" href="#53">53</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="54" href="#54">54</a>      @Override
 <a class="jxr_linenumber" name="55" href="#55">55</a>      <strong class="jxr_keyword">protected</strong> Iterator&lt;Map&lt;String, Object&gt;&gt; buildIterator() {
-<a class="jxr_linenumber" name="56" href="#56">56</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../net/krotscheck/dfr/json/JSONDataDecoder.html">InnerRowIterator</a>(getInputStream());
+<a class="jxr_linenumber" name="56" href="#56">56</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../net/krotscheck/dfr/json/JSONDataDecoder.html">InnerRowIterator</a>(getReader());
 <a class="jxr_linenumber" name="57" href="#57">57</a>      }
 <a class="jxr_linenumber" name="58" href="#58">58</a>  
 <a class="jxr_linenumber" name="59" href="#59">59</a>      <em class="jxr_javadoccomment">/**</em>
@@ -104,17 +104,17 @@
 <a class="jxr_linenumber" name="94" href="#94">94</a>                  };
 <a class="jxr_linenumber" name="95" href="#95">95</a>  
 <a class="jxr_linenumber" name="96" href="#96">96</a>          <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="97" href="#97">97</a>  <em class="jxr_javadoccomment">         * Create a new instance of the iterator, wrapping an inputstream that</em>
-<a class="jxr_linenumber" name="98" href="#98">98</a>  <em class="jxr_javadoccomment">         * is assumed to be pointed at a properly formatted json data file.</em>
+<a class="jxr_linenumber" name="97" href="#97">97</a>  <em class="jxr_javadoccomment">         * Create a new instance of the iterator, wrapping an reader that is</em>
+<a class="jxr_linenumber" name="98" href="#98">98</a>  <em class="jxr_javadoccomment">         * assumed to be pointed at a properly formatted json data file.</em>
 <a class="jxr_linenumber" name="99" href="#99">99</a>  <em class="jxr_javadoccomment">         *</em>
-<a class="jxr_linenumber" name="100" href="#100">100</a> <em class="jxr_javadoccomment">         * @param jsonStream The stream.</em>
+<a class="jxr_linenumber" name="100" href="#100">100</a> <em class="jxr_javadoccomment">         * @param jsonReader The reader.</em>
 <a class="jxr_linenumber" name="101" href="#101">101</a> <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="102" href="#102">102</a>         <strong class="jxr_keyword">private</strong> <a href="../../../../net/krotscheck/dfr/json/JSONDataDecoder.html">InnerRowIterator</a>(<strong class="jxr_keyword">final</strong> InputStream jsonStream) {
+<a class="jxr_linenumber" name="102" href="#102">102</a>         <strong class="jxr_keyword">private</strong> <a href="../../../../net/krotscheck/dfr/json/JSONDataDecoder.html">InnerRowIterator</a>(<strong class="jxr_keyword">final</strong> Reader jsonReader) {
 <a class="jxr_linenumber" name="103" href="#103">103</a> 
 <a class="jxr_linenumber" name="104" href="#104">104</a>             <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="105" href="#105">105</a>                 ObjectMapper mapper = <strong class="jxr_keyword">new</strong> ObjectMapper();
 <a class="jxr_linenumber" name="106" href="#106">106</a>                 JsonFactory factory = <strong class="jxr_keyword">new</strong> JsonFactory(mapper);
-<a class="jxr_linenumber" name="107" href="#107">107</a>                 parser = factory.createParser(jsonStream);
+<a class="jxr_linenumber" name="107" href="#107">107</a>                 parser = factory.createParser(jsonReader);
 <a class="jxr_linenumber" name="108" href="#108">108</a> 
 <a class="jxr_linenumber" name="109" href="#109">109</a>                 <strong class="jxr_keyword">if</strong> (parser.nextToken() != JsonToken.START_ARRAY) {
 <a class="jxr_linenumber" name="110" href="#110">110</a>                     <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> IOException(
@@ -168,7 +168,7 @@
 <a class="jxr_linenumber" name="158" href="#158">158</a> <em class="jxr_javadoccomment">         */</em>
 <a class="jxr_linenumber" name="159" href="#159">159</a>         @Override
 <a class="jxr_linenumber" name="160" href="#160">160</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> remove() {
-<a class="jxr_linenumber" name="161" href="#161">161</a>             <em class="jxr_comment">// Do nothing- we can't remove from a stream.</em>
+<a class="jxr_linenumber" name="161" href="#161">161</a>             <em class="jxr_comment">// Do nothing- we can't remove from a reader.</em>
 <a class="jxr_linenumber" name="162" href="#162">162</a>         }
 <a class="jxr_linenumber" name="163" href="#163">163</a>     }
 <a class="jxr_linenumber" name="164" href="#164">164</a> }
