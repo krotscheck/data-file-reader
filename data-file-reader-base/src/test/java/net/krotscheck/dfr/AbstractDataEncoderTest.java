@@ -20,7 +20,7 @@ package net.krotscheck.dfr;
 import org.junit.Test;
 
 import java.lang.reflect.Constructor;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static org.mockito.Mockito.mock;
@@ -59,7 +59,7 @@ public final class AbstractDataEncoderTest {
     public void testWrite() throws Exception {
         AbstractDataEncoder encoder = mock(AbstractDataEncoder.class);
 
-        Map<String, Object> testMap = new HashMap<>();
+        Map<String, Object> testMap = new LinkedHashMap<>();
 
         encoder.write(testMap);
 

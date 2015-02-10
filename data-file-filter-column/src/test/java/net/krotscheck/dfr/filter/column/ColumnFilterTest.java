@@ -25,6 +25,7 @@ import org.junit.experimental.categories.Category;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -109,7 +110,7 @@ public final class ColumnFilterTest {
     public void testBasicApply() throws Exception {
         ColumnFilter filter = new ColumnFilter(new String[]{"One", "Two"});
 
-        Map<String, Object> testData = new HashMap<>();
+        Map<String, Object> testData = new LinkedHashMap<>();
         testData.put("One", "Test1");
         testData.put("Three", "Test3");
         testData.put("Two", "Test2");

@@ -45,7 +45,7 @@ simply by specifying an outputStream and a mimetype.
     String myMimeType = "text/mymimetype";
     FileStreamEncoder encoder = new FileStreamEncoder(outputStream, myMimeType);
     
-    Map<String, Object> myRow = new HashMap<String, Object>();
+    Map<String, Object> myRow = new LinkedHashMap<String, Object>();
     encoder.write(myRow);
     
     encoder.close();

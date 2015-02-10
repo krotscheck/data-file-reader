@@ -24,8 +24,8 @@ import org.junit.Test;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -57,7 +57,7 @@ public final class AbstractDataDecoderTest {
         testData = new ArrayList<>();
 
         for (int i = 0; i < 100; i++) {
-            Map<String, Object> testRow = new HashMap<>();
+            Map<String, Object> testRow = new LinkedHashMap<>();
             testRow.put("one", "column_one_row_" + i);
             testRow.put("two", "column_two_row_" + i);
             testRow.put("three", "column_three_row_" + i);
@@ -96,7 +96,7 @@ public final class AbstractDataDecoderTest {
     @Test
     @SuppressWarnings("unchecked")
     public void testFilteredIterator() throws Exception {
-        Map<String, Object> mockData = new HashMap<>();
+        Map<String, Object> mockData = new LinkedHashMap<>();
 
         Iterator mockIterator = mock(Iterator.class);
         doReturn(mockData).when(mockIterator).next();

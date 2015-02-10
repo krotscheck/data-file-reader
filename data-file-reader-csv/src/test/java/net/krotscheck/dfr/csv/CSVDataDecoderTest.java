@@ -29,8 +29,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.StringReader;
-import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.ServiceLoader;
 
@@ -65,7 +65,7 @@ public final class CSVDataDecoderTest {
         encoder.setWriter(writer);
 
         for (int i = 0; i < 10; i++) {
-            Map<String, Object> data = new HashMap<>();
+            Map<String, Object> data = new LinkedHashMap<>();
             data.put("column_1", i);
             data.put("column_2", String.format("String %s", i));
             data.put("column_3", "foo");
@@ -242,6 +242,28 @@ public final class CSVDataDecoderTest {
 
         Iterator<Map<String, Object>> iterator = decoder.iterator();
         Assert.assertNull(iterator.next());
+    }
+
+    /**
+     * Assert that reading from a CSV file returns the schema in order.
+     *
+     * @throws Exception Any unexpected exceptions.
+     */
+    @Test
+    public void testOrderedColumnRead() throws Exception {
+
+        // Valid data.
+        StringReader orderedReader = new StringReader("one,two,three,four,"
+                + "five,six\n"
+                + "1,2,3,4,5,6\n"
+                + "1,2,3,4,5,6");
+
+        CSVDataDecoder decoder = new CSVDataDecoder();
+        decoder.setReader(orderedReader);
+
+        for (Map<String, Object> row : decoder) {
+            Assert.assertTrue(row instanceof LinkedHashMap);
+        }
     }
 
     /**

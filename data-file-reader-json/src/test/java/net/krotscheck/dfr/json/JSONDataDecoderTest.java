@@ -30,8 +30,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.StringReader;
-import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.ServiceLoader;
 
@@ -67,7 +67,7 @@ public final class JSONDataDecoderTest {
         encoder.setWriter(writer);
 
         for (int i = 0; i < 10; i++) {
-            Map<String, Object> data = new HashMap<>();
+            Map<String, Object> data = new LinkedHashMap<>();
             data.put("column_1", i);
             data.put("column_2", String.format("String %s", i));
             data.put("column_3", "foo");
@@ -122,6 +122,7 @@ public final class JSONDataDecoderTest {
 
         Integer count = 0;
         for (Map<String, Object> resultRow : decoder) {
+            Assert.assertTrue(resultRow instanceof LinkedHashMap);
             Assert.assertEquals(count, resultRow.get("column_1"));
             Assert.assertEquals(String.format("String %s", count),
                     resultRow.get("column_2"));

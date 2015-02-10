@@ -20,7 +20,7 @@ package net.krotscheck.dfr;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.ServiceLoader;
 import java.util.Set;
@@ -55,7 +55,7 @@ public final class EncoderCache {
      */
     private static void populateCache() {
         if (cache == null) {
-            cache = new HashMap<>();
+            cache = new LinkedHashMap<>();
 
             logger.info("IDataEncoders found:");
 

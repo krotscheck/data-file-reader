@@ -19,7 +19,7 @@ package net.krotscheck.dfr;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -119,7 +119,7 @@ public abstract class AbstractFilteredDataStream
      */
     public final Map<String, Object> applyFilters(
             final Map<String, Object> row) {
-        Map<String, Object> filteringRow = new HashMap<>(row);
+        Map<String, Object> filteringRow = new LinkedHashMap<>(row);
         assertFilterListExists();
         for (IDataFilter filter : getFilters()) {
             filteringRow = filter.apply(filteringRow);

@@ -28,8 +28,8 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.Reader;
-import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -95,8 +95,8 @@ public final class CSVDataDecoder extends AbstractTextDecoder {
             // Construct our schema.
             CsvSchema schema = CsvSchema.emptySchema().withUseHeader(true);
             CsvMapper mapper = new CsvMapper();
-            TypeReference<HashMap<String, Object>> typeRef =
-                    new TypeReference<HashMap<String, Object>>() {
+            TypeReference<LinkedHashMap<String, Object>> typeRef =
+                    new TypeReference<LinkedHashMap<String, Object>>() {
 
                     };
             try {

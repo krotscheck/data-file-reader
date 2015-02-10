@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ServiceLoader;
@@ -65,7 +66,7 @@ public final class BSONDataEncoderTest {
 
         testData = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            Map<String, Object> data = new HashMap<>();
+            Map<String, Object> data = new LinkedHashMap<>();
             data.put("column_1", i);
             data.put("column_2", String.format("String %s", i));
             data.put("column_3", "foo");

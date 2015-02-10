@@ -29,7 +29,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -58,7 +58,7 @@ public final class AbstractTextDecoderTest {
         testData = new ArrayList<>();
 
         for (int i = 0; i < 100; i++) {
-            Map<String, Object> testRow = new HashMap<>();
+            Map<String, Object> testRow = new LinkedHashMap<>();
             testRow.put("one", "column_one_row_" + i);
             testRow.put("two", "column_two_row_" + i);
             testRow.put("three", "column_three_row_" + i);

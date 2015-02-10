@@ -19,7 +19,7 @@ package net.krotscheck.test.dfr;
 
 import net.krotscheck.dfr.IDataFilter;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -37,6 +37,6 @@ public class TestDataFilter implements IDataFilter {
      */
     @Override
     public final Map<String, Object> apply(final Map<String, Object> row) {
-        return new HashMap<>(row);
+        return new LinkedHashMap<>(row);
     }
 }

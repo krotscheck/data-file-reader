@@ -24,8 +24,8 @@ import org.mockito.ArgumentCaptor;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -56,7 +56,7 @@ public final class FileStreamConverterTest {
         data = new ArrayList<>();
 
         for (int i = 0; i < 10; i++) {
-            Map<String, Object> row = new HashMap<>();
+            Map<String, Object> row = new LinkedHashMap<>();
             row.put("foo", i);
             data.add(row);
         }

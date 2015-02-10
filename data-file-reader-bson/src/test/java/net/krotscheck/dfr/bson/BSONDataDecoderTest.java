@@ -28,8 +28,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.ServiceLoader;
 
@@ -63,7 +63,7 @@ public final class BSONDataDecoderTest {
         encoder.setOutputStream(baos);
 
         for (int i = 0; i < 10; i++) {
-            Map<String, Object> data = new HashMap<>();
+            Map<String, Object> data = new LinkedHashMap<>();
             data.put("column_1", i);
             data.put("column_2", String.format("String %s", i));
             data.put("column_3", "foo");
@@ -116,6 +116,7 @@ public final class BSONDataDecoderTest {
 
         Integer count = 0;
         for (Map<String, Object> resultRow : decoder) {
+            Assert.assertTrue(resultRow instanceof LinkedHashMap);
             Assert.assertEquals(count, resultRow.get("column_1"));
             Assert.assertEquals(String.format("String %s", count),
                     resultRow.get("column_2"));
@@ -253,7 +254,7 @@ public final class BSONDataDecoderTest {
         BSONDataEncoder encoder = new BSONDataEncoder();
         encoder.setOutputStream(baos);
 
-        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> data = new LinkedHashMap<>();
         data.put("column_1", 0);
         data.put("column_2", String.format("String %s", 0));
         data.put("column_3", "foo");

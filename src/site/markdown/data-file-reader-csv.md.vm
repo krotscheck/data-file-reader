@@ -31,7 +31,7 @@ $h2 Writing a CSV file
     OutputStream outputStream = new FileOutputStream("my_file.bson");
     IDataEncoder encoder = new CSVDataEncoder(outputStream);
     
-    Map<String, Object> myRow = new HashMap<String, Object>();
+    Map<String, Object> myRow = new LinkedHashMap<String, Object>();
     encoder.write(myRow);
     
     encoder.close();
