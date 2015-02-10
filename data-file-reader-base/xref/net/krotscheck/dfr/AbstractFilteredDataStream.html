@@ -29,7 +29,7 @@
 <a class="jxr_linenumber" name="19" href="#19">19</a>  
 <a class="jxr_linenumber" name="20" href="#20">20</a>  <strong class="jxr_keyword">import</strong> java.util.ArrayList;
 <a class="jxr_linenumber" name="21" href="#21">21</a>  <strong class="jxr_keyword">import</strong> java.util.Collections;
-<a class="jxr_linenumber" name="22" href="#22">22</a>  <strong class="jxr_keyword">import</strong> java.util.HashMap;
+<a class="jxr_linenumber" name="22" href="#22">22</a>  <strong class="jxr_keyword">import</strong> java.util.LinkedHashMap;
 <a class="jxr_linenumber" name="23" href="#23">23</a>  <strong class="jxr_keyword">import</strong> java.util.List;
 <a class="jxr_linenumber" name="24" href="#24">24</a>  <strong class="jxr_keyword">import</strong> java.util.Map;
 <a class="jxr_linenumber" name="25" href="#25">25</a>  
@@ -129,7 +129,7 @@
 <a class="jxr_linenumber" name="119" href="#119">119</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="120" href="#120">120</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> Map&lt;String, Object&gt; applyFilters(
 <a class="jxr_linenumber" name="121" href="#121">121</a>             <strong class="jxr_keyword">final</strong> Map&lt;String, Object&gt; row) {
-<a class="jxr_linenumber" name="122" href="#122">122</a>         Map&lt;String, Object&gt; filteringRow = <strong class="jxr_keyword">new</strong> HashMap&lt;&gt;(row);
+<a class="jxr_linenumber" name="122" href="#122">122</a>         Map&lt;String, Object&gt; filteringRow = <strong class="jxr_keyword">new</strong> LinkedHashMap&lt;&gt;(row);
 <a class="jxr_linenumber" name="123" href="#123">123</a>         assertFilterListExists();
 <a class="jxr_linenumber" name="124" href="#124">124</a>         <strong class="jxr_keyword">for</strong> (IDataFilter filter : getFilters()) {
 <a class="jxr_linenumber" name="125" href="#125">125</a>             filteringRow = filter.apply(filteringRow);
