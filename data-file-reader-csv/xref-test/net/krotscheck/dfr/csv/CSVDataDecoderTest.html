@@ -39,8 +39,8 @@
 <a class="jxr_linenumber" name="29" href="#29">29</a>  <strong class="jxr_keyword">import</strong> java.io.OutputStreamWriter;
 <a class="jxr_linenumber" name="30" href="#30">30</a>  <strong class="jxr_keyword">import</strong> java.io.Reader;
 <a class="jxr_linenumber" name="31" href="#31">31</a>  <strong class="jxr_keyword">import</strong> java.io.StringReader;
-<a class="jxr_linenumber" name="32" href="#32">32</a>  <strong class="jxr_keyword">import</strong> java.util.HashMap;
-<a class="jxr_linenumber" name="33" href="#33">33</a>  <strong class="jxr_keyword">import</strong> java.util.Iterator;
+<a class="jxr_linenumber" name="32" href="#32">32</a>  <strong class="jxr_keyword">import</strong> java.util.Iterator;
+<a class="jxr_linenumber" name="33" href="#33">33</a>  <strong class="jxr_keyword">import</strong> java.util.LinkedHashMap;
 <a class="jxr_linenumber" name="34" href="#34">34</a>  <strong class="jxr_keyword">import</strong> java.util.Map;
 <a class="jxr_linenumber" name="35" href="#35">35</a>  <strong class="jxr_keyword">import</strong> java.util.ServiceLoader;
 <a class="jxr_linenumber" name="36" href="#36">36</a>  
@@ -75,7 +75,7 @@
 <a class="jxr_linenumber" name="65" href="#65">65</a>          encoder.setWriter(writer);
 <a class="jxr_linenumber" name="66" href="#66">66</a>  
 <a class="jxr_linenumber" name="67" href="#67">67</a>          <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; 10; i++) {
-<a class="jxr_linenumber" name="68" href="#68">68</a>              Map&lt;String, Object&gt; data = <strong class="jxr_keyword">new</strong> HashMap&lt;&gt;();
+<a class="jxr_linenumber" name="68" href="#68">68</a>              Map&lt;String, Object&gt; data = <strong class="jxr_keyword">new</strong> LinkedHashMap&lt;&gt;();
 <a class="jxr_linenumber" name="69" href="#69">69</a>              data.put(<span class="jxr_string">"column_1"</span>, i);
 <a class="jxr_linenumber" name="70" href="#70">70</a>              data.put(<span class="jxr_string">"column_2"</span>, String.format(<span class="jxr_string">"String %s"</span>, i));
 <a class="jxr_linenumber" name="71" href="#71">71</a>              data.put(<span class="jxr_string">"column_3"</span>, <span class="jxr_string">"foo"</span>);
@@ -255,43 +255,65 @@
 <a class="jxr_linenumber" name="245" href="#245">245</a>     }
 <a class="jxr_linenumber" name="246" href="#246">246</a> 
 <a class="jxr_linenumber" name="247" href="#247">247</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="248" href="#248">248</a> <em class="jxr_javadoccomment">     * Test with an invalid csv string.</em>
+<a class="jxr_linenumber" name="248" href="#248">248</a> <em class="jxr_javadoccomment">     * Assert that reading from a CSV file returns the schema in order.</em>
 <a class="jxr_linenumber" name="249" href="#249">249</a> <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="250" href="#250">250</a> <em class="jxr_javadoccomment">     * @throws Exception Any unexpected exceptions.</em>
 <a class="jxr_linenumber" name="251" href="#251">251</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="252" href="#252">252</a>     @Test
-<a class="jxr_linenumber" name="253" href="#253">253</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testBadCsv() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="253" href="#253">253</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testOrderedColumnRead() <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="254" href="#254">254</a> 
-<a class="jxr_linenumber" name="255" href="#255">255</a>         <em class="jxr_comment">// Generate a bad csv here. We take the existing one and slice it in</em>
-<a class="jxr_linenumber" name="256" href="#256">256</a>         <em class="jxr_comment">// half.</em>
-<a class="jxr_linenumber" name="257" href="#257">257</a>         StringReader badReader = <strong class="jxr_keyword">new</strong> StringReader(<span class="jxr_string">"1';3;4;"</span>);
-<a class="jxr_linenumber" name="258" href="#258">258</a> 
-<a class="jxr_linenumber" name="259" href="#259">259</a>         CSVDataDecoder decoder = <strong class="jxr_keyword">new</strong> CSVDataDecoder();
-<a class="jxr_linenumber" name="260" href="#260">260</a>         decoder.setReader(badReader);
-<a class="jxr_linenumber" name="261" href="#261">261</a> 
-<a class="jxr_linenumber" name="262" href="#262">262</a>         Iterator&lt;Map&lt;String, Object&gt;&gt; iterator = decoder.iterator();
-<a class="jxr_linenumber" name="263" href="#263">263</a>         Assert.assertNull(iterator.next());
-<a class="jxr_linenumber" name="264" href="#264">264</a>     }
-<a class="jxr_linenumber" name="265" href="#265">265</a> 
-<a class="jxr_linenumber" name="266" href="#266">266</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="267" href="#267">267</a> <em class="jxr_javadoccomment">     * Test with an invalid object structure.</em>
-<a class="jxr_linenumber" name="268" href="#268">268</a> <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="269" href="#269">269</a> <em class="jxr_javadoccomment">     * @throws Exception Any unexpected exceptions.</em>
-<a class="jxr_linenumber" name="270" href="#270">270</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="271" href="#271">271</a>     @Test
-<a class="jxr_linenumber" name="272" href="#272">272</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testBadCsvWithoutArray() <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="273" href="#273">273</a> 
-<a class="jxr_linenumber" name="274" href="#274">274</a>         <em class="jxr_comment">// Generate a bad csv here, a CSV file with headers but no content.</em>
-<a class="jxr_linenumber" name="275" href="#275">275</a>         StringReader badReader = <strong class="jxr_keyword">new</strong> StringReader(<span class="jxr_string">"1,3,4,"</span>);
+<a class="jxr_linenumber" name="255" href="#255">255</a>         <em class="jxr_comment">// Valid data.</em>
+<a class="jxr_linenumber" name="256" href="#256">256</a>         StringReader orderedReader = <strong class="jxr_keyword">new</strong> StringReader(<span class="jxr_string">"one,two,three,four,"</span>
+<a class="jxr_linenumber" name="257" href="#257">257</a>                 + <span class="jxr_string">"five,six\n"</span>
+<a class="jxr_linenumber" name="258" href="#258">258</a>                 + <span class="jxr_string">"1,2,3,4,5,6\n"</span>
+<a class="jxr_linenumber" name="259" href="#259">259</a>                 + <span class="jxr_string">"1,2,3,4,5,6"</span>);
+<a class="jxr_linenumber" name="260" href="#260">260</a> 
+<a class="jxr_linenumber" name="261" href="#261">261</a>         CSVDataDecoder decoder = <strong class="jxr_keyword">new</strong> CSVDataDecoder();
+<a class="jxr_linenumber" name="262" href="#262">262</a>         decoder.setReader(orderedReader);
+<a class="jxr_linenumber" name="263" href="#263">263</a> 
+<a class="jxr_linenumber" name="264" href="#264">264</a>         <strong class="jxr_keyword">for</strong> (Map&lt;String, Object&gt; row : decoder) {
+<a class="jxr_linenumber" name="265" href="#265">265</a>             Assert.assertTrue(row instanceof LinkedHashMap);
+<a class="jxr_linenumber" name="266" href="#266">266</a>         }
+<a class="jxr_linenumber" name="267" href="#267">267</a>     }
+<a class="jxr_linenumber" name="268" href="#268">268</a> 
+<a class="jxr_linenumber" name="269" href="#269">269</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="270" href="#270">270</a> <em class="jxr_javadoccomment">     * Test with an invalid csv string.</em>
+<a class="jxr_linenumber" name="271" href="#271">271</a> <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="272" href="#272">272</a> <em class="jxr_javadoccomment">     * @throws Exception Any unexpected exceptions.</em>
+<a class="jxr_linenumber" name="273" href="#273">273</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="274" href="#274">274</a>     @Test
+<a class="jxr_linenumber" name="275" href="#275">275</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testBadCsv() <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="276" href="#276">276</a> 
-<a class="jxr_linenumber" name="277" href="#277">277</a>         CSVDataDecoder decoder = <strong class="jxr_keyword">new</strong> CSVDataDecoder();
-<a class="jxr_linenumber" name="278" href="#278">278</a>         decoder.setReader(badReader);
-<a class="jxr_linenumber" name="279" href="#279">279</a> 
-<a class="jxr_linenumber" name="280" href="#280">280</a>         Iterator&lt;Map&lt;String, Object&gt;&gt; iterator = decoder.iterator();
-<a class="jxr_linenumber" name="281" href="#281">281</a>         Assert.assertFalse(iterator.hasNext());
-<a class="jxr_linenumber" name="282" href="#282">282</a>         Assert.assertNull(iterator.next());
-<a class="jxr_linenumber" name="283" href="#283">283</a>     }
-<a class="jxr_linenumber" name="284" href="#284">284</a> }
+<a class="jxr_linenumber" name="277" href="#277">277</a>         <em class="jxr_comment">// Generate a bad csv here. We take the existing one and slice it in</em>
+<a class="jxr_linenumber" name="278" href="#278">278</a>         <em class="jxr_comment">// half.</em>
+<a class="jxr_linenumber" name="279" href="#279">279</a>         StringReader badReader = <strong class="jxr_keyword">new</strong> StringReader(<span class="jxr_string">"1';3;4;"</span>);
+<a class="jxr_linenumber" name="280" href="#280">280</a> 
+<a class="jxr_linenumber" name="281" href="#281">281</a>         CSVDataDecoder decoder = <strong class="jxr_keyword">new</strong> CSVDataDecoder();
+<a class="jxr_linenumber" name="282" href="#282">282</a>         decoder.setReader(badReader);
+<a class="jxr_linenumber" name="283" href="#283">283</a> 
+<a class="jxr_linenumber" name="284" href="#284">284</a>         Iterator&lt;Map&lt;String, Object&gt;&gt; iterator = decoder.iterator();
+<a class="jxr_linenumber" name="285" href="#285">285</a>         Assert.assertNull(iterator.next());
+<a class="jxr_linenumber" name="286" href="#286">286</a>     }
+<a class="jxr_linenumber" name="287" href="#287">287</a> 
+<a class="jxr_linenumber" name="288" href="#288">288</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="289" href="#289">289</a> <em class="jxr_javadoccomment">     * Test with an invalid object structure.</em>
+<a class="jxr_linenumber" name="290" href="#290">290</a> <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="291" href="#291">291</a> <em class="jxr_javadoccomment">     * @throws Exception Any unexpected exceptions.</em>
+<a class="jxr_linenumber" name="292" href="#292">292</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="293" href="#293">293</a>     @Test
+<a class="jxr_linenumber" name="294" href="#294">294</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testBadCsvWithoutArray() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="295" href="#295">295</a> 
+<a class="jxr_linenumber" name="296" href="#296">296</a>         <em class="jxr_comment">// Generate a bad csv here, a CSV file with headers but no content.</em>
+<a class="jxr_linenumber" name="297" href="#297">297</a>         StringReader badReader = <strong class="jxr_keyword">new</strong> StringReader(<span class="jxr_string">"1,3,4,"</span>);
+<a class="jxr_linenumber" name="298" href="#298">298</a> 
+<a class="jxr_linenumber" name="299" href="#299">299</a>         CSVDataDecoder decoder = <strong class="jxr_keyword">new</strong> CSVDataDecoder();
+<a class="jxr_linenumber" name="300" href="#300">300</a>         decoder.setReader(badReader);
+<a class="jxr_linenumber" name="301" href="#301">301</a> 
+<a class="jxr_linenumber" name="302" href="#302">302</a>         Iterator&lt;Map&lt;String, Object&gt;&gt; iterator = decoder.iterator();
+<a class="jxr_linenumber" name="303" href="#303">303</a>         Assert.assertFalse(iterator.hasNext());
+<a class="jxr_linenumber" name="304" href="#304">304</a>         Assert.assertNull(iterator.next());
+<a class="jxr_linenumber" name="305" href="#305">305</a>     }
+<a class="jxr_linenumber" name="306" href="#306">306</a> }
 </pre>
 <hr/><div id="footer">This page was automatically generated by <a href="http://maven.apache.org/">Maven</a></div></body>
 </html>

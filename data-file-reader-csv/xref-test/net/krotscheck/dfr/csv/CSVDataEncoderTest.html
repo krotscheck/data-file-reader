@@ -38,7 +38,7 @@
 <a class="jxr_linenumber" name="28" href="#28">28</a>  <strong class="jxr_keyword">import</strong> java.io.StringWriter;
 <a class="jxr_linenumber" name="29" href="#29">29</a>  <strong class="jxr_keyword">import</strong> java.io.Writer;
 <a class="jxr_linenumber" name="30" href="#30">30</a>  <strong class="jxr_keyword">import</strong> java.util.ArrayList;
-<a class="jxr_linenumber" name="31" href="#31">31</a>  <strong class="jxr_keyword">import</strong> java.util.HashMap;
+<a class="jxr_linenumber" name="31" href="#31">31</a>  <strong class="jxr_keyword">import</strong> java.util.LinkedHashMap;
 <a class="jxr_linenumber" name="32" href="#32">32</a>  <strong class="jxr_keyword">import</strong> java.util.List;
 <a class="jxr_linenumber" name="33" href="#33">33</a>  <strong class="jxr_keyword">import</strong> java.util.Map;
 <a class="jxr_linenumber" name="34" href="#34">34</a>  <strong class="jxr_keyword">import</strong> java.util.ServiceLoader;
@@ -74,7 +74,7 @@
 <a class="jxr_linenumber" name="64" href="#64">64</a>  
 <a class="jxr_linenumber" name="65" href="#65">65</a>          testData = <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;();
 <a class="jxr_linenumber" name="66" href="#66">66</a>          <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; 10; i++) {
-<a class="jxr_linenumber" name="67" href="#67">67</a>              Map&lt;String, Object&gt; data = <strong class="jxr_keyword">new</strong> HashMap&lt;&gt;();
+<a class="jxr_linenumber" name="67" href="#67">67</a>              Map&lt;String, Object&gt; data = <strong class="jxr_keyword">new</strong> LinkedHashMap&lt;&gt;();
 <a class="jxr_linenumber" name="68" href="#68">68</a>              data.put(<span class="jxr_string">"column_1"</span>, i);
 <a class="jxr_linenumber" name="69" href="#69">69</a>              data.put(<span class="jxr_string">"column_2"</span>, String.format(<span class="jxr_string">"String %s"</span>, i));
 <a class="jxr_linenumber" name="70" href="#70">70</a>              data.put(<span class="jxr_string">"column_3"</span>, <span class="jxr_string">"foo"</span>);
