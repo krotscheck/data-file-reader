@@ -29,7 +29,7 @@
 <a class="jxr_linenumber" name="19" href="#19">19</a>  
 <a class="jxr_linenumber" name="20" href="#20">20</a>  <strong class="jxr_keyword">import</strong> net.krotscheck.dfr.IDataFilter;
 <a class="jxr_linenumber" name="21" href="#21">21</a>  
-<a class="jxr_linenumber" name="22" href="#22">22</a>  <strong class="jxr_keyword">import</strong> java.util.HashMap;
+<a class="jxr_linenumber" name="22" href="#22">22</a>  <strong class="jxr_keyword">import</strong> java.util.LinkedHashMap;
 <a class="jxr_linenumber" name="23" href="#23">23</a>  <strong class="jxr_keyword">import</strong> java.util.Map;
 <a class="jxr_linenumber" name="24" href="#24">24</a>  
 <a class="jxr_linenumber" name="25" href="#25">25</a>  <em class="jxr_javadoccomment">/**</em>
@@ -47,7 +47,7 @@
 <a class="jxr_linenumber" name="37" href="#37">37</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="38" href="#38">38</a>      @Override
 <a class="jxr_linenumber" name="39" href="#39">39</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> Map&lt;String, Object&gt; apply(<strong class="jxr_keyword">final</strong> Map&lt;String, Object&gt; row) {
-<a class="jxr_linenumber" name="40" href="#40">40</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> HashMap&lt;&gt;(row);
+<a class="jxr_linenumber" name="40" href="#40">40</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> LinkedHashMap&lt;&gt;(row);
 <a class="jxr_linenumber" name="41" href="#41">41</a>      }
 <a class="jxr_linenumber" name="42" href="#42">42</a>  }
 </pre>
