@@ -118,6 +118,7 @@ public final class ColumnFilterTest {
         Map<String, Object> filteredData = filter.apply(testData);
 
         Assert.assertNotSame(filteredData, testData);
+        Assert.assertTrue(filteredData instanceof LinkedHashMap);
 
         Assert.assertTrue(filteredData.containsKey("One"));
         Assert.assertTrue(filteredData.containsKey("Two"));

@@ -21,7 +21,6 @@ import net.krotscheck.dfr.IDataFilter;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -112,7 +111,7 @@ public final class ColumnFilter implements IDataFilter {
         }
 
         // Copy the row so we avoid concurrent modifications.
-        filteredRow = new HashMap<>(cleanRow);
+        filteredRow = new LinkedHashMap<>(cleanRow);
 
         // Iterate through the existing keys and delete ones we don't have.
         for (String key : cleanRow.keySet()) {
