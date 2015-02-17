@@ -23,6 +23,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -59,9 +60,9 @@ public final class ColumnFilter implements IDataFilter {
      */
     public ColumnFilter(final String[] columnNames) {
         if (columnNames == null) {
-            columns = new HashSet<>();
+            columns = new LinkedHashSet<>();
         } else {
-            columns = new HashSet<>(Arrays.asList(columnNames));
+            columns = new LinkedHashSet<>(Arrays.asList(columnNames));
         }
     }
 
@@ -111,19 +112,15 @@ public final class ColumnFilter implements IDataFilter {
         }
 
         // Copy the row so we avoid concurrent modifications.
-        filteredRow = new LinkedHashMap<>(cleanRow);
+        filteredRow = new LinkedHashMap<>();
 
-        // Iterate through the existing keys and delete ones we don't have.
-        for (String key : cleanRow.keySet()) {
-            if (!columns.contains(key)) {
-                filteredRow.remove(key);
-            }
-        }
-
-        // Iterate through the requested keys and add the ones we don't have.
-        for (String key : columns) {
-            if (!filteredRow.containsKey(key)) {
-                filteredRow.put(key, null);
+        // Iterate through the requested columns and add/override the ones
+        // the user wants to see.
+        for (String column : columns) {
+            if (cleanRow.containsKey(column)) {
+                filteredRow.put(column, cleanRow.get(column));
+            } else {
+                filteredRow.put(column, null);
             }
         }
 

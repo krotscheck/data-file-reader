@@ -129,6 +129,31 @@ public final class ColumnFilterTest {
     }
 
     /**
+     * Test that the requested column order is observed.
+     *
+     * @throws Exception Any unexpected exceptions.
+     */
+    @Test
+    public void testReorder() throws Exception {
+        String[] columns = new String[]{"Two", "One"};
+        ColumnFilter filter = new ColumnFilter(columns);
+
+        Map<String, Object> testData = new LinkedHashMap<>();
+        testData.put("One", "Test1");
+        testData.put("Three", "Test3");
+        testData.put("Two", "Test2");
+
+        Map<String, Object> filteredData = filter.apply(testData);
+
+        Assert.assertNotSame(filteredData, testData);
+        Integer index = 0;
+        for (String key : filteredData.keySet()) {
+            Assert.assertEquals(columns[index], key);
+            index++;
+        }
+    }
+
+    /**
      * Test apply on empty columns.
      *
      * @throws Exception Any unexpected exceptions.
