@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
 
-<coverage line-rate="1.0" branch-rate="1.0" lines-covered="55" lines-valid="55" branches-covered="12" branches-valid="12" complexity="2.0" version="2.0.3" timestamp="1424217501243">
+<coverage line-rate="1.0" branch-rate="1.0" lines-covered="55" lines-valid="55" branches-covered="12" branches-valid="12" complexity="2.0" version="2.0.3" timestamp="1424218875509">
 	<sources>
 		<source>/Users/krotscheck/Desktop/github/data-file-reader/target/checkout/data-file-reader-bson/src/main/java</source>
 		<source>--source</source>
