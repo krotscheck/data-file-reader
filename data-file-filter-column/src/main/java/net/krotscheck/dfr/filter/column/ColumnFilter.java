@@ -21,7 +21,6 @@ import net.krotscheck.dfr.IDataFilter;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -74,9 +73,9 @@ public final class ColumnFilter implements IDataFilter {
      */
     public ColumnFilter(final List<String> columnNames) {
         if (columnNames == null) {
-            columns = new HashSet<>();
+            columns = new LinkedHashSet<>();
         } else {
-            columns = new HashSet<>(columnNames);
+            columns = new LinkedHashSet<>(columnNames);
         }
     }
 
@@ -88,9 +87,9 @@ public final class ColumnFilter implements IDataFilter {
      */
     public ColumnFilter(final Set<String> columnNames) {
         if (columnNames == null) {
-            columns = new HashSet<>();
+            columns = new LinkedHashSet<>();
         } else {
-            columns = new HashSet<>(columnNames);
+            columns = new LinkedHashSet<>(columnNames);
         }
     }
 
