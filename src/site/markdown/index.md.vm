@@ -1,7 +1,13 @@
 #parse( "scripts.vm" )
 
 $h1 data-file-reader
+
+[![Build Status](https://travis-ci.org/krotscheck/data-file-reader.svg)](https://travis-ci.org/krotscheck/data-file-reader)
+[![Coverage Status](https://coveralls.io/repos/krotscheck/data-file-reader/badge.svg)](https://coveralls.io/r/krotscheck/data-file-reader)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/net.krotscheck.dfr/data-file-reader/badge.svg)](https://maven-badges.herokuapp.com/maven-central/net.krotscheck.dfr/data-file-reader)
+
 <span class="lead">${project.description}</span>
+
 
 The goal of this project is to make the reading and writing of table style
 file formats simple. If you have specific file format needs, 
