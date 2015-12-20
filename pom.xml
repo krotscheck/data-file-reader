@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.krotscheck.dfr</groupId>
     <artifactId>data-file-reader</artifactId>
-    <version>1.0.10-SNAPSHOT</version>
+    <version>1.0.10</version>
 
     <packaging>pom</packaging>
     <name>data-file-reader</name>
@@ -106,7 +106,7 @@
         <url>
             https://github.com/krotscheck/data-file-reader
         </url>
-        <tag>HEAD</tag>
+        <tag>data-file-reader-1.0.10</tag>
     </scm>
 
     <properties>
