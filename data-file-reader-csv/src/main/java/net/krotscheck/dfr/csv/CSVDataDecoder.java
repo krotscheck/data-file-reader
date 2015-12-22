@@ -91,7 +91,7 @@ public final class CSVDataDecoder extends AbstractTextDecoder {
          *
          * @param csvReader A reader of CSV rows.
          */
-        public InnerRowIterator(final Reader csvReader) {
+        InnerRowIterator(final Reader csvReader) {
             // Construct our schema.
             CsvSchema schema = CsvSchema.emptySchema().withUseHeader(true);
             CsvMapper mapper = new CsvMapper();

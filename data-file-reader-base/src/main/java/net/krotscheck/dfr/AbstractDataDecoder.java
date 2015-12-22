@@ -107,7 +107,7 @@ public abstract class AbstractDataDecoder
          * @param maxRows The number of rows to permit. If null will returns all
          *                rows.
          */
-        public FilteredIterator(final Iterator<Map<String, Object>> itr,
+        FilteredIterator(final Iterator<Map<String, Object>> itr,
                                 final List<IDataFilter> fltrs,
                                 final Long maxRows) {
             this.iterator = itr;
